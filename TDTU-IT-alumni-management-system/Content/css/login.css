@@ -1,0 +1,46 @@
+body {
+    background-color: #cccecf3f;
+}
+.login-body{
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 12px 14px 8px -3px rgba(0, 0, 0, 0.774);
+    
+}
+.login-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    
+}
+.language-switcher {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.htext{
+    color: #ec1c24;
+}
+
+.logo-tittle{
+    background-color: #ec1c24;
+    border-radius: 8px;
+}
+
+.btn-login,
+.btn-forgot,
+.btn-dropdown{
+    background-color: #ec1c24;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.forgot-password-form {
+    
+    /* visibility: hidden; */
+    display: none;
+    
+}
+
+

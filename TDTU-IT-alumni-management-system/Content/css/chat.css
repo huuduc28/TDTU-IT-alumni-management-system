@@ -1,0 +1,117 @@
+﻿/* ........ */
+body {
+    background-color: #F4F4F4;
+}
+
+.chat {
+    flex: 3;
+    background-color: #FFF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chat-input {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .chat-input input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        background-color: #F1F0F0;
+    }
+
+    .chat-input button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        background-color: #0084FF;
+        color: #FFF;
+        cursor: pointer;
+        display: flex;
+    }
+
+.history-list {
+    flex: 1;
+    background-color: #FFF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 590px;
+    overflow: auto;
+}
+
+    .history-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .history-list li {
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 10px solid rgb(114, 113, 113);
+        height: 50px;
+        align-items: center;
+    }
+
+        .history-list li:hover {
+            background-color: #e5e5ea;
+            border-radius: 10px;
+        }
+
+.message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+
+.chat-messages {
+    padding: 20px;
+    height: 85%;
+    overflow-y: scroll;
+}
+
+.message.incoming {
+    justify-content: flex-start;
+}
+
+    .message.incoming .message-body {
+        padding: 10px 10px 0 10px;
+        background-color: #F1F0F0;
+        border-radius: 10px;
+        margin-left: 1%;
+    }
+
+.message.outcoming {
+    justify-content: flex-start;
+}
+
+.message.outcoming .message-body {
+    padding: 10px 10px 0 10px;
+    border-radius: 10px;
+    margin-left: 1%;   
+}
+
+@media (max-width: 1000px) {
+    .history-list {
+        display: none;
+    }
+
+    .chat-messages {
+        height: 500px;
+    }
+}
+.message.outcoming img {
+    width: 40px;
+    height: 40px;
+}
+.message.incoming img {
+    width: 40px;
+    height: 40px;
+}

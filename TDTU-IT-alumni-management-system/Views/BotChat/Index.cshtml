@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Mylayout.cshtml";
+}
+<link href="~/Content/css/chat.css" rel="stylesheet">
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="history-list">
+                <ul>
+                    <li>Làm sao để hết buồn ngủ</li>
+                    <li>Làm sao để hết buồn ngủ</li>
+                    <li>Làm sao để hết buồn ngủ</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12">
+            <div class="chat">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message incoming">
+                        <img src="https://catscanman.net/wp-content/uploads/2023/02/meme-cam-sung-1.jpg"
+                             alt="user-avatar" class="rounded-circle">
+                        <div class="message-body">
+                            <p>làm sao để hết buồn ngủ</p>
+                        </div>
+                    </div>
+                    <div class="message outcoming">
+                        <img src="~/Upload/images/logo-tdtu.png" alt="user-avatar" class="rounded-circle">
+                        <div class="message-body">
+                            <p>
+                                Uống nhiều nước. Khi bạn bị mất nước, cơ thể sẽ cảm thấy mệt mỏi và buồn ngủ. Uống
+                                nhiều nước sẽ giúp bạn tỉnh táo và tập trung hơn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type a message..." id="input-msg">
+                    <button id="btn-send">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = active();
+    function active() {
+
+        if (document.getElementById("nav-support").className =="nav-link dropdown-toggle") {
+            document.getElementById("nav-support").className = "nav-link dropdown-toggle active";
+        }
+    }
+</script>
