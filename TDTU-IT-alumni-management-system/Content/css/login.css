@@ -1,46 +1,80 @@
+﻿/*** Info section, login form section ***/
 body {
     background-color: #cccecf3f;
 }
-.login-body{
+
+.login-body {
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 12px 14px 8px -3px rgba(0, 0, 0, 0.774);
-    
+    box-shadow: 8px 8px 8px -3px rgba(0, 0, 0, 0.774);
 }
+
 .login-form {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    
+
 }
+
 .language-switcher {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.htext{
-    color: #ec1c24;
+.htext {
+    color: #ea5257;
 }
 
-.logo-tittle{
-    background-color: #ec1c24;
+.logo-tittle {
+    background-color: #ea5257;
     border-radius: 8px;
 }
 
 .btn-login,
 .btn-forgot,
-.btn-dropdown{
-    background-color: #ec1c24;
+.btn-dropdown,
+.btn-connect {
+    background-color: #ea5257;
     color: #ffffff;
     transition: background-color 0.3s ease;
 }
 
 .forgot-password-form {
-    
     /* visibility: hidden; */
     display: none;
-    
 }
 
+.profile-pics {
+    position: relative;
+    top: -100;
+    width: 140px;
+    height: auto;
+}
 
+@media (max-width: 768px) {
+
+    /* Áp dụng chỉ khi chiều rộng của khung hình nhỏ hơn hoặc bằng 600px */
+    .center-text {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .center-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 20%;
+        width: 120px;
+        height: auto;
+    }
+}
