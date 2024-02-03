@@ -541,11 +541,11 @@ body {
 }
 
 .htext {
-    color: #ec1c24;
+    color: #ea5257;
 }
 
 .logo-tittle {
-    background-color: #ec1c24;
+    background-color: #ea5257;
     border-radius: 8px;
 }
 
@@ -553,7 +553,7 @@ body {
 .btn-forgot,
 .btn-dropdown,
 .btn-connect {
-    background-color: #ec1c24;
+    background-color: #ea5257;
     color: #ffffff;
     transition: background-color 0.3s ease;
 }
@@ -563,9 +563,36 @@ body {
     display: none;
 }
 
-.footer {
-    background-color: #0067AC;
-    padding: 20px 0;
-    margin-top: auto;
-    color: white;
+.profile-pics {
+    position: relative;
+    top: -100;
+    width: 140px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+
+    /* Áp dụng chỉ khi chiều rộng của khung hình nhỏ hơn hoặc bằng 600px */
+    .center-text {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .center-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 20%;
+        width: 120px;
+        height: auto;
+    }
 }
