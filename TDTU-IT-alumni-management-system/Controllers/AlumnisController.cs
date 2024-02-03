@@ -17,5 +17,13 @@ namespace TDTU_IT_alumni_management_system.Controllers
         {
             return View();
         }
+        public ActionResult DetailAlumni()
+        {
+            return View();
+        }
+        public ActionResult PersonInfo()
+        {
+            return View();
+        }
     }
 }
