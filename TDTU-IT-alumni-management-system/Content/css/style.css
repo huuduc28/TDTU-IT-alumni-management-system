@@ -6,7 +6,6 @@
     --light-blue: #73defe;
 }
 
-
 /*Backtotop*/
 .back-to-top {
     position: fixed;
@@ -206,7 +205,6 @@
     text-transform: uppercase;
     color: var(--red);
     padding: 0px 0px 0px 20px;
-    border-left: #ec1c24 solid 1px;
     height: 70%;
     margin-left:1%;
 }

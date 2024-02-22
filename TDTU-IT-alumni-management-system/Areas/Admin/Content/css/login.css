@@ -1,0 +1,214 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 15px;
+    color: #676a6d;
+}
+
+.vertical-align-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+.vertical-align-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.auth-box {
+    -moz-box-shadow: 1px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 70%;
+    height: 450px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.auth-box:before {
+    display: inline-block;
+    vertical-align: middle;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.auth-box .content {
+    display: inline-block;
+    vertical-align: middle;
+    width: 99%;
+    vertical-align: middle;
+}
+
+.auth-box .left {
+    float: left;
+    width: 42%;
+    height: 100%;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.auth-box .left:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: ' ';
+    vertical-align: middle;
+    height: 100%;
+}
+
+.auth-box .right {
+    float: right;
+    width: 58%;
+    height: 100%;
+    position: relative;
+    background-image: url("https://xdcs.cdnchinhphu.vn/446259493575335936/2023/8/22/daihoctonducthang-16927210206372134976356.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.auth-box .right:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: ' ';
+    vertical-align: middle;
+    height: 100%;
+}
+
+.auth-box .right .text {
+    position: relative;
+    padding: 0 30px;
+    color: #ffffff;
+}
+.auth-box .right .heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.auth-box .right p {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 350;
+}
+
+.auth-box .right .overlay {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 152, 228, 0.92);
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    opacity: 0.9;
+}
+
+.auth-box .header {
+    margin-bottom: 30px;
+}
+
+.auth-box .lead {
+    margin-top: 5px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.auth-box .form-auth-small .btn {
+    margin-top: 20px;
+}
+
+.auth-box .form-auth-small .element-left {
+    float: left;
+}
+
+.auth-box .form-auth-small .element-right {
+    float: right;
+}
+
+.auth-box .form-auth-small .bottom {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth-box.lockscreen {
+    width: 50%;
+    padding: 40px 60px;
+}
+
+.auth-box.lockscreen .logo {
+    margin-bottom: 30px;
+}
+
+.auth-box.lockscreen .user {
+    margin-bottom: 30px;
+}
+
+.auth-box.lockscreen .user .name {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+@media screen and (min-width: 1440px) {
+    .auth-box.lockscreen {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .auth-box {
+        width: 90%;
+    }
+
+    .auth-box .left {
+        top: 3.3em;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .auth-box .left {
+        width: 100%;
+        position: inherit;
+        padding: 30px;
+    }
+
+    .auth-box .right {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .auth-box {
+        width: 70%;
+    }
+
+    .auth-box.lockscreen {
+        width: 50%;
+        padding: 40px 20px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .auth-box {
+        width: 90%;
+    }
+
+    .auth-box .content {
+        width: 95%;
+    }
+
+    .auth-box.lockscreen {
+        width: 90%;
+    }
+}
