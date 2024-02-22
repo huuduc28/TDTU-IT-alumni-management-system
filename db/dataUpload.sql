@@ -34,45 +34,45 @@ VALUES
 INSERT INTO QuanTriVien
 	(IDAdmin, Ten, SoDienThoai, Email, TenTaiKhoan)
 VALUES
-	('admin001','John Doe', '0123456789', 'john.doe@example.com', 'admin1'),
-	('admin002','Jane Smith', '0987654321', 'jane.smith@example.com', 'admin2'),
-	('admin003','Michael Johnson', '0123456789', 'michael.johnson@example.com', 'admin3'),
-	('admin004','Emily Brown', '0987654321', 'emily.brown@example.com', 'admin4'),
-	('admin005','Matthew Wilson', '0123456789', 'matthew.wilson@example.com', 'admin5'),
-	('admin006','Emma Davis', '0987654321', 'emma.davis@example.com', 'admin6'),
-	('admin007','Olivia Martinez', '0123456789', 'olivia.martinez@example.com', 'admin7'),
-	('admin008','Daniel Anderson', '0987654321', 'daniel.anderson@example.com', 'admin8'),
-	('admin009','Sophia Thomas', '0123456789', 'sophia.thomas@example.com', 'admin9'),
-	('admin010','Alexander Taylor', '0987654321', 'alexander.taylor@example.com', 'admin10');
+	('admin001',N'John Doe', '0123456789', 'john.doe@example.com', 'admin1'),
+	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'admin2'),
+	('admin003',N'Michael Johnson', '0123456789', 'michael.johnson@example.com', 'admin3'),
+	('admin004',N'Emily Brown', '0987654321', 'emily.brown@example.com', 'admin4'),
+	('admin005',N'Matthew Wilson', '0123456789', 'matthew.wilson@example.com', 'admin5'),
+	('admin006',N'Emma Davis', '0987654321', 'emma.davis@example.com', 'admin6'),
+	('admin007',N'Olivia Martinez', '0123456789', 'olivia.martinez@example.com', 'admin7'),
+	('admin008',N'Daniel Anderson', '0987654321', 'daniel.anderson@example.com', 'admin8'),
+	('admin009',N'Sophia Thomas', '0123456789', 'sophia.thomas@example.com', 'admin9'),
+	('admin010',N'Alexander Taylor', '0987654321', 'alexander.taylor@example.com', 'admin10');
 
 -- Thêm dữ liệu vào bảng CuuHSSV
 INSERT INTO CuuHSSV
-	(IDHSSV, Ten, Email, SoDienThoai, NgaySinh, GioiTinh, QuocTich, QueQuan, CaNhan, XepLoaiTotNghiep, NganhHoc, NamTotNghiep, CongTyHienTai, HocVanCaoHoc, ThoiGianHoanThanhBaoVeLuanAn, TenTaiKhoan)
+	(IDHSSV, Ten, Email, SoDienThoai, NgaySinh, GioiTinh, QuocTich, QueQuan, CaNhan, XepLoaiTotNghiep, NganhHoc, NamTotNghiep, CongTyHienTai, HocVanCaoHoc, ThoiGianHoanThanhBaoVeLuanAn, TenTaiKhoan, jobBeginDate, workplace, skill)
 VALUES
-	('alumni001', 'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', 'Nữ', 'Việt Nam', 'Hồ Chí Minh', 'Độc thân', 'Giỏi', 'Khoa Học Máy Tính', 2012, 'ABC Company', 'Thạc sĩ', '2022-01-01', 'user1'),
-	('alumni002', 'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', 'Nam', 'Việt Nam', 'Hà Nội', 'Độc thân', 'Khá', 'Kinh Tế', 2014, 'XYZ Corporation', 'Tiến sĩ', '2023-01-01', 'user2'),
-	('alumni003', 'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', 'Nữ', 'Việt Nam', 'Hà Nội', 'Độc thân', 'Giỏi', 'Khoa Học Máy Tính', 2013, 'ABC Company', 'Thạc sĩ', '2023-01-01', 'user3'),
-	('alumni004', 'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', 'Nam', 'Việt Nam', 'Hồ Chí Minh', 'Độc thân', 'Khá', 'Kinh Tế', 2015, 'XYZ Corporation', 'Tiến sĩ', '2024-01-01', 'user4'),
-	('alumni005', 'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', 'Nữ', 'Việt Nam', 'Hà Nội', 'Độc thân', 'Giỏi', 'Khoa Học Máy Tính', 2014, 'ABC Company', 'Thạc sĩ', '2023-01-01', 'user5'),
-	('alumni006', 'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', 'Nam', 'Việt Nam', 'Hồ Chí Minh', 'Độc thân', 'Khá', 'Kinh Tế', 2016, 'XYZ Corporation', 'Tiến sĩ', '2024-01-01', 'user6'),
-	('alumni007', 'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', 'Nữ', 'Việt Nam', 'Hà Nội', 'Độc thân', 'Giỏi', 'Khoa Học Máy Tính', 2015, 'ABC Company', 'Thạc sĩ', '2023-01-01', 'user7'),
-	('alumni008', 'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', 'Nam', 'Việt Nam', 'Hồ Chí Minh', 'Độc thân', 'Khá', 'Kinh Tế', 2017, 'XYZ Corporation', 'Tiến sĩ', '2024-01-01', 'user8'),
-	('alumni009', 'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', 'Nữ', 'Việt Nam', 'Hà Nội', 'Độc thân', 'Giỏi', 'Khoa Học Máy Tính', 2016, 'ABC Company', 'Thạc sĩ', '2023-01-01', 'user9'),
-	('alumni010', 'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', 'Nam', 'Việt Nam', 'Hồ Chí Minh', 'Độc thân', 'Khá', 'Kinh Tế', 2018, 'XYZ Corporation', 'Tiến sĩ', '2024-01-01', 'user10');
+	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2012, 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'FPT SOFT', 'Java, Python'),
+	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Khá', N'Kinh Tế', 2014, 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01', 'TECHCOMPANY', 'Java, Python'),
+	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2013, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01', 'FPT SOFT', 'Java, Python'),
+	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2015, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
+	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2014, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01', 'FPT SOFT', 'Java, Python'),
+	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2016, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
+	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2015, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01', 'FPT SOFT', 'Java, Python'),
+	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2017, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
+	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2016, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01', 'FPT SOFT', 'Java, Python'),
+	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2018, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'SHOPEE', 'Java, Python');
 
 -- Thêm dữ liệu vào bảng CongTyDoanhNghiep
 INSERT INTO CongTyDoanhNghiep
 	(IDCongTy, TenCongTy, DiaChi, SoDienThoai, Email)
 VALUES
-	('enterprise001', 'ABC Company', '123 Main Street, City, Country', '0123456789', 'info@abccompany.com'),
-	('enterprise002', 'XYZ Corporation', '456 First Avenue, City, Country', '0987654321', 'info@xyzcorp.com'),
-	('enterprise003', 'ABC Company 2', '123 Main Street, City, Country', '0123456789', 'info@abccompany2.com'),
-	('enterprise004', 'XYZ Corporation 2', '456 First Avenue, City, Country', '0987654321', 'info@xyzcorp2.com'),
-	('enterprise005', 'ABC Company 3', '123 Main Street, City, Country', '0123456789', 'info@abccompany3.com'),
-	('enterprise006', 'XYZ Corporation 3', '456 First Avenue, City, Country', '0987654321', 'info@xyzcorp3.com'),
-	('enterprise007', 'ABC Company 4', '123 Main Street, City, Country', '0123456789', 'info@abccompany4.com'),
-	('enterprise008', 'XYZ Corporation 4', '456 First Avenue, City, Country', '0987654321', 'info@xyzcorp4.com'),
-	('enterprise009', 'ABC Company 5', '123 Main Street, City, Country', '0123456789', 'info@abccompany5.com'),
-	('enterprise010', 'XYZ Corporation 5', '456 First Avenue, City, Country', '0987654321', 'info@xyzcorp5.com');
+	('enterprise001', N'ABC Company', N'123 Main Street, City, Country', '0123456789', 'info@abccompany.com'),
+	('enterprise002', N'XYZ Corporation', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp.com'),
+	('enterprise003', N'ABC Company 2', N'123 Main Street, City, Country', '0123456789', 'info@abccompany2.com'),
+	('enterprise004', N'XYZ Corporation 2', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp2.com'),
+	('enterprise005', N'ABC Company 3', N'123 Main Street, City, Country', '0123456789', 'info@abccompany3.com'),
+	('enterprise006', N'XYZ Corporation 3', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp3.com'),
+	('enterprise007', N'ABC Company 4', N'123 Main Street, City, Country', '0123456789', 'info@abccompany4.com'),
+	('enterprise008', N'XYZ Corporation 4', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp4.com'),
+	('enterprise009', N'ABC Company 5', N'123 Main Street, City, Country', '0123456789', 'info@abccompany5.com'),
+	('enterprise010', N'XYZ Corporation 5', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp5.com');
 
 
