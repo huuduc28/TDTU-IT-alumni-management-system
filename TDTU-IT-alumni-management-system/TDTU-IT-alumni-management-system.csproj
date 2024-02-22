@@ -120,6 +120,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Controllers\AlumnisController.cs" />
     <Compile Include="Controllers\BotChatController.cs" />
     <Compile Include="Controllers\EnterprisesController.cs" />
@@ -132,6 +134,38 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\css\bootstrap.css" />
+    <Content Include="Areas\Admin\Content\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Content\css\login.css" />
+    <Content Include="Areas\Admin\Content\css\main.css" />
+    <Content Include="Areas\Admin\Content\img\apple-icon.png" />
+    <Content Include="Areas\Admin\Content\img\favicon.png" />
+    <Content Include="Areas\Admin\Content\img\login-bg.jpg" />
+    <Content Include="Areas\Admin\Content\img\logo-dark.png" />
+    <Content Include="Areas\Admin\Content\img\profile-bg.png" />
+    <Content Include="Areas\Admin\Content\img\user-medium.png" />
+    <Content Include="Areas\Admin\Content\img\user.png" />
+    <Content Include="Areas\Admin\Content\img\user1.png" />
+    <Content Include="Areas\Admin\Content\img\user2.png" />
+    <Content Include="Areas\Admin\Content\img\user3.png" />
+    <Content Include="Areas\Admin\Content\img\user4.png" />
+    <Content Include="Areas\Admin\Content\img\user5.png" />
+    <Content Include="Areas\Admin\Content\scripts\main.js" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\js\npm.js" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\Admin\Content\vendor\jquery\jquery.js" />
+    <Content Include="Areas\Admin\Content\vendor\jquery\jquery.min.js" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.svg" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\style.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -153,6 +187,24 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Content\css\main.css.map" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Areas\Admin\Content\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Content\vendor\jquery\jquery.min.map" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.eot" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.ttf" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff" />
+    <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff2" />
+    <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -203,7 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
