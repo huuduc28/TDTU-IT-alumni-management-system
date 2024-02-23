@@ -344,3 +344,98 @@
     height: 30%;
 }
 
+/*DetailAlumni responsive*/
+.DetailAlumni-profile-pics {
+    position: relative;
+    top: -100;
+    width: 140px;
+    height: auto;
+}
+
+@media (max-width: 991px) {
+    .DetailAlumni-profile-pics {
+        position: relative;
+        top: -100;
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+
+    .DetailAlumni-center-text {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .DetailAlumni-center-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .DetailAlumni-profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 25%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+/*IPAD MINI LANDSCAPE*/
+@media screen and (width: 768px), screen and (height: 1024px){
+    .DetailAlumni-profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 38%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+
+@media screen and (max-width: 430px), screen and (height: 932px) {
+    .DetailAlumni-profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 35%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 375px), screen and (height: 667px) {
+    .DetailAlumni-profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 26%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+/*IPAD MINI LANDSCAPE*/
+@media screen and (width: 360px), screen and (height: 740px) {
+    .DetailAlumni-profile-pics {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 30%;
+        width: 100px;
+        height: auto;
+    }
+}
+
