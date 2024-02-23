@@ -2,81 +2,12 @@
 GO
 /****** Object:  Database [TDTUAlumnisManagementSystem]    Script Date: 22/2/2024 6:23:33 PM ******/
 CREATE DATABASE [TDTUAlumnisManagementSystem]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'TDTUAlumnisManagementSystem', FILENAME = N'C:\Program Files\Microsoft SQL Server1\MSSQL15.SQLEXPRESS03\MSSQL\DATA\TDTUAlumnisManagementSystem.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'TDTUAlumnisManagementSystem_log', FILENAME = N'C:\Program Files\Microsoft SQL Server1\MSSQL15.SQLEXPRESS03\MSSQL\DATA\TDTUAlumnisManagementSystem_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET COMPATIBILITY_LEVEL = 150
+
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
 EXEC [TDTUAlumnisManagementSystem].[dbo].[sp_fulltext_database] @action = 'enable'
 end
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET AUTO_CLOSE ON 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET  ENABLE_BROKER 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET RECOVERY SIMPLE 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET  MULTI_USER 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET DELAYED_DURABILITY = DISABLED 
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET ACCELERATED_DATABASE_RECOVERY = OFF  
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET QUERY_STORE = OFF
 GO
 USE [TDTUAlumnisManagementSystem]
 GO
@@ -111,6 +42,7 @@ CREATE TABLE [dbo].[CongTyDoanhNghiep](
 	[DiaChi] [nvarchar](100) NOT NULL,
 	[SoDienThoai] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
+	[Website] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
@@ -143,10 +75,14 @@ CREATE TABLE [dbo].[CuuHSSV](
 	[HocVanCaoHoc] [nvarchar](50) NOT NULL,
 	[ThoiGianHoanThanhBaoVeLuanAn] [date] NOT NULL,
 	[TenTaiKhoan] [nvarchar](50) NULL,
+	[jobBeginDate] [date] NOT NULL,
+	[workplace] [nvarchar](50) NOT NULL,
+	[skill] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
+	
 PRIMARY KEY CLUSTERED 
 (
 	[IDHSSV] ASC
