@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="IDBaner" />
+          </Key>
+          <Property Name="IDBaner" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ImgBaner" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="ChatBot">
+          <Key>
+            <PropertyRef Name="IDBot" />
+          </Key>
+          <Property Name="IDBot" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NoiDungNguoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NoiDungPhanHoi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="CuuHSSV">
+          <Key>
+            <PropertyRef Name="IDHSSV" />
+          </Key>
+          <Property Name="IDHSSV" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NgaySinh" Type="date" Nullable="false" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="QueQuan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CaNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="XepLoaiTotNghiep" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NganhHoc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NamTotNghiep" Type="int" Nullable="false" />
+          <Property Name="CongTyHienTai" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HocVanCaoHoc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ThoiGianHoanThanhBaoVeLuanAn" Type="date" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="jobBeginDate" Type="date" Nullable="false" />
+          <Property Name="workplace" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="skill" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="DoanhNghiep">
+          <Key>
+            <PropertyRef Name="IDCongTy" />
+          </Key>
+          <Property Name="IDCongTy" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TenCongTy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Header">
+          <Key>
+            <PropertyRef Name="IDHeader" />
+          </Key>
+          <Property Name="IDHeader" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="QuanTriVien">
+          <Key>
+            <PropertyRef Name="IDAdmin" />
+          </Key>
+          <Property Name="IDAdmin" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="TenTaiKhoan" />
+          </Key>
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhanQuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="ThongBao">
+          <Key>
+            <PropertyRef Name="IDThongBao" />
+          </Key>
+          <Property Name="IDThongBao" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IDNguoiGui" Type="nvarchar" MaxLength="15" />
+          <Property Name="IDNguoiNhan" Type="nvarchar" MaxLength="15" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TinTuc">
+          <Key>
+            <PropertyRef Name="IDTinTuc" />
+          </Key>
+          <Property Name="IDTinTuc" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TinTuyenDung">
+          <Key>
+            <PropertyRef Name="IDTinTuyenDung" />
+          </Key>
+          <Property Name="IDTinTuyenDung" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IDCongTy" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <Association Name="FK__ChatBot__TenTaiK__36B12243">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="ChatBot" Type="Self.ChatBot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="ChatBot">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CuuHSSV__TenTaiK__37A5467C">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="CuuHSSV" Type="Self.CuuHSSV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="CuuHSSV">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuanTriVi__TenTa__38996AB5">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="QuanTriVien" Type="Self.QuanTriVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="QuanTriVien">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ThongBao__IDNguo__398D8EEE">
+          <End Role="QuanTriVien" Type="Self.QuanTriVien" Multiplicity="0..1" />
+          <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuanTriVien">
+              <PropertyRef Name="IDAdmin" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="IDNguoiGui" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ThongBao__IDNguo__3A81B327">
+          <End Role="CuuHSSV" Type="Self.CuuHSSV" Multiplicity="0..1" />
+          <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuuHSSV">
+              <PropertyRef Name="IDHSSV" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="IDNguoiNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TinTuyenD__IDCon__35BCFE0A">
+          <End Role="DoanhNghiep" Type="Self.DoanhNghiep" Multiplicity="1" />
+          <End Role="TinTuyenDung" Type="Self.TinTuyenDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoanhNghiep">
+              <PropertyRef Name="IDCongTy" />
+            </Principal>
+            <Dependent Role="TinTuyenDung">
+              <PropertyRef Name="IDCongTy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TDTUAlumnisManagementSystemModelStoreContainer">
+          <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatBot" EntityType="Self.ChatBot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuuHSSV" EntityType="Self.CuuHSSV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoanhNghiep" EntityType="Self.DoanhNghiep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Header" EntityType="Self.Header" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuanTriVien" EntityType="Self.QuanTriVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TinTuc" EntityType="Self.TinTuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TinTuyenDung" EntityType="Self.TinTuyenDung" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="ChatBot" EntitySet="ChatBot" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CuuHSSV__TenTaiK__37A5467C" Association="Self.FK__CuuHSSV__TenTaiK__37A5467C">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="CuuHSSV" EntitySet="CuuHSSV" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuanTriVi__TenTa__38996AB5" Association="Self.FK__QuanTriVi__TenTa__38996AB5">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="QuanTriVien" EntitySet="QuanTriVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ThongBao__IDNguo__398D8EEE" Association="Self.FK__ThongBao__IDNguo__398D8EEE">
+            <End Role="QuanTriVien" EntitySet="QuanTriVien" />
+            <End Role="ThongBao" EntitySet="ThongBao" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ThongBao__IDNguo__3A81B327" Association="Self.FK__ThongBao__IDNguo__3A81B327">
+            <End Role="CuuHSSV" EntitySet="CuuHSSV" />
+            <End Role="ThongBao" EntitySet="ThongBao" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TinTuyenD__IDCon__35BCFE0A" Association="Self.FK__TinTuyenD__IDCon__35BCFE0A">
+            <End Role="DoanhNghiep" EntitySet="DoanhNghiep" />
+            <End Role="TinTuyenDung" EntitySet="TinTuyenDung" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TDTUAlumnisManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="IDBaner" />
+          </Key>
+          <Property Name="IDBaner" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgBaner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ChatBot">
+          <Key>
+            <PropertyRef Name="IDBot" />
+          </Key>
+          <Property Name="IDBot" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDungNguoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDungPhanHoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__ChatBot__TenTaiK__36B12243" FromRole="ChatBot" ToRole="TaiKhoan" />
+        </EntityType>
+        <EntityType Name="CuuHSSV">
+          <Key>
+            <PropertyRef Name="IDHSSV" />
+          </Key>
+          <Property Name="IDHSSV" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuocTich" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QueQuan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CaNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="XepLoaiTotNghiep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NganhHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NamTotNghiep" Type="Int32" Nullable="false" />
+          <Property Name="CongTyHienTai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HocVanCaoHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThoiGianHoanThanhBaoVeLuanAn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="jobBeginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="workplace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="skill" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__CuuHSSV__TenTaiK__37A5467C" FromRole="CuuHSSV" ToRole="TaiKhoan" />
+          <NavigationProperty Name="ThongBaos" Relationship="Self.FK__ThongBao__IDNguo__3A81B327" FromRole="CuuHSSV" ToRole="ThongBao" />
+        </EntityType>
+        <EntityType Name="DoanhNghiep">
+          <Key>
+            <PropertyRef Name="IDCongTy" />
+          </Key>
+          <Property Name="IDCongTy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenCongTy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TinTuyenDungs" Relationship="Self.FK__TinTuyenD__IDCon__35BCFE0A" FromRole="DoanhNghiep" ToRole="TinTuyenDung" />
+        </EntityType>
+        <EntityType Name="Header">
+          <Key>
+            <PropertyRef Name="IDHeader" />
+          </Key>
+          <Property Name="IDHeader" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="QuanTriVien">
+          <Key>
+            <PropertyRef Name="IDAdmin" />
+          </Key>
+          <Property Name="IDAdmin" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__QuanTriVi__TenTa__38996AB5" FromRole="QuanTriVien" ToRole="TaiKhoan" />
+          <NavigationProperty Name="ThongBaos" Relationship="Self.FK__ThongBao__IDNguo__398D8EEE" FromRole="QuanTriVien" ToRole="ThongBao" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="TenTaiKhoan" />
+          </Key>
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhanQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ChatBots" Relationship="Self.FK__ChatBot__TenTaiK__36B12243" FromRole="TaiKhoan" ToRole="ChatBot" />
+          <NavigationProperty Name="CuuHSSVs" Relationship="Self.FK__CuuHSSV__TenTaiK__37A5467C" FromRole="TaiKhoan" ToRole="CuuHSSV" />
+          <NavigationProperty Name="QuanTriViens" Relationship="Self.FK__QuanTriVi__TenTa__38996AB5" FromRole="TaiKhoan" ToRole="QuanTriVien" />
+        </EntityType>
+        <EntityType Name="ThongBao">
+          <Key>
+            <PropertyRef Name="IDThongBao" />
+          </Key>
+          <Property Name="IDThongBao" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDNguoiGui" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IDNguoiNhan" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CuuHSSV" Relationship="Self.FK__ThongBao__IDNguo__3A81B327" FromRole="ThongBao" ToRole="CuuHSSV" />
+          <NavigationProperty Name="QuanTriVien" Relationship="Self.FK__ThongBao__IDNguo__398D8EEE" FromRole="ThongBao" ToRole="QuanTriVien" />
+        </EntityType>
+        <EntityType Name="TinTuc">
+          <Key>
+            <PropertyRef Name="IDTinTuc" />
+          </Key>
+          <Property Name="IDTinTuc" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="TinTuyenDung">
+          <Key>
+            <PropertyRef Name="IDTinTuyenDung" />
+          </Key>
+          <Property Name="IDTinTuyenDung" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDCongTy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DoanhNghiep" Relationship="Self.FK__TinTuyenD__IDCon__35BCFE0A" FromRole="TinTuyenDung" ToRole="DoanhNghiep" />
+        </EntityType>
+        <Association Name="FK__ChatBot__TenTaiK__36B12243">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="ChatBot" Type="Self.ChatBot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="ChatBot">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CuuHSSV__TenTaiK__37A5467C">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="CuuHSSV" Type="Self.CuuHSSV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="CuuHSSV">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ThongBao__IDNguo__3A81B327">
+          <End Role="CuuHSSV" Type="Self.CuuHSSV" Multiplicity="0..1" />
+          <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuuHSSV">
+              <PropertyRef Name="IDHSSV" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="IDNguoiNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TinTuyenD__IDCon__35BCFE0A">
+          <End Role="DoanhNghiep" Type="Self.DoanhNghiep" Multiplicity="1" />
+          <End Role="TinTuyenDung" Type="Self.TinTuyenDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoanhNghiep">
+              <PropertyRef Name="IDCongTy" />
+            </Principal>
+            <Dependent Role="TinTuyenDung">
+              <PropertyRef Name="IDCongTy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuanTriVi__TenTa__38996AB5">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="QuanTriVien" Type="Self.QuanTriVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="QuanTriVien">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ThongBao__IDNguo__398D8EEE">
+          <End Role="QuanTriVien" Type="Self.QuanTriVien" Multiplicity="0..1" />
+          <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuanTriVien">
+              <PropertyRef Name="IDAdmin" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="IDNguoiGui" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TDTUAlumnisManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
+          <EntitySet Name="ChatBots" EntityType="Self.ChatBot" />
+          <EntitySet Name="CuuHSSVs" EntityType="Self.CuuHSSV" />
+          <EntitySet Name="DoanhNghieps" EntityType="Self.DoanhNghiep" />
+          <EntitySet Name="Headers" EntityType="Self.Header" />
+          <EntitySet Name="QuanTriViens" EntityType="Self.QuanTriVien" />
+          <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
+          <EntitySet Name="ThongBaos" EntityType="Self.ThongBao" />
+          <EntitySet Name="TinTucs" EntityType="Self.TinTuc" />
+          <EntitySet Name="TinTuyenDungs" EntityType="Self.TinTuyenDung" />
+          <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="ChatBot" EntitySet="ChatBots" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CuuHSSV__TenTaiK__37A5467C" Association="Self.FK__CuuHSSV__TenTaiK__37A5467C">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="CuuHSSV" EntitySet="CuuHSSVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ThongBao__IDNguo__3A81B327" Association="Self.FK__ThongBao__IDNguo__3A81B327">
+            <End Role="CuuHSSV" EntitySet="CuuHSSVs" />
+            <End Role="ThongBao" EntitySet="ThongBaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TinTuyenD__IDCon__35BCFE0A" Association="Self.FK__TinTuyenD__IDCon__35BCFE0A">
+            <End Role="DoanhNghiep" EntitySet="DoanhNghieps" />
+            <End Role="TinTuyenDung" EntitySet="TinTuyenDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuanTriVi__TenTa__38996AB5" Association="Self.FK__QuanTriVi__TenTa__38996AB5">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="QuanTriVien" EntitySet="QuanTriViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ThongBao__IDNguo__398D8EEE" Association="Self.FK__ThongBao__IDNguo__398D8EEE">
+            <End Role="QuanTriVien" EntitySet="QuanTriViens" />
+            <End Role="ThongBao" EntitySet="ThongBaos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TDTUAlumnisManagementSystemModelStoreContainer" CdmEntityContainer="TDTUAlumnisManagementSystemEntities">
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Banner">
+              <MappingFragment StoreEntitySet="Banner">
+                <ScalarProperty Name="IDBaner" ColumnName="IDBaner" />
+                <ScalarProperty Name="ImgBaner" ColumnName="ImgBaner" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatBots">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.ChatBot">
+              <MappingFragment StoreEntitySet="ChatBot">
+                <ScalarProperty Name="IDBot" ColumnName="IDBot" />
+                <ScalarProperty Name="NoiDungNguoiDung" ColumnName="NoiDungNguoiDung" />
+                <ScalarProperty Name="NoiDungPhanHoi" ColumnName="NoiDungPhanHoi" />
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CuuHSSVs">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.CuuHSSV">
+              <MappingFragment StoreEntitySet="CuuHSSV">
+                <ScalarProperty Name="IDHSSV" ColumnName="IDHSSV" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="QueQuan" ColumnName="QueQuan" />
+                <ScalarProperty Name="CaNhan" ColumnName="CaNhan" />
+                <ScalarProperty Name="XepLoaiTotNghiep" ColumnName="XepLoaiTotNghiep" />
+                <ScalarProperty Name="NganhHoc" ColumnName="NganhHoc" />
+                <ScalarProperty Name="NamTotNghiep" ColumnName="NamTotNghiep" />
+                <ScalarProperty Name="CongTyHienTai" ColumnName="CongTyHienTai" />
+                <ScalarProperty Name="HocVanCaoHoc" ColumnName="HocVanCaoHoc" />
+                <ScalarProperty Name="ThoiGianHoanThanhBaoVeLuanAn" ColumnName="ThoiGianHoanThanhBaoVeLuanAn" />
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="jobBeginDate" ColumnName="jobBeginDate" />
+                <ScalarProperty Name="workplace" ColumnName="workplace" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoanhNghieps">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.DoanhNghiep">
+              <MappingFragment StoreEntitySet="DoanhNghiep">
+                <ScalarProperty Name="IDCongTy" ColumnName="IDCongTy" />
+                <ScalarProperty Name="TenCongTy" ColumnName="TenCongTy" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Headers">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Header">
+              <MappingFragment StoreEntitySet="Header">
+                <ScalarProperty Name="IDHeader" ColumnName="IDHeader" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuanTriViens">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.QuanTriVien">
+              <MappingFragment StoreEntitySet="QuanTriVien">
+                <ScalarProperty Name="IDAdmin" ColumnName="IDAdmin" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoans">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="PhanQuyen" ColumnName="PhanQuyen" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThongBaos">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.ThongBao">
+              <MappingFragment StoreEntitySet="ThongBao">
+                <ScalarProperty Name="IDThongBao" ColumnName="IDThongBao" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="IDNguoiGui" ColumnName="IDNguoiGui" />
+                <ScalarProperty Name="IDNguoiNhan" ColumnName="IDNguoiNhan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TinTucs">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TinTuc">
+              <MappingFragment StoreEntitySet="TinTuc">
+                <ScalarProperty Name="IDTinTuc" ColumnName="IDTinTuc" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TinTuyenDungs">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TinTuyenDung">
+              <MappingFragment StoreEntitySet="TinTuyenDung">
+                <ScalarProperty Name="IDTinTuyenDung" ColumnName="IDTinTuyenDung" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="IDCongTy" ColumnName="IDCongTy" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

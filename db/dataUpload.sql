@@ -75,4 +75,10 @@ VALUES
 	('enterprise009', N'ABC Company 5', N'123 Main Street, City, Country', '0123456789', 'info@abccompany5.com'),
 	('enterprise010', N'XYZ Corporation 5', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp5.com');
 
-
+-- dữ liệu banner
+INSERT INTO Banner
+	(IDBaner, ImgBaner, meta, hide, [order], datebegin)
+VALUES
+	-- Dữ liệu cho admin
+	('01', 'BannerIT.png', '', 1, 1, GETDATE()), 
+	('02', 'BannerIT2.png', '', 1, 2, GETDATE()); 

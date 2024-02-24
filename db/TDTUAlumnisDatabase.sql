@@ -36,7 +36,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[CongTyDoanhNghiep](
+CREATE TABLE [dbo].[DoanhNghiep](
 	[IDCongTy] [nvarchar](15) NOT NULL,
 	[TenCongTy] [nvarchar](50) NOT NULL,
 	[DiaChi] [nvarchar](100) NOT NULL,
@@ -150,6 +150,82 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+--Bảng Header
+CREATE TABLE [dbo].[Header](
+	[IDHeader] [nvarchar](15) NOT NULL,
+	[TieuDe] [nvarchar](100) NOT NULL,
+	[meta] [nvarchar](50) NULL,
+	[hide] [bit] NULL,
+	[order] [int] NULL,
+	[datebegin] [smalldatetime] NULL,
+	PRIMARY KEY CLUSTERED 
+(
+	[IDHeader] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+--Bảng Banner
+CREATE TABLE [dbo].[Banner](
+	[IDBaner] [nvarchar](15) NOT NULL,
+	[ImgBaner] [nvarchar](100) NOT NULL,
+	[meta] [nvarchar](50) NULL,
+	[hide] [bit] NULL,
+	[order] [int] NULL,
+	[datebegin] [smalldatetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IDBaner] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+--Bảng footer
+--Bảng Tin Tức
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TinTuc](
+	[IDTinTuc] [nvarchar](15) NOT NULL,
+	[TieuDe] [nvarchar](100) NOT NULL,
+	[NoiDung] [nvarchar](max) NOT NULL,
+	[HinhAnh] [nvarchar](100) NOT NULL,
+	[meta] [nvarchar](50) NULL,
+	[hide] [bit] NULL,
+	[order] [int] NULL,
+	[datebegin] [smalldatetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IDTinTuc] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+--Bảng Tin Tuyển dụng
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TinTuyenDung](
+	[IDTinTuyenDung] [nvarchar](15) NOT NULL,
+	[TieuDe] [nvarchar](100) NOT NULL,
+	[NoiDung] [nvarchar](max) NOT NULL,
+	[IDCongTy] [nvarchar](15) NOT NULL,
+	[HinhAnh] [nvarchar](100) NOT NULL,
+	[meta] [nvarchar](50) NULL,
+	[hide] [bit] NULL,
+	[order] [int] NULL,
+	[datebegin] [smalldatetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IDTinTuyenDung] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[TinTuyenDung]  WITH CHECK ADD FOREIGN KEY([IDCongTy])
+REFERENCES [dbo].[DoanhNghiep] ([IDCongTy])
+GO
+
+
+--Khóa ngoại
 ALTER TABLE [dbo].[ChatBot]  WITH CHECK ADD FOREIGN KEY([TenTaiKhoan])
 REFERENCES [dbo].[TaiKhoan] ([TenTaiKhoan])
 GO
@@ -193,8 +269,4 @@ BEGIN
         SET @AccessGranted = 0; -- Access denied
     END
 END
-GO
-USE [master]
-GO
-ALTER DATABASE [TDTUAlumnisManagementSystem] SET  READ_WRITE 
-GO
+

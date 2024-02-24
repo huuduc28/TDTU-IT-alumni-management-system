@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="236455a003d341b6a25fbe2247cf6a35" Name="Diagram1">
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.Banner" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.ChatBot" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.CuuHSSV" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.DoanhNghiep" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.Header" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.QuanTriVien" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.ThongBao" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.TinTuc" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDTUAlumnisManagementSystemModel.TinTuyenDung" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__ChatBot__TenTaiK__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__CuuHSSV__TenTaiK__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__ThongBao__IDNguo__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__TinTuyenD__IDCon__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__QuanTriVi__TenTa__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="TDTUAlumnisManagementSystemModel.FK__ThongBao__IDNguo__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

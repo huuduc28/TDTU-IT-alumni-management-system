@@ -4,52 +4,7 @@
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5" style="height: 500px;">
     <div class="owl-carousel header-carousel position-relative">
-        <div class="owl-carousel-item position-relative" style="height: 540px;">
-            <img class="img-fluid" src="~/Upload/images/banner1.jpg" alt="">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-                 style="background: rgba(24, 29, 56, .7);">
-                <div class="container">
-                    <div class="row justify-content-start">
-                        <div class="col-sm-10 col-lg-8">
-                            <h4 class="text-primary text-uppercase mb-3 animated slideInDown">
-                                Faculty of
-                            </h4>
-                            <h1 class="display-3 text-white animated slideInDown">
-                                Information Technology
-                            </h1>
-                            <h1 class="display-3 text-white animated slideInDown">Ton Duc Thang University</h1>
-                            <p class="fs-5 text-white mb-4 pb-2">
-                                Từ nơi đây ánh sáng sẽ chiếu đến khắp nơi trong vũ
-                                trụ
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="owl-carousel-item position-relative" style="height: 540px;">
-            <img class="img-fluid" src="~/Upload/images/banner2.jpg" alt="">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-                 style="background: rgba(24, 29, 56, .7);">
-                <div class="container">
-                    <div class="row justify-content-start">
-                        <div class="col-sm-10 col-lg-8">
-                            <h4 class="text-primary text- text-uppercase mb-3 animated slideInDown">
-                                Faculty of
-                            </h4>
-                            <h1 class="display-3 text-white animated slideInDown">
-                                Information Technology
-                            </h1>
-                            <h1 class="display-3 text-white animated slideInDown">Ton Duc Thang University</h1>
-                            <p class="fs-5 text-white mb-4 pb-2">
-                                Từ nơi đây ánh sáng sẽ chiếu đến khắp nơi trong vũ
-                                trụ
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @{Html.RenderAction("getBanner", "Home");}
     </div>
 </div>
 <!-- Carousel End -->
@@ -74,7 +29,7 @@
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                            <h5 class="mb-3">Online Classes</h5>
+                            <h5 class="mb-3">Trang Chủ Khoa CNTT</h5>
                             <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
                         </div>
                     </div>
@@ -115,7 +70,7 @@
                     <div class="col-md-6 mt-3">
                         <div class="card card-thongbao wow fadeInUp" data-wow-delay="0.1s">
                             <div class="overflow-hidden box-img-tb">
-                                <img class="card-img-top card-img-tb" src="~/Upload/images/banner.jpg" alt="Card image">
+                                <img class="card-img-top card-img-tb" src="~/Upload/images/News/New.jpg" alt="Card image">
                             </div>
                             <div class="card-body">
                                 <h6 class="card-title">
@@ -124,7 +79,7 @@
                                     BÁCH
                                     KHOA HỒNG KÔNG
                                 </h6>
-                                <p class="card-text">
+                                <p class="card-text ">
                                     Ngày 23/1/2024, Đại diện Trường Đại học Bách Khoa Hồng Kông đã
                                     đến
                                     thăm
