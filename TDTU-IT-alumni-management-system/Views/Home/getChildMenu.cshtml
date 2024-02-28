@@ -1,0 +1,12 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Menu>
+@if ((int)ViewBag.Count > 0)
+{
+    <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
+        @foreach (var i in Model)
+        {
+            <a href="@i.meta" class="dropdown-item">@i.TieuDe</a>
+        }
+    </div>
+}
+
+

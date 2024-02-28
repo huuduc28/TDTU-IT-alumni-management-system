@@ -27,10 +27,11 @@
 <body>
     <header class="container-fluid">
         <div class="row align-items-center">
-            <div class="col-md-8 col-lg-8 d-flex align-items-center">
-                <img id="logo" src="~/Upload/images/Logo/logo-tdtu.png" alt="Company Logo" class="img-fluid" width="8%" height="8%" style="margin-left:20%">
-                <label id="name-title" class="ml-2 mb-0">CỔNG THÔNG TIN CỰU SINH VIÊN</label>
-            </div>
+            @*<div class="col-md-8 col-lg-8 d-flex align-items-center">
+            <img id="logo" src="~/Upload/images/Logo/logo-tdtu.png" alt="Company Logo" class="img-fluid" width="8%" height="8%" style="margin-left:20%">
+            <label id="name-title" class="ml-2 mb-0">CỔNG THÔNG TIN CỰU SINH VIÊN</label>
+        </div>*@
+            @{Html.RenderAction("GetHeader","Home");}
         </div>
     </header>
     <!-- Navbar Start -->
@@ -38,26 +39,8 @@
         <button type="button" class="navbar-toggler " data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse" style="background-color: #ea5257;">
-            <div class="navbar-nav">
-                <a href="/Home/Index" class="nav-item nav-link" id="nav-home">Home</a>
-                <a href="/Alumnis/Index" class="nav-item nav-link" id="nav-alumni">Sinh viên</a>
-                <a href="/Enterprises/Index" class="nav-item nav-link" id="nav-enterprise">Doanh nghiệp</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown">Hỗ trợ</a>
-                    <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
-                        <a href="/BotChat/Index" class="dropdown-item">BOT Chat</a>
-                        <a href="https://www.facebook.com/it.tdtu.edu.vn" class="dropdown-item">Liên hệ khoa</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown">Thông báo</a>
-                    <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
-                        <a href="/Notifications/Index" class="dropdown-item">Tạo Thông báo</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @{Html.RenderAction("getMenu", "Home");}
+    <!--User-->
         <div class="user">
             <div class="nav-item dropdown">
                 <div id="infor-user" style="color: white;font-weight: 700;" class="nav-link dropdown-toggle"

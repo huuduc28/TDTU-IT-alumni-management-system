@@ -14,26 +14,38 @@ namespace TDTU_IT_alumni_management_system.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        public ActionResult GetHeader()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var v = from t in _db.Headers
+                    where t.hide == true
+                    orderby t.order ascending
+                    select t;
+            return PartialView(v.FirstOrDefault());
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         public ActionResult getBanner()
         {
             var v = from t in _db.Banners
                     where t.hide == true
                     orderby t.order ascending
                     select t;
+            return PartialView(v.ToList());
+        }
+        public ActionResult getMenu()
+        {
+            var v = from t in _db.Menus
+                    where t.hide == true && t.ParentID == null
+                    orderby t.order ascending
+                    select t;
+            return PartialView(v.ToList());
+        }
+        public ActionResult getChildMenu(string parentID)
+        {
+            var v = from t in _db.Menus
+                    where t.hide == true && t.ParentID == parentID
+                    orderby t.order ascending
+                    select t;
+            ViewBag.Count = v.ToList().Count;
             return PartialView(v.ToList());
         }
     }

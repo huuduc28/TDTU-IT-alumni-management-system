@@ -79,6 +79,32 @@ VALUES
 INSERT INTO Banner
 	(IDBaner, ImgBaner, meta, hide, [order], datebegin)
 VALUES
-	-- Dữ liệu cho admin
+	-- Dữ liệu cho Banner
 	('01', 'BannerIT.png', '', 1, 1, GETDATE()), 
 	('02', 'BannerIT2.png', '', 1, 2, GETDATE()); 
+
+-- dữ liệu Menu
+INSERT INTO Menu
+	(IDMenu, TieuDe ,ParentID,HasChild, meta, hide, [order], datebegin)
+VALUES
+	('01', N'Trang chủ',Null,0, '/Home/Index', 1, 1, GETDATE()),
+	('02', N'Sinh viên',Null,0, '/Alumnis/Index', 1, 2, GETDATE()), 
+	('03', N'Doanh nghiệp',null,0, '/Enterprises/Index', 1, 3, GETDATE()), 
+	('04', N'Hỗ Trợ',NULL,1, '', 1, 4, GETDATE()), 
+	('05', N'Thông báo',NULL,1, '', 1, 5, GETDATE()), 
+	('06', N'BOT Chat','04',0, '/BotChat/Index', 1, 6, GETDATE()), 
+	('07', N'Liên hệ khoa','04',0, 'https://www.facebook.com/it.tdtu.edu.vn', 1, 7, GETDATE()), 
+	('08', N'Tạo thông báo','05',0, '/Notifications/Index', 1, 8, GETDATE());
+
+
+-- dữ liệu header
+INSERT INTO Header
+	(IDHeader,TieuDe,ImgLogo, meta, hide, [order], datebegin)
+VALUES
+	-- Dữ liệu cho Banner
+	('01',N'Cổng thông tin cựu sinh viên','logo-tdtu.png', '', 1, 1, GETDATE());
+
+select * from Header
+
+drop table Header
+drop trigger ConvertTieuDeToUpperCase_Update

@@ -12,11 +12,12 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Header
+    public partial class Menu
     {
-        public string IDHeader { get; set; }
+        public string IDMenu { get; set; }
         public string TieuDe { get; set; }
-        public string ImgLogo { get; set; }
+        public string ParentID { get; set; }
+        public Nullable<bool> HasChild { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }

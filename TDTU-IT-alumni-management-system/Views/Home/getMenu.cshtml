@@ -1,0 +1,18 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Menu>
+<div class="collapse navbar-collapse" id="navbarCollapse" style="background-color: #ea5257;">
+    <div class="navbar-nav">
+        @foreach (var i in Model)
+        {
+            if (i.ParentID == null && i.HasChild == false)
+            {
+                <a href="@i.meta" class="nav-item nav-link" id="nav-home">@i.TieuDe</a>
+            }
+            else
+            { <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown">@i.TieuDe</a>
+                    @Html.Action("getChildMenu", "Home", new { parentID = i.IDMenu })
+                </div>
+            }
+        }
+    </div>
+</div>
