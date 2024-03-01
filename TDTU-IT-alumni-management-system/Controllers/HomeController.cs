@@ -23,7 +23,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
             return PartialView(v.FirstOrDefault());
         }
 
-        public ActionResult getBanner()
+        public ActionResult GetBanner()
         {
             var v = from t in _db.Banners
                     where t.hide == true
@@ -31,7 +31,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                     select t;
             return PartialView(v.ToList());
         }
-        public ActionResult getMenu()
+        public ActionResult GetMenu()
         {
             var v = from t in _db.Menus
                     where t.hide == true && t.ParentID == null
@@ -39,7 +39,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                     select t;
             return PartialView(v.ToList());
         }
-        public ActionResult getChildMenu(string parentID)
+        public ActionResult GetChildMenu(string parentID)
         {
             var v = from t in _db.Menus
                     where t.hide == true && t.ParentID == parentID
@@ -48,5 +48,15 @@ namespace TDTU_IT_alumni_management_system.Controllers
             ViewBag.Count = v.ToList().Count;
             return PartialView(v.ToList());
         }
+        public ActionResult GetNewsHome()
+        {
+            ViewBag.meta = "tin-tuc";
+            var v = (from t in _db.TinTucs
+                    where t.hide == true
+                    orderby t.datebegin descending
+                    select t).Take(4);
+            return PartialView(v.ToList());
+        }
+        
     }
 }

@@ -14,10 +14,32 @@ namespace TDTU_IT_alumni_management_system
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "CuuSinhVien",
+                url: "cuu-sinh-vien",
+                defaults: new { controller = "Alumnis", action = "Index" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+               name: "DoanhNghiep",
+               url: "doanh-nghiep",
+               defaults: new { controller = "Enterprises", action = "Index" },
+           namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+
+            routes.MapRoute("News", "{type}/{meta}/{id}",
+              new { Controller = "News", action = "GetNewsDetal", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","tin-tuc" }
+              },
+            namespaces: new[] { "WebHotel.Controllers" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+          
         }
     }
 }

@@ -114,9 +114,13 @@
                 <nav>
                     <ul class="nav">
                         <li>
-                            <a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
+                            <a href="@Url.Action("Index","Default")" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
                         </li>
-                        @*<li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
+                        <li><a href="@Url.Action("Index","Menus")" class=""><i class="lnr lnr-menu-circle"></i> <span>Menu</span></a></li>
+                        <li><a href="@Url.Action("Index","Headers")" class=""><i class="lnr lnr-flag"></i> <span>Header</span></a></li>
+                        <li><a href="@Url.Action("Index","Banners")" class=""><i class="lnr lnr-picture"></i> <span>Banner</span></a></li>
+                        <li><a href="@Url.Action("Index","TinTucs")" class=""><i class="lnr lnr-star"></i>News</a></li>
+
                         <li>
                             <a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a>
                         </li>
@@ -147,8 +151,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a>
-                        </li>*@
+                            <a href="https://linearicons.com/free" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a>
+                        </li>
                     </ul>
                 </nav>
             </div>

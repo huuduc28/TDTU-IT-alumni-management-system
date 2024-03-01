@@ -9,7 +9,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
     public class AlumnisController : Controller
     {
         // GET: Alumnis
-        public ActionResult Index()
+        public ActionResult Index(string meta)
         {
             return View();
         }

@@ -249,12 +249,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannersController.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HeadersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenusController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TinTucsController.cs" />
     <Compile Include="Controllers\AlumnisController.cs" />
     <Compile Include="Controllers\BotChatController.cs" />
     <Compile Include="Controllers\EnterprisesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -337,6 +342,7 @@
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\chat.css" />
+    <Content Include="Content\css\news.css" />
     <Content Include="Content\lib\animate\animate.css" />
     <Content Include="Content\lib\animate\animate.min.css" />
     <Content Include="Content\lib\owlcarousel\assets\owl.carousel.css" />
@@ -386,6 +392,23 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Menus\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Headers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Headers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTucs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTucs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTucs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTucs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTucs\Index.cshtml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -432,10 +455,13 @@
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Alumnis\DetailAlumni.cshtml" />
     <Content Include="Views\Alumnis\PersonInfo.cshtml" />
-    <Content Include="Views\Home\getMenu.cshtml" />
-    <Content Include="Views\Home\getChildMenu.cshtml" />
+    <Content Include="Views\Home\GetMenu.cshtml" />
+    <Content Include="Views\Home\GetChildMenu.cshtml" />
     <Content Include="Views\Home\GetBanner.cshtml" />
     <Content Include="Views\Home\GetHeader.cshtml" />
+    <Content Include="Views\Home\GetNewsHome.cshtml" />
+    <Content Include="Views\News\GetNewsDetal.cshtml" />
+    <Content Include="Views\News\GetNewsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

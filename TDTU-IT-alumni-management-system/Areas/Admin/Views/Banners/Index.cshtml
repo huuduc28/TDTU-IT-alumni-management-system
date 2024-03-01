@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Banner>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Quản lý Banner</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Banners")" class="btn btn-primary">
+        <span class="lnr lnr-pencil"></span>
+    </a>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgBaner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.meta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hide)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datebegin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBaner)"  width="100px" height="50px"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.meta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hide)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datebegin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDBaner }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDBaner }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDBaner })
+        </td>
+    </tr>
+}
+
+</table>

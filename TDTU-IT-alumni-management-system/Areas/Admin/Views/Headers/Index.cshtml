@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Header>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Header</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                Tiêu đề
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.meta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datebegin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Upload/images/Logo/@Html.DisplayFor(modelItem => item.ImgLogo)" width="80px" height="60px" />
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TieuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.meta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datebegin)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Headers", new {id = item.IDHeader})" class="btn btn-primary">
+                        <span class="lnr lnr-pencil"></span>
+                    </a>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.IDHeader })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
