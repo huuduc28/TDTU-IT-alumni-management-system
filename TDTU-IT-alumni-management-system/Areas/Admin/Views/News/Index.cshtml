@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.TinTuc>
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.News>
 
 @{
     ViewBag.Title = "Index";
@@ -13,15 +13,14 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HinhAnh)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TieuDe)
+            @Html.DisplayNameFor(model => model.Content)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NoiDung)
+            @Html.DisplayNameFor(model => model.ImgNews)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.meta)
         </th>
@@ -40,13 +39,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            <img src="~/Upload/images/News/@Html.DisplayFor(modelItem => item.HinhAnh)" width="100px" height="50px" />
+            @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TieuDe)
+            @Html.DisplayFor(modelItem => item.Content)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NoiDung)
+            @Html.DisplayFor(modelItem => item.ImgNews)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.meta)
@@ -61,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.datebegin)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IDTinTuc }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IDTinTuc }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IDTinTuc })
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDNews }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDNews }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDNews })
         </td>
     </tr>
 }

@@ -1,28 +1,28 @@
-﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.TinTuc>
-<div class="row wow fadeInUp mt-5" data-wow-delay="0.1s">
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.News>
+<div class="row wow fadeInUp mt-4" data-wow-delay="0.1s">
     @foreach (var i in Model)
     {
-        <div class="col-md-6 mt-3" onclick="window.location.href='/@ViewBag.meta/@i.meta/@i.IDTinTuc'">
+        <div class="col-md-6 mt-3" onclick="window.location.href='/@ViewBag.meta/@i.meta/@i.IDNews'">
             <div class="card card-thongbao wow fadeInUp" data-wow-delay="0.1s">
                 <div class="overflow-hidden box-img-tb">
-                    <img class="card-img-top card-img-tb" src="~/Upload/images/News/@i.HinhAnh" alt="Card image">
+                    <img class="card-img-top card-img-tb" src="~/Upload/images/News/@i.ImgNews" alt="Card image">
                 </div>
                 <div class="card-body">
                     <h6 class="card-title">
-                        @i.TieuDe
+                        @i.Title
                     </h6>
                     <p class="card-text " style="font-size: 0.9em;">
                         @{
                             // Tìm vị trí của dấu chấm đầu tiên
-                            int dotIndex = i.NoiDung.IndexOf('.');
+                            int dotIndex = i.Content.IndexOf('.');
                             // Tìm vị trí của khoảng trắng gần nhất sau 250 ký tự
-                            int spaceIndex = i.NoiDung.IndexOf(' ', 250);
+                            int spaceIndex = i.Content.IndexOf(' ', 250);
 
                             // Kiểm tra xem có dấu chấm và khoảng trắng nào gần hơn không
                             int index = dotIndex != -1 && dotIndex <= spaceIndex ? dotIndex : spaceIndex;
 
                             // Cắt chuỗi từ đầu đến vị trí index hoặc lấy toàn bộ chuỗi nếu không có index
-                            string partialContent = index != -1 ? i.NoiDung.Substring(0, index) : i.NoiDung;
+                            string partialContent = index != -1 ? i.Content.Substring(0, index) : i.Content;
                             @partialContent
                         }
                     </p>

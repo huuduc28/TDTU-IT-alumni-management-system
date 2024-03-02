@@ -12,18 +12,18 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TinTuyenDung
+    public partial class RecruitmentNew
     {
-        public string IDTinTuyenDung { get; set; }
-        public string TieuDe { get; set; }
-        public string NoiDung { get; set; }
-        public string IDCongTy { get; set; }
-        public string HinhAnh { get; set; }
+        public string IDRecruitmentNews { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string ImgNews { get; set; }
+        public string IDEnterprise { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
     
-        public virtual DoanhNghiep DoanhNghiep { get; set; }
+        public virtual Enterprise Enterprise { get; set; }
     }
 }

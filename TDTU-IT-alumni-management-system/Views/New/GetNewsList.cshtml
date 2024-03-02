@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.News>
+
+@foreach (var i in Model)
+{
+    <li class="list-group-item d-flex align-items-center">
+        <div class="col-4">
+            <img src="~/Upload/images/News/@i.ImgNews" alt="News Image" class="img-fluid news-image" />
+        </div>
+        <div class="col-8">
+            <h5 style="font-size: 13px; margin-left: 10px">@i.Title</h5>
+        </div>
+    </li>
+}
+
+
+

@@ -10,107 +10,107 @@ using TDTU_IT_alumni_management_system.Models;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
-    public class TinTucsController : Controller
+    public class NewsController : Controller
     {
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
-        // GET: Admin/TinTucs
+        // GET: Admin/News
         public ActionResult Index()
         {
-            return View(db.TinTucs.ToList());
+            return View(db.News.ToList());
         }
 
-        // GET: Admin/TinTucs/Details/5
+        // GET: Admin/News/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TinTuc tinTuc = db.TinTucs.Find(id);
-            if (tinTuc == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(tinTuc);
+            return View(news);
         }
 
-        // GET: Admin/TinTucs/Create
+        // GET: Admin/News/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/TinTucs/Create
+        // POST: Admin/News/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDTinTuc,TieuDe,NoiDung,HinhAnh,meta,hide,order,datebegin")] TinTuc tinTuc)
+        public ActionResult Create([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.TinTucs.Add(tinTuc);
+                db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tinTuc);
+            return View(news);
         }
 
-        // GET: Admin/TinTucs/Edit/5
+        // GET: Admin/News/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TinTuc tinTuc = db.TinTucs.Find(id);
-            if (tinTuc == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(tinTuc);
+            return View(news);
         }
 
-        // POST: Admin/TinTucs/Edit/5
+        // POST: Admin/News/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDTinTuc,TieuDe,NoiDung,HinhAnh,meta,hide,order,datebegin")] TinTuc tinTuc)
+        public ActionResult Edit([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tinTuc).State = EntityState.Modified;
+                db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tinTuc);
+            return View(news);
         }
 
-        // GET: Admin/TinTucs/Delete/5
+        // GET: Admin/News/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TinTuc tinTuc = db.TinTucs.Find(id);
-            if (tinTuc == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(tinTuc);
+            return View(news);
         }
 
-        // POST: Admin/TinTucs/Delete/5
+        // POST: Admin/News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            TinTuc tinTuc = db.TinTucs.Find(id);
-            db.TinTucs.Remove(tinTuc);
+            News news = db.News.Find(id);
+            db.News.Remove(news);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

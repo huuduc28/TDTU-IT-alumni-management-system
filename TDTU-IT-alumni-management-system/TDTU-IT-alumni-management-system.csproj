@@ -253,13 +253,13 @@
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\HeadersController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenusController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TinTucsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Controllers\AlumnisController.cs" />
     <Compile Include="Controllers\BotChatController.cs" />
     <Compile Include="Controllers\EnterprisesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -273,7 +273,7 @@
     <Compile Include="Models\CuuHSSV.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DoanhNghiep.cs">
+    <Compile Include="Models\Enterprise.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Header.cs">
@@ -297,19 +297,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\News.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\QuanTriVien.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecruitmentNew.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaiKhoan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThongBao.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TinTuc.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TinTuyenDung.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -385,13 +385,6 @@
     <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff" />
     <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff2" />
     <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Menus\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Details.cshtml" />
@@ -404,11 +397,18 @@
     <Content Include="Areas\Admin\Views\Banners\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TinTucs\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TinTucs\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\TinTucs\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\TinTucs\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\TinTucs\Index.cshtml" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -443,8 +443,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Mylayout.cshtml" />
     <Content Include="Views\Alumnis\Index.cshtml" />
@@ -460,8 +458,8 @@
     <Content Include="Views\Home\GetBanner.cshtml" />
     <Content Include="Views\Home\GetHeader.cshtml" />
     <Content Include="Views\Home\GetNewsHome.cshtml" />
-    <Content Include="Views\News\GetNewsDetal.cshtml" />
-    <Content Include="Views\News\GetNewsList.cshtml" />
+    <Content Include="Views\New\GetNewsDetal.cshtml" />
+    <Content Include="Views\New\GetNewsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

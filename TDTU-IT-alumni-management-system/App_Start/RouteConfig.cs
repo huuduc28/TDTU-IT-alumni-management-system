@@ -26,14 +26,13 @@ namespace TDTU_IT_alumni_management_system
            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
 
-            routes.MapRoute("News", "{type}/{meta}/{id}",
-              new { Controller = "News", action = "GetNewsDetal", id = UrlParameter.Optional },
+            routes.MapRoute("New", "{type}/{meta}/{id}",
+              new { Controller = "New", action = "GetNewsDetal", id = UrlParameter.Optional },
               new RouteValueDictionary
               {
                     {"type","tin-tuc" }
               },
-            namespaces: new[] { "WebHotel.Controllers" });
-
+            namespaces: new[] {"TDTU-IT-alumni-management-system.Controllers" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

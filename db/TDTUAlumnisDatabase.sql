@@ -36,11 +36,11 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[DoanhNghiep](
-	[IDCongTy] [nvarchar](15) NOT NULL,
-	[TenCongTy] [nvarchar](50) NOT NULL,
-	[DiaChi] [nvarchar](100) NOT NULL,
-	[SoDienThoai] [nvarchar](15) NOT NULL,
+CREATE TABLE [dbo].[Enterprise](
+	[IDEnterprise] [nvarchar](15) NOT NULL,
+	[EnterpriseName] [nvarchar](50) NOT NULL,
+	[EnterpriseAddress] [nvarchar](100) NOT NULL,
+	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
 	[Website] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
@@ -49,31 +49,33 @@ CREATE TABLE [dbo].[DoanhNghiep](
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDCongTy] ASC
+	[IDEnterprise] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
 /****** Object:  Table [dbo].[CuuHSSV]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[CuuHSSV](
-	[IDHSSV] [nvarchar](15) NOT NULL,
-	[Ten] [nvarchar](50) NOT NULL,
+CREATE TABLE [dbo].[Alumni](
+	[IDAlumni] [nvarchar](15) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
-	[SoDienThoai] [nvarchar](15) NOT NULL,
-	[NgaySinh] [date] NOT NULL,
-	[GioiTinh] [nvarchar](10) NOT NULL,
-	[QuocTich] [nvarchar](50) NOT NULL,
-	[QueQuan] [nvarchar](50) NOT NULL,
-	[CaNhan] [nvarchar](50) NOT NULL,
-	[XepLoaiTotNghiep] [nvarchar](50) NOT NULL,
-	[NganhHoc] [nvarchar](50) NOT NULL,
-	[NamTotNghiep] [int] NOT NULL,
-	[CongTyHienTai] [nvarchar](50) NOT NULL,
-	[HocVanCaoHoc] [nvarchar](50) NOT NULL,
-	[ThoiGianHoanThanhBaoVeLuanAn] [date] NOT NULL,
+	[Phone] [nvarchar](15) NOT NULL,
+	[Birthday] [date] NOT NULL,
+	[Gender] [nvarchar](10) NOT NULL,
+	[Nationality] [nvarchar](50) NOT NULL,
+	[HomeTown] [nvarchar](50) NOT NULL,
+	[PersonalWebsite] [nvarchar](50) NOT NULL,
+	[GraduationType] [nvarchar](50) NOT NULL,
+	[Majors] [nvarchar](50) NOT NULL,
+	[GraduationYear] [int] NOT NULL,
+	[CurrentCompany] [nvarchar](50) NOT NULL,
+	[AcademicLevel] [nvarchar](50) NOT NULL,
+	[TimeToCompletionOfThesisDefense] [date] NOT NULL,
 	[TenTaiKhoan] [nvarchar](50) NULL,
 	[jobBeginDate] [date] NOT NULL,
 	[workplace] [nvarchar](50) NOT NULL,
@@ -85,7 +87,7 @@ CREATE TABLE [dbo].[CuuHSSV](
 	
 PRIMARY KEY CLUSTERED 
 (
-	[IDHSSV] ASC
+	[IDAlumni] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -94,10 +96,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[QuanTriVien](
+CREATE TABLE [dbo].[Admin](
 	[IDAdmin] [nvarchar](15) NOT NULL,
-	[Ten] [nvarchar](50) NOT NULL,
-	[SoDienThoai] [nvarchar](15) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
 	[TenTaiKhoan] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
@@ -134,21 +136,28 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[ThongBao](
-	[IDThongBao] [nvarchar](15) NOT NULL,
-	[TieuDe] [nvarchar](100) NOT NULL,
-	[NoiDung] [nvarchar](max) NOT NULL,
-	[IDNguoiGui] [nvarchar](15) NULL,
-	[IDNguoiNhan] [nvarchar](15) NULL,
+CREATE TABLE [dbo].[Notification](
+	[IDNotification] [nvarchar](15) NOT NULL,
+	[Title] [nvarchar](100) NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[IDSender] [nvarchar](15) NULL,
+	[IDReceiver] [nvarchar](15) NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDThongBao] ASC
+	[IDNotification] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
+REFERENCES [dbo].[IDAdmin] ([IDAdmin])
+GO
+ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+REFERENCES [dbo].[Alumni] ([IDHSSV])
 GO
 --Bảng Header
 CREATE TABLE [dbo].[Header](
@@ -211,18 +220,18 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[TinTuc](
-	[IDTinTuc] [nvarchar](15) NOT NULL,
-	[TieuDe] [nvarchar](100) NOT NULL,
-	[NoiDung] [nvarchar](max) NOT NULL,
-	[HinhAnh] [nvarchar](100) NOT NULL,
+CREATE TABLE [dbo].[News](
+	[IDNews] [nvarchar](15) NOT NULL,
+	[Title] [nvarchar](100) NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[ImgNews] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDTinTuc] ASC
+	[IDNews] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
@@ -231,24 +240,26 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[TinTuyenDung](
-	[IDTinTuyenDung] [nvarchar](15) NOT NULL,
-	[TieuDe] [nvarchar](100) NOT NULL,
-	[NoiDung] [nvarchar](max) NOT NULL,
-	[IDCongTy] [nvarchar](15) NOT NULL,
-	[HinhAnh] [nvarchar](100) NOT NULL,
+CREATE TABLE [dbo].[RecruitmentNews](
+	[IDRecruitmentNews] [nvarchar](15) NOT NULL,
+	[Title] [nvarchar](100) NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[ImgNews] [nvarchar](100) NOT NULL,
+	[IDEnterprise] [nvarchar](15) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDTinTuyenDung] ASC
+	[IDRecruitmentNews] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[TinTuyenDung]  WITH CHECK ADD FOREIGN KEY([IDCongTy])
-REFERENCES [dbo].[DoanhNghiep] ([IDCongTy])
+
+
+ALTER TABLE [dbo].[RecruitmentNews]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
+REFERENCES [dbo].[Enterprise] ([IDEnterprise])
 GO
 
 
@@ -262,10 +273,11 @@ GO
 ALTER TABLE [dbo].[QuanTriVien]  WITH CHECK ADD FOREIGN KEY([TenTaiKhoan])
 REFERENCES [dbo].[TaiKhoan] ([TenTaiKhoan])
 GO
+
 ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDNguoiGui])
 REFERENCES [dbo].[QuanTriVien] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDNguoiNhan])
+ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
 REFERENCES [dbo].[CuuHSSV] ([IDHSSV])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/

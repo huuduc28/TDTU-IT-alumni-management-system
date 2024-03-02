@@ -51,7 +51,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
         public ActionResult GetNewsHome()
         {
             ViewBag.meta = "tin-tuc";
-            var v = (from t in _db.TinTucs
+            var v = (from t in _db.News
                     where t.hide == true
                     orderby t.datebegin descending
                     select t).Take(4);

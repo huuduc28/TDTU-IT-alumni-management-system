@@ -16,7 +16,7 @@
 }
 
 .content {
-    margin: 0 9% 0% 9%;
+    margin: 0 10% 0% 10%;
 }
 
 /*Navbar*/ 
@@ -303,13 +303,14 @@
 .box-img-tb {
     height: 700px;
     width: 100%;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 #text-thongbao {
     font-family: "Roboto", sans-serif;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.5;
     margin-top: 20%;
 }
@@ -317,13 +318,13 @@
 #ngay-thang-tb {
     font-family: "Roboto", sans-serif;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.5;
     color: #999;
 }
 
 .item-thong-bao {
-    background-color: rgb(236, 236, 236);
+    background-color: #F1F1F2;
     margin-top: 1%;
     padding: 3% 3%;
     border-radius: 2px;

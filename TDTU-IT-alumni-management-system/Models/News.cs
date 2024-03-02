@@ -12,12 +12,12 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TinTuc
+    public partial class News
     {
-        public string IDTinTuc { get; set; }
-        public string TieuDe { get; set; }
-        public string NoiDung { get; set; }
-        public string HinhAnh { get; set; }
+        public string IDNews { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string ImgNews { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }

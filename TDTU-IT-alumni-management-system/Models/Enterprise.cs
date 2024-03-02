@@ -12,18 +12,18 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DoanhNghiep
+    public partial class Enterprise
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DoanhNghiep()
+        public Enterprise()
         {
-            this.TinTuyenDungs = new HashSet<TinTuyenDung>();
+            this.RecruitmentNews = new HashSet<RecruitmentNew>();
         }
     
-        public string IDCongTy { get; set; }
-        public string TenCongTy { get; set; }
-        public string DiaChi { get; set; }
-        public string SoDienThoai { get; set; }
+        public string IDEnterprise { get; set; }
+        public string EnterpriseName { get; set; }
+        public string EnterpriseAddress { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
         public string meta { get; set; }
@@ -32,6 +32,6 @@ namespace TDTU_IT_alumni_management_system.Models
         public Nullable<System.DateTime> datebegin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TinTuyenDung> TinTuyenDungs { get; set; }
+        public virtual ICollection<RecruitmentNew> RecruitmentNews { get; set; }
     }
 }

@@ -57,14 +57,14 @@
           <Property Name="order" Type="int" />
           <Property Name="datebegin" Type="smalldatetime" />
         </EntityType>
-        <EntityType Name="DoanhNghiep">
+        <EntityType Name="Enterprise">
           <Key>
-            <PropertyRef Name="IDCongTy" />
+            <PropertyRef Name="IDEnterprise" />
           </Key>
-          <Property Name="IDCongTy" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="TenCongTy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IDEnterprise" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="EnterpriseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnterpriseAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Website" Type="nvarchar" MaxLength="50" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -97,6 +97,19 @@
           <Property Name="order" Type="int" />
           <Property Name="datebegin" Type="smalldatetime" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="IDNews" />
+          </Key>
+          <Property Name="IDNews" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImgNews" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
         <EntityType Name="QuanTriVien">
           <Key>
             <PropertyRef Name="IDAdmin" />
@@ -106,6 +119,20 @@
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="RecruitmentNews">
+          <Key>
+            <PropertyRef Name="IDRecruitmentNews" />
+          </Key>
+          <Property Name="IDRecruitmentNews" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImgNews" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDEnterprise" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
           <Property Name="order" Type="int" />
@@ -132,33 +159,6 @@
           <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IDNguoiGui" Type="nvarchar" MaxLength="15" />
           <Property Name="IDNguoiNhan" Type="nvarchar" MaxLength="15" />
-          <Property Name="meta" Type="nvarchar" MaxLength="50" />
-          <Property Name="hide" Type="bit" />
-          <Property Name="order" Type="int" />
-          <Property Name="datebegin" Type="smalldatetime" />
-        </EntityType>
-        <EntityType Name="TinTuc">
-          <Key>
-            <PropertyRef Name="IDTinTuc" />
-          </Key>
-          <Property Name="IDTinTuc" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="meta" Type="nvarchar" MaxLength="50" />
-          <Property Name="hide" Type="bit" />
-          <Property Name="order" Type="int" />
-          <Property Name="datebegin" Type="smalldatetime" />
-        </EntityType>
-        <EntityType Name="TinTuyenDung">
-          <Key>
-            <PropertyRef Name="IDTinTuyenDung" />
-          </Key>
-          <Property Name="IDTinTuyenDung" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="NoiDung" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="IDCongTy" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
           <Property Name="order" Type="int" />
@@ -200,6 +200,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Recruitme__IDEnt__19DFD96B">
+          <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
+          <End Role="RecruitmentNews" Type="Self.RecruitmentNews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enterprise">
+              <PropertyRef Name="IDEnterprise" />
+            </Principal>
+            <Dependent Role="RecruitmentNews">
+              <PropertyRef Name="IDEnterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ThongBao__IDNguo__398D8EEE">
           <End Role="QuanTriVien" Type="Self.QuanTriVien" Multiplicity="0..1" />
           <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
@@ -224,30 +236,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TinTuyenD__IDCon__35BCFE0A">
-          <End Role="DoanhNghiep" Type="Self.DoanhNghiep" Multiplicity="1" />
-          <End Role="TinTuyenDung" Type="Self.TinTuyenDung" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DoanhNghiep">
-              <PropertyRef Name="IDCongTy" />
-            </Principal>
-            <Dependent Role="TinTuyenDung">
-              <PropertyRef Name="IDCongTy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="TDTUAlumnisManagementSystemModelStoreContainer">
           <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChatBot" EntityType="Self.ChatBot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CuuHSSV" EntityType="Self.CuuHSSV" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DoanhNghiep" EntityType="Self.DoanhNghiep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enterprise" EntityType="Self.Enterprise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Header" EntityType="Self.Header" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuanTriVien" EntityType="Self.QuanTriVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecruitmentNews" EntityType="Self.RecruitmentNews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TinTuc" EntityType="Self.TinTuc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TinTuyenDung" EntityType="Self.TinTuyenDung" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
             <End Role="ChatBot" EntitySet="ChatBot" />
@@ -260,6 +260,10 @@
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
             <End Role="QuanTriVien" EntitySet="QuanTriVien" />
           </AssociationSet>
+          <AssociationSet Name="FK__Recruitme__IDEnt__19DFD96B" Association="Self.FK__Recruitme__IDEnt__19DFD96B">
+            <End Role="Enterprise" EntitySet="Enterprise" />
+            <End Role="RecruitmentNews" EntitySet="RecruitmentNews" />
+          </AssociationSet>
           <AssociationSet Name="FK__ThongBao__IDNguo__398D8EEE" Association="Self.FK__ThongBao__IDNguo__398D8EEE">
             <End Role="QuanTriVien" EntitySet="QuanTriVien" />
             <End Role="ThongBao" EntitySet="ThongBao" />
@@ -267,10 +271,6 @@
           <AssociationSet Name="FK__ThongBao__IDNguo__3A81B327" Association="Self.FK__ThongBao__IDNguo__3A81B327">
             <End Role="CuuHSSV" EntitySet="CuuHSSV" />
             <End Role="ThongBao" EntitySet="ThongBao" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TinTuyenD__IDCon__35BCFE0A" Association="Self.FK__TinTuyenD__IDCon__35BCFE0A">
-            <End Role="DoanhNghiep" EntitySet="DoanhNghiep" />
-            <End Role="TinTuyenDung" EntitySet="TinTuyenDung" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -333,21 +333,21 @@
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__CuuHSSV__TenTaiK__37A5467C" FromRole="CuuHSSV" ToRole="TaiKhoan" />
           <NavigationProperty Name="ThongBaos" Relationship="Self.FK__ThongBao__IDNguo__3A81B327" FromRole="CuuHSSV" ToRole="ThongBao" />
         </EntityType>
-        <EntityType Name="DoanhNghiep">
+        <EntityType Name="Enterprise">
           <Key>
-            <PropertyRef Name="IDCongTy" />
+            <PropertyRef Name="IDEnterprise" />
           </Key>
-          <Property Name="IDCongTy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TenCongTy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDEnterprise" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnterpriseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnterpriseAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="TinTuyenDungs" Relationship="Self.FK__TinTuyenD__IDCon__35BCFE0A" FromRole="DoanhNghiep" ToRole="TinTuyenDung" />
+          <NavigationProperty Name="RecruitmentNews" Relationship="Self.FK__Recruitme__IDEnt__19DFD96B" FromRole="Enterprise" ToRole="RecruitmentNews" />
         </EntityType>
         <EntityType Name="Header">
           <Key>
@@ -374,6 +374,19 @@
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="IDNews" />
+          </Key>
+          <Property Name="IDNews" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgNews" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
         <EntityType Name="QuanTriVien">
           <Key>
             <PropertyRef Name="IDAdmin" />
@@ -389,6 +402,21 @@
           <Property Name="datebegin" Type="DateTime" Precision="0" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__QuanTriVi__TenTa__38996AB5" FromRole="QuanTriVien" ToRole="TaiKhoan" />
           <NavigationProperty Name="ThongBaos" Relationship="Self.FK__ThongBao__IDNguo__398D8EEE" FromRole="QuanTriVien" ToRole="ThongBao" />
+        </EntityType>
+        <EntityType Name="RecruitmentNew">
+          <Key>
+            <PropertyRef Name="IDRecruitmentNews" />
+          </Key>
+          <Property Name="IDRecruitmentNews" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgNews" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDEnterprise" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Enterprise" Relationship="Self.FK__Recruitme__IDEnt__19DFD96B" FromRole="RecruitmentNews" ToRole="Enterprise" />
         </EntityType>
         <EntityType Name="TaiKhoan">
           <Key>
@@ -420,34 +448,6 @@
           <Property Name="datebegin" Type="DateTime" Precision="0" />
           <NavigationProperty Name="CuuHSSV" Relationship="Self.FK__ThongBao__IDNguo__3A81B327" FromRole="ThongBao" ToRole="CuuHSSV" />
           <NavigationProperty Name="QuanTriVien" Relationship="Self.FK__ThongBao__IDNguo__398D8EEE" FromRole="ThongBao" ToRole="QuanTriVien" />
-        </EntityType>
-        <EntityType Name="TinTuc">
-          <Key>
-            <PropertyRef Name="IDTinTuc" />
-          </Key>
-          <Property Name="IDTinTuc" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hide" Type="Boolean" />
-          <Property Name="order" Type="Int32" />
-          <Property Name="datebegin" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="TinTuyenDung">
-          <Key>
-            <PropertyRef Name="IDTinTuyenDung" />
-          </Key>
-          <Property Name="IDTinTuyenDung" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDCongTy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hide" Type="Boolean" />
-          <Property Name="order" Type="Int32" />
-          <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="DoanhNghiep" Relationship="Self.FK__TinTuyenD__IDCon__35BCFE0A" FromRole="TinTuyenDung" ToRole="DoanhNghiep" />
         </EntityType>
         <Association Name="FK__ChatBot__TenTaiK__36B12243">
           <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
@@ -485,15 +485,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TinTuyenD__IDCon__35BCFE0A">
-          <End Role="DoanhNghiep" Type="Self.DoanhNghiep" Multiplicity="1" />
-          <End Role="TinTuyenDung" Type="Self.TinTuyenDung" Multiplicity="*" />
+        <Association Name="FK__Recruitme__IDEnt__19DFD96B">
+          <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
+          <End Role="RecruitmentNews" Type="Self.RecruitmentNew" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DoanhNghiep">
-              <PropertyRef Name="IDCongTy" />
+            <Principal Role="Enterprise">
+              <PropertyRef Name="IDEnterprise" />
             </Principal>
-            <Dependent Role="TinTuyenDung">
-              <PropertyRef Name="IDCongTy" />
+            <Dependent Role="RecruitmentNews">
+              <PropertyRef Name="IDEnterprise" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -525,14 +525,14 @@
           <EntitySet Name="Banners" EntityType="Self.Banner" />
           <EntitySet Name="ChatBots" EntityType="Self.ChatBot" />
           <EntitySet Name="CuuHSSVs" EntityType="Self.CuuHSSV" />
-          <EntitySet Name="DoanhNghieps" EntityType="Self.DoanhNghiep" />
+          <EntitySet Name="Enterprises" EntityType="Self.Enterprise" />
           <EntitySet Name="Headers" EntityType="Self.Header" />
           <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="QuanTriViens" EntityType="Self.QuanTriVien" />
+          <EntitySet Name="RecruitmentNews" EntityType="Self.RecruitmentNew" />
           <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
           <EntitySet Name="ThongBaos" EntityType="Self.ThongBao" />
-          <EntitySet Name="TinTucs" EntityType="Self.TinTuc" />
-          <EntitySet Name="TinTuyenDungs" EntityType="Self.TinTuyenDung" />
           <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="ChatBot" EntitySet="ChatBots" />
@@ -545,9 +545,9 @@
             <End Role="CuuHSSV" EntitySet="CuuHSSVs" />
             <End Role="ThongBao" EntitySet="ThongBaos" />
           </AssociationSet>
-          <AssociationSet Name="FK__TinTuyenD__IDCon__35BCFE0A" Association="Self.FK__TinTuyenD__IDCon__35BCFE0A">
-            <End Role="DoanhNghiep" EntitySet="DoanhNghieps" />
-            <End Role="TinTuyenDung" EntitySet="TinTuyenDungs" />
+          <AssociationSet Name="FK__Recruitme__IDEnt__19DFD96B" Association="Self.FK__Recruitme__IDEnt__19DFD96B">
+            <End Role="Enterprise" EntitySet="Enterprises" />
+            <End Role="RecruitmentNews" EntitySet="RecruitmentNews" />
           </AssociationSet>
           <AssociationSet Name="FK__QuanTriVi__TenTa__38996AB5" Association="Self.FK__QuanTriVi__TenTa__38996AB5">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
@@ -619,13 +619,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DoanhNghieps">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.DoanhNghiep">
-              <MappingFragment StoreEntitySet="DoanhNghiep">
-                <ScalarProperty Name="IDCongTy" ColumnName="IDCongTy" />
-                <ScalarProperty Name="TenCongTy" ColumnName="TenCongTy" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <EntitySetMapping Name="Enterprises">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Enterprise">
+              <MappingFragment StoreEntitySet="Enterprise">
+                <ScalarProperty Name="IDEnterprise" ColumnName="IDEnterprise" />
+                <ScalarProperty Name="EnterpriseName" ColumnName="EnterpriseName" />
+                <ScalarProperty Name="EnterpriseAddress" ColumnName="EnterpriseAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="meta" ColumnName="meta" />
@@ -662,6 +662,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="IDNews" ColumnName="IDNews" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImgNews" ColumnName="ImgNews" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="QuanTriViens">
             <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.QuanTriVien">
               <MappingFragment StoreEntitySet="QuanTriVien">
@@ -670,6 +684,21 @@
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecruitmentNews">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.RecruitmentNew">
+              <MappingFragment StoreEntitySet="RecruitmentNews">
+                <ScalarProperty Name="IDRecruitmentNews" ColumnName="IDRecruitmentNews" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImgNews" ColumnName="ImgNews" />
+                <ScalarProperty Name="IDEnterprise" ColumnName="IDEnterprise" />
                 <ScalarProperty Name="meta" ColumnName="meta" />
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
@@ -698,35 +727,6 @@
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="IDNguoiGui" ColumnName="IDNguoiGui" />
                 <ScalarProperty Name="IDNguoiNhan" ColumnName="IDNguoiNhan" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TinTucs">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TinTuc">
-              <MappingFragment StoreEntitySet="TinTuc">
-                <ScalarProperty Name="IDTinTuc" ColumnName="IDTinTuc" />
-                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TinTuyenDungs">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TinTuyenDung">
-              <MappingFragment StoreEntitySet="TinTuyenDung">
-                <ScalarProperty Name="IDTinTuyenDung" ColumnName="IDTinTuyenDung" />
-                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="IDCongTy" ColumnName="IDCongTy" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="meta" ColumnName="meta" />
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
