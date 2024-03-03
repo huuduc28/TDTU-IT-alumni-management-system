@@ -18,8 +18,6 @@ namespace TDTU_IT_alumni_management_system.Models
         public TaiKhoan()
         {
             this.ChatBots = new HashSet<ChatBot>();
-            this.CuuHSSVs = new HashSet<CuuHSSV>();
-            this.QuanTriViens = new HashSet<QuanTriVien>();
         }
     
         public string TenTaiKhoan { get; set; }
@@ -32,9 +30,5 @@ namespace TDTU_IT_alumni_management_system.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatBot> ChatBots { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CuuHSSV> CuuHSSVs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuanTriVien> QuanTriViens { get; set; }
     }
 }

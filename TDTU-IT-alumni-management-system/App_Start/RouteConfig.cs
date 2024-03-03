@@ -25,7 +25,6 @@ namespace TDTU_IT_alumni_management_system
                defaults: new { controller = "Enterprises", action = "Index" },
            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
-
             routes.MapRoute("New", "{type}/{meta}/{id}",
               new { Controller = "New", action = "GetNewsDetal", id = UrlParameter.Optional },
               new RouteValueDictionary
@@ -33,10 +32,20 @@ namespace TDTU_IT_alumni_management_system
                     {"type","tin-tuc" }
               },
             namespaces: new[] {"TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute("Nofity", "{type}/{meta}/{id}",
+              new { Controller = "Notify", action = "GetNofityDetal", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","thong-bao" }
+              },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" }
             );
           
         }

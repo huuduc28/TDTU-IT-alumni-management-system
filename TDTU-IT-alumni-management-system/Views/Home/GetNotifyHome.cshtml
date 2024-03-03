@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Notify>
+
+@foreach (var i in Model)
+{
+    <div class="item-thong-bao wow fadeInUp" data-wow-delay="0.3s" onclick="window.location.href='/@ViewBag.meta/@i.meta/@i.IDNotify'">
+        <div>
+            <a id="text-thongbao">
+                @i.Title
+            </a>
+        </div>
+        <div class="mt-1">
+            <a id="ngay-thang-tb">@i.datebegin.Value.ToString("dd/MM/yyyy")</a>
+        </div>
+    </div>
+}
+
