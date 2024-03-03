@@ -1,0 +1,195 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Notify>
+
+@{
+    ViewBag.Title = "GetNofity";
+    Layout = "~/Views/Shared/Mylayout.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+    }
+
+    .search-column {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-thong-bao {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: calc(106vh - 170px);
+        overflow-y: auto;
+    }
+
+    .thong-bao {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 10px; /* Reduced padding */
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .tieu-de h2 {
+        font-size: 16px; /* Reduced font size */
+        margin: 0;
+        color: #007bff;
+    }
+
+    .noi-dung {
+        color: #6c757d;
+        font-size: 14px; /* Reduced font size */
+    }
+
+        .noi-dung p {
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .noi-dung a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+    .nguon-goc {
+        font-size: 12px;
+        margin-top: 10px; /* Reduced margin */
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+
+    /* Added spacing between columns */
+    .col-gap {
+        margin-top: 20px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-gap">
+                <!-- Added spacing -->
+                <div class="search-column">
+                    <h2>Tìm kiếm thông báo</h2>
+                    <form action="#">
+                        <div class="mb-3">
+                            <label for="searchByName" class="form-label">Tìm kiếm theo tên thông báo</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchByName" placeholder="Nhập từ khóa">
+                                <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="searchByContent" class="form-label">Tìm kiếm trong nội dung thông báo</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchByContent" placeholder="Nhập từ khóa">
+                                <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="department" class="form-label">Chọn Khoa/Phòng</label>
+                                <select class="form-select" id="department">
+                                    <option value="">Chọn Khoa/Phòng</option>
+                                    <option value="1">Khoa CNTT</option>
+                                    <option value="2">Khoa Kinh tế</option>
+                                    <option value="3">Khoa Ngoại ngữ</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label">Chọn thể loại</label>
+                                <select class="form-select" id="category">
+                                    <option value="">Chọn thể loại</option>
+                                    <option value="1">Thông báo chung</option>
+                                    <option value="2">Thông báo học tập</option>
+                                    <option value="3">Thông báo sinh hoạt</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fromDate" class="form-label">Từ ngày</label>
+                                <input type="date" class="form-control" id="fromDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="toDate" class="form-label">Đến ngày</label>
+                                <input type="date" class="form-control" id="toDate">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox1">
+                                <label class="form-check-label" for="checkbox1">Chưa xem</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox2">
+                                <label class="form-check-label" for="checkbox2">Đã xem</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-8 col-gap">
+                <!-- Added spacing -->
+                <main>
+                    <div class="list-thong-bao">
+                        @foreach (var i in Model)
+                        {
+                            <div class="thong-bao">
+                                <div class="tieu-de">
+                                    <h2>@i.Title</h2>
+                                </div>
+                                <div class="noi-dung">
+                                    <p>
+                                        @{
+                                            // Tìm vị trí của dấu chấm đầu tiên
+                                            int dotIndex = i.Content.IndexOf('.');
+                                            // Tìm vị trí của khoảng trắng gần nhất sau 250 ký tự
+                                            int spaceIndex = i.Content.IndexOf(' ', 250);
+
+                                            // Kiểm tra xem có dấu chấm và khoảng trắng nào gần hơn không
+                                            int index = dotIndex != -1 && dotIndex <= spaceIndex ? dotIndex : spaceIndex;
+
+                                            // Cắt chuỗi từ đầu đến vị trí index hoặc lấy toàn bộ chuỗi nếu không có index
+                                            string partialContent = index != -1 ? i.Content.Substring(0, index) : i.Content;
+                                            @partialContent
+                                        }
+                                    </p>
+                                    <a href="#">Chi tiết thông báo</a>
+                                    <p class="nguon-goc">Phòng Đại học | Ngày đăng  @i.datebegin.Value.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="phan-trang">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Trang trước</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">...</a></li>
+                                <li class="page-item"><a class="page-link" href="#">10</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Trang sau</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>

@@ -85,7 +85,7 @@ VALUES
 
 -- dữ liệu Menu
 INSERT INTO Menu
-	(IDMenu, TieuDe ,ParentID,HasChild, meta, hide, [order], datebegin)
+	(IDMenu, Title ,ParentID,HasChild, meta, hide, [order], datebegin)
 VALUES
 	('01', N'Trang chủ',Null,0, '/', 1, 1, GETDATE()),
 	('02', N'Sinh viên',Null,0, 'cuu-sinh-vien', 1, 2, GETDATE()), 
@@ -130,7 +130,6 @@ Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gi
 Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
 các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','New.jpg', 'tin-hom-nay', 1, 1, GETDATE());
 
-select * from Notify
 
 INSERT INTO Notify
 	(IDNotify, Title ,Content,IDSender,IDReceiver, meta, hide, [order], datebegin)

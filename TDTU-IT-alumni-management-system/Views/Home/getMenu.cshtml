@@ -5,11 +5,11 @@
         {
             if (i.ParentID == null && i.HasChild == false)
             {
-                <a href="@i.meta" class="nav-item nav-link" id="nav-home">@i.TieuDe</a>
+                <a href="@i.meta" class="nav-item nav-link" id="nav-home">@i.Title</a>
             }
             else
             { <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown">@i.TieuDe</a>
+                    <a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown">@i.Title</a>
                     @Html.Action("getChildMenu", "Home", new { parentID = i.IDMenu })
                 </div>
             }

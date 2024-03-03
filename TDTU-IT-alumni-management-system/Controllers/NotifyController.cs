@@ -27,5 +27,13 @@ namespace TDTU_IT_alumni_management_system.Controllers
                      select t).Take(10);
             return PartialView(v.ToList());
         }
+        public ActionResult GetNofity()
+        {
+            var v = (from t in _db.Notifies
+                     where t.hide == true
+                     orderby t.datebegin descending
+                     select t).Take(10);
+            return PartialView(v.ToList());
+        }
     }
 }

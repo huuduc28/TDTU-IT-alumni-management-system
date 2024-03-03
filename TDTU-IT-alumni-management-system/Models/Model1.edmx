@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="IDAdmin" />
@@ -103,7 +103,7 @@
             <PropertyRef Name="IDMenu" />
           </Key>
           <Property Name="IDMenu" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ParentID" Type="nvarchar" MaxLength="15" />
           <Property Name="HasChild" Type="bit" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -209,8 +209,7 @@
             <End Role="RecruitmentNews" EntitySet="RecruitmentNews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TDTUAlumnisManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -314,13 +313,13 @@
             <PropertyRef Name="IDMenu" />
           </Key>
           <Property Name="IDMenu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="HasChild" Type="Boolean" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -530,8 +529,8 @@
           <EntitySetMapping Name="Menus">
             <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Menu">
               <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IDMenu" ColumnName="IDMenu" />
-                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="HasChild" ColumnName="HasChild" />
                 <ScalarProperty Name="meta" ColumnName="meta" />

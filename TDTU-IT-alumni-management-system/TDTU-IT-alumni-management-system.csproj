@@ -462,6 +462,7 @@
     <Content Include="Views\New\GetNewsList.cshtml" />
     <Content Include="Views\Home\GetNotifyHome.cshtml" />
     <Content Include="Views\Notify\GetNofityDetal.cshtml" />
+    <Content Include="Views\Notify\GetNofity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

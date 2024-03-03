@@ -1,15 +1,15 @@
 ﻿USE [master]
 GO
 /****** Object:  Database [TDTUAlumnisManagementSystem]    Script Date: 22/2/2024 6:23:33 PM ******/
-CREATE DATABASE [TDTUAlumnis]
+CREATE DATABASE [TDTUAlumnisManagementSystem]
 
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
-EXEC [TDTUAlumnis].[dbo].[sp_fulltext_database] @action = 'enable'
+EXEC [TDTUAlumnisManagementSystem].[dbo].[sp_fulltext_database] @action = 'enable'
 end
 GO
-USE [TDTUAlumnis]
+USE [TDTUAlumnisManagementSystem]
 GO
 /****** Object:  Table [dbo].[TaiKhoan]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
@@ -176,11 +176,10 @@ CREATE TABLE [dbo].[Header](
 ) ON [PRIMARY]
 GO
 
-
 --bảng menu
 CREATE TABLE [dbo].[Menu](
     [IDMenu] [nvarchar](15) NOT NULL,
-    [TieuDe] [nvarchar](100) NOT NULL,
+    [Title] [nvarchar](100) NOT NULL,
     [ParentID] [nvarchar](15) NULL DEFAULT NULL, -- Đặt giá trị mặc định là NULL	
 	[HasChild] [bit] NULL,
     [meta] [nvarchar](50) NULL,
