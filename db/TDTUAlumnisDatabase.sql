@@ -136,8 +136,8 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Notification](
-	[IDNotification] [nvarchar](15) NOT NULL,
+CREATE TABLE [dbo].[Notify](
+	[IDNotify] [nvarchar](15) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[IDSender] [nvarchar](15) NULL,
@@ -148,15 +148,16 @@ CREATE TABLE [dbo].[Notification](
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDNotification] ASC
+	[IDnotify] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
+
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
 REFERENCES [dbo].[IDAdmin] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
 REFERENCES [dbo].[Alumni] ([IDHSSV])
 GO
 --Bảng Header

@@ -12,19 +12,16 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ThongBao
+    public partial class Notify
     {
-        public string IDThongBao { get; set; }
-        public string TieuDe { get; set; }
-        public string NoiDung { get; set; }
-        public string IDNguoiGui { get; set; }
-        public string IDNguoiNhan { get; set; }
+        public string IDNotify { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string IDSender { get; set; }
+        public string IDReceiver { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
-    
-        public virtual CuuHSSV CuuHSSV { get; set; }
-        public virtual QuanTriVien QuanTriVien { get; set; }
     }
 }
