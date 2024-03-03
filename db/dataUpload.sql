@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-use TDTUAlumnis
+use TDTUAlumnisManagrmentSystem
 GO
 
 INSERT INTO Users

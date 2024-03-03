@@ -1,15 +1,15 @@
 ﻿USE [master]
 GO
 /****** Object:  Database [TDTUAlumnisManagementSystem]    Script Date: 22/2/2024 6:23:33 PM ******/
-CREATE DATABASE [TDTUAlumnis]
+CREATE DATABASE [TDTUAlumnisManagrmentSystem]
 
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
-EXEC [TDTUAlumnis].[dbo].[sp_fulltext_database] @action = 'enable'
+EXEC [TDTUAlumnisManagrmentSystem].[dbo].[sp_fulltext_database] @action = 'enable'
 end
 GO
-USE [TDTUAlumnis]
+USE [TDTUAlumnisManagrmentSystem]
 GO
 /****** Object:  Table [dbo].[TaiKhoan]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON

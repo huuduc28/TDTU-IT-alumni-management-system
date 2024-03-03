@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-use TDTUAlumnis
+use TDTUAlumnisManagrmentSystem
 GO
 
 -- Tạo trigger cho bảng ChatBot
