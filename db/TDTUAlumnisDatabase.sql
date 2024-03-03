@@ -1,15 +1,34 @@
 ﻿USE [master]
 GO
 /****** Object:  Database [TDTUAlumnisManagementSystem]    Script Date: 22/2/2024 6:23:33 PM ******/
-CREATE DATABASE [TDTUAlumnisManagementSystem]
+CREATE DATABASE [TDTUAlumnis]
 
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
-EXEC [TDTUAlumnisManagementSystem].[dbo].[sp_fulltext_database] @action = 'enable'
+EXEC [TDTUAlumnis].[dbo].[sp_fulltext_database] @action = 'enable'
 end
 GO
-USE [TDTUAlumnisManagementSystem]
+USE [TDTUAlumnis]
+GO
+/****** Object:  Table [dbo].[TaiKhoan]    Script Date: 22/2/2024 6:23:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[UsersName] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+	[Roles] [nvarchar](50) NOT NULL,
+	[meta] [nvarchar](50) NULL,
+	[hide] [bit] NULL,
+	[order] [int] NULL,
+	[datebegin] [smalldatetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UsersName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[ChatBot]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
@@ -18,9 +37,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ChatBot](
 	[IDBot] [nvarchar](15) NOT NULL,
-	[NoiDungNguoiDung] [nvarchar](max) NOT NULL,
-	[NoiDungPhanHoi] [nvarchar](max) NOT NULL,
-	[TenTaiKhoan] [nvarchar](50) NULL,
+	[Prompt] [nvarchar](max) NOT NULL,
+	[Result] [nvarchar](max) NOT NULL,
+	[UsersName] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
@@ -69,16 +88,15 @@ CREATE TABLE [dbo].[Alumni](
 	[Gender] [nvarchar](10) NOT NULL,
 	[Nationality] [nvarchar](50) NOT NULL,
 	[HomeTown] [nvarchar](50) NOT NULL,
-	[PersonalWebsite] [nvarchar](50) NOT NULL,
+	[PersonalWebsite] [nvarchar](50) NULL,
 	[GraduationType] [nvarchar](50) NOT NULL,
 	[Majors] [nvarchar](50) NOT NULL,
 	[GraduationYear] [int] NOT NULL,
 	[CurrentCompany] [nvarchar](50) NOT NULL,
 	[AcademicLevel] [nvarchar](50) NOT NULL,
 	[TimeToCompletionOfThesisDefense] [date] NOT NULL,
-	[TenTaiKhoan] [nvarchar](50) NULL,
+	[UsersName] [nvarchar](50) NULL,
 	[jobBeginDate] [date] NOT NULL,
-	[workplace] [nvarchar](50) NOT NULL,
 	[skill] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
@@ -101,7 +119,7 @@ CREATE TABLE [dbo].[Admin](
 	[Name] [nvarchar](50) NOT NULL,
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
-	[TenTaiKhoan] [nvarchar](50) NULL,
+	[UsersName] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
@@ -112,25 +130,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaiKhoan]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[TaiKhoan](
-	[TenTaiKhoan] [nvarchar](50) NOT NULL,
-	[MatKhau] [nvarchar](50) NOT NULL,
-	[PhanQuyen] [nvarchar](50) NOT NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [int] NULL,
-	[datebegin] [smalldatetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[TenTaiKhoan] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+
 /****** Object:  Table [dbo].[ThongBao]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -153,12 +153,6 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
-REFERENCES [dbo].[IDAdmin] ([IDAdmin])
-GO
-ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
-REFERENCES [dbo].[Alumni] ([IDHSSV])
-GO
 --Bảng Header
 CREATE TABLE [dbo].[Header](
 	[IDHeader] [nvarchar](15) NOT NULL,
@@ -264,21 +258,21 @@ GO
 
 
 --Khóa ngoại
-ALTER TABLE [dbo].[ChatBot]  WITH CHECK ADD FOREIGN KEY([TenTaiKhoan])
-REFERENCES [dbo].[TaiKhoan] ([TenTaiKhoan])
+ALTER TABLE [dbo].[ChatBot]  WITH CHECK ADD FOREIGN KEY([UsersName])
+REFERENCES [dbo].[Users] ([UsersName])
 GO
-ALTER TABLE [dbo].[CuuHSSV]  WITH CHECK ADD FOREIGN KEY([TenTaiKhoan])
-REFERENCES [dbo].[TaiKhoan] ([TenTaiKhoan])
+ALTER TABLE [dbo].[Alumni]  WITH CHECK ADD FOREIGN KEY([UsersName])
+REFERENCES [dbo].[Users] ([UsersName])
 GO
-ALTER TABLE [dbo].[QuanTriVien]  WITH CHECK ADD FOREIGN KEY([TenTaiKhoan])
-REFERENCES [dbo].[TaiKhoan] ([TenTaiKhoan])
+ALTER TABLE [dbo].[Admin]  WITH CHECK ADD FOREIGN KEY([UsersName])
+REFERENCES [dbo].[Users] ([UsersName])
 GO
 
-ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDNguoiGui])
-REFERENCES [dbo].[QuanTriVien] ([IDAdmin])
+ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
+REFERENCES [dbo].[Admin] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[ThongBao]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
-REFERENCES [dbo].[CuuHSSV] ([IDHSSV])
+ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
@@ -287,7 +281,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 -- Thủ tục kiểm tra quyền truy cập
-CREATE PROCEDURE [dbo].[CheckAccessRights] 
+/*CREATE PROCEDURE [dbo].[CheckAccessRights] 
     @Username NVARCHAR(50),
     @TableName NVARCHAR(50),
     @AccessGranted BIT OUTPUT
@@ -295,9 +289,9 @@ AS
 BEGIN
     DECLARE @UserRole NVARCHAR(50);
     
-    SELECT @UserRole = PhanQuyen
-    FROM TaiKhoan
-    WHERE TenTaiKhoan = @Username;
+    SELECT @UserRole = Roles
+    FROM Users
+    WHERE UserName = @Username;
     
     IF (@UserRole = @TableName)
     BEGIN
@@ -307,6 +301,6 @@ BEGIN
     BEGIN
         SET @AccessGranted = 0; -- Access denied
     END
-END
+END*/
 
 

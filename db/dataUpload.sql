@@ -1,10 +1,10 @@
 ﻿USE [master]
 GO
-use TDTUAlumnisManagementSystem
+use TDTUAlumnis
 GO
 
-INSERT INTO TaiKhoan
-	(TenTaiKhoan, MatKhau, PhanQuyen)
+INSERT INTO Users
+	(UsersName, Password, Roles)
 VALUES
 	-- Dữ liệu cho admin
 	('admin1', 'adminpass1', 'Admin'),
@@ -31,8 +31,8 @@ VALUES
 	('user10', 'password10', 'User');
 
 -- Thêm dữ liệu vào bảng QuanTriVien
-INSERT INTO QuanTriVien
-	(IDAdmin, Ten, SoDienThoai, Email, TenTaiKhoan)
+INSERT INTO Admin
+	(IDAdmin, Name, Phone, Email, UsersName)
 VALUES
 	('admin001',N'John Doe', '0123456789', 'john.doe@example.com', 'admin1'),
 	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'admin2'),
@@ -46,23 +46,23 @@ VALUES
 	('admin010',N'Alexander Taylor', '0987654321', 'alexander.taylor@example.com', 'admin10');
 
 -- Thêm dữ liệu vào bảng CuuHSSV
-INSERT INTO CuuHSSV
-	(IDHSSV, Ten, Email, SoDienThoai, NgaySinh, GioiTinh, QuocTich, QueQuan, CaNhan, XepLoaiTotNghiep, NganhHoc, NamTotNghiep, CongTyHienTai, HocVanCaoHoc, ThoiGianHoanThanhBaoVeLuanAn, TenTaiKhoan, jobBeginDate, workplace, skill)
+INSERT INTO Alumni
+	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, Majors, GraduationYear, CurrentCompany, AcademicLevel, TimeToCompletionOfThesisDefense, UsersName, jobBeginDate, skill)
 VALUES
-	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2012, 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'FPT SOFT', 'Java, Python'),
-	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Khá', N'Kinh Tế', 2014, 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01', 'TECHCOMPANY', 'Java, Python'),
-	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2013, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01', 'FPT SOFT', 'Java, Python'),
-	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2015, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
-	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2014, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01', 'FPT SOFT', 'Java, Python'),
-	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2016, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
-	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2015, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01', 'FPT SOFT', 'Java, Python'),
-	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2017, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01', 'TECHCOMPANY', 'Java, Python'),
-	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'Độc thân', N'Giỏi', N'Khoa Học Máy Tính', 2016, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01', 'FPT SOFT', 'Java, Python'),
-	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'Độc thân', N'Khá', N'Kinh Tế', 2018, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'SHOPEE', 'Java, Python');
+	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', N'Khoa Học Máy Tính', 2012, 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'Java, Python'),
+	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', N'Kinh Tế', 2014, 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01',  'Java, Python'),
+	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', N'Khoa Học Máy Tính', 2013, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01',  'Java, Python'),
+	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', N'Kinh Tế', 2015, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01',  'Java, Python'),
+	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', N'Khoa Học Máy Tính', 2014, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01',  'Java, Python'),
+	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', N'Kinh Tế', 2016, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python'),
+	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', N'Khoa Học Máy Tính', 2015, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python'),
+	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', N'Kinh Tế', 2017, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python'),
+	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', N'Khoa Học Máy Tính', 2016, 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python'),
+	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', N'Kinh Tế', 2018, 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python');
 
 -- Thêm dữ liệu vào bảng CongTyDoanhNghiep
-INSERT INTO CongTyDoanhNghiep
-	(IDCongTy, TenCongTy, DiaChi, SoDienThoai, Email)
+INSERT INTO Enterprise
+	(IDEnterprise, EnterpriseName, EnterpriseAddress, Phone, Email)
 VALUES
 	('enterprise001', N'ABC Company', N'123 Main Street, City, Country', '0123456789', 'info@abccompany.com'),
 	('enterprise002', N'XYZ Corporation', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp.com'),

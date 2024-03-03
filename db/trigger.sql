@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-use TDTUAlumnisManagementSystem
+use TDTUAlumnis
 GO
 
 -- Tạo trigger cho bảng ChatBot
@@ -18,8 +18,7 @@ BEGIN
     
 	UPDATE dbo.ChatBot
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
     WHERE dbo.ChatBot.IDBot = inserted.IDBot;
 
@@ -37,162 +36,157 @@ END;
 GO
 
 -- Tạo trigger cho bảng CongTyDoanhNghiep
-CREATE TRIGGER trg_CongTyDoanhNghiep_AfterInsert
-ON dbo.CongTyDoanhNghiep
+CREATE TRIGGER trg_Enterprise_AfterInsert
+ON dbo.Enterprise
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.CongTyDoanhNghiep;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Enterprise;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.CongTyDoanhNghiep
+    UPDATE dbo.Enterprise
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.CongTyDoanhNghiep.IDCongTy = inserted.IDCongTy;
+    WHERE dbo.Enterprise.IDEnterprise = inserted.IDEnterprise;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
-        SELECT IDCongTy, ROW_NUMBER() OVER (ORDER BY IDCongTy) AS NewOrder
-        FROM dbo.CongTyDoanhNghiep
-        WHERE IDCongTy IN (SELECT IDCongTy FROM inserted)
+        SELECT IDEnterprise, ROW_NUMBER() OVER (ORDER BY IDEnterprise) AS NewOrder
+        FROM dbo.Enterprise
+        WHERE IDEnterprise IN (SELECT IDEnterprise FROM inserted)
     )
-    UPDATE dbo.CongTyDoanhNghiep
+    UPDATE dbo.Enterprise
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.CongTyDoanhNghiep.IDCongTy = UpdatedRows.IDCongTy;
+    WHERE dbo.Enterprise.IDEnterprise = UpdatedRows.IDEnterprise;
 END;
 GO
 
 -- Tạo trigger cho bảng CuuHSSV
-CREATE TRIGGER trg_CuuHSSV_AfterInsert
-ON dbo.CuuHSSV
+CREATE TRIGGER trg_Alumni_AfterInsert
+ON dbo.Alumni
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.CuuHSSV;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Alumni;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.CuuHSSV
+    UPDATE dbo.Alumni
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.CuuHSSV.IDHSSV = inserted.IDHSSV;
+    WHERE dbo.Alumni.IDAlumni = inserted.IDAlumni;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
-        SELECT IDHSSV, ROW_NUMBER() OVER (ORDER BY IDHSSV) AS NewOrder
-        FROM dbo.CuuHSSV
-        WHERE IDHSSV IN (SELECT IDHSSV FROM inserted)
+        SELECT IDAlumni, ROW_NUMBER() OVER (ORDER BY IDAlumni) AS NewOrder
+        FROM dbo.Alumni
+        WHERE IDAlumni IN (SELECT IDAlumni FROM inserted)
     )
-    UPDATE dbo.CuuHSSV
+    UPDATE dbo.Alumni
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.CuuHSSV.IDHSSV = UpdatedRows.IDHSSV;
+    WHERE dbo.Alumni.IDAlumni = UpdatedRows.IDAlumni;
 END;
 GO
 
--- Tạo trigger cho bảng QuanTriVien
-CREATE TRIGGER trg_QuanTriVien_AfterInsert
-ON dbo.QuanTriVien
+-- Tạo trigger cho bảng Admin
+CREATE TRIGGER trg_Admin_AfterInsert
+ON dbo.Admin
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.QuanTriVien;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Admin;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.QuanTriVien
+    UPDATE dbo.Admin
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.QuanTriVien.IDAdmin = inserted.IDAdmin;
+    WHERE dbo.Admin.IDAdmin = inserted.IDAdmin;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
         SELECT IDAdmin, ROW_NUMBER() OVER (ORDER BY IDAdmin) AS NewOrder
-        FROM dbo.QuanTriVien
+        FROM dbo.Admin
         WHERE IDAdmin IN (SELECT IDAdmin FROM inserted)
     )
-    UPDATE dbo.QuanTriVien
+    UPDATE dbo.Admin
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.QuanTriVien.IDAdmin = UpdatedRows.IDAdmin;
+    WHERE dbo.Admin.IDAdmin = UpdatedRows.IDAdmin;
 END;
 GO
 
 -- Tạo trigger cho bảng TaiKhoan
 CREATE TRIGGER trg_TaiKhoan_AfterInsert
-ON dbo.TaiKhoan
+ON dbo.Users
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.TaiKhoan;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Users;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.TaiKhoan
+    UPDATE dbo.Users
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.TaiKhoan.TenTaiKhoan = inserted.TenTaiKhoan;
+    WHERE dbo.Users.UsersName = inserted.UsersName;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
-        SELECT TenTaiKhoan, ROW_NUMBER() OVER (ORDER BY TenTaiKhoan) AS NewOrder
-        FROM dbo.TaiKhoan
-        WHERE TenTaiKhoan IN (SELECT TenTaiKhoan FROM inserted)
+        SELECT UsersName, ROW_NUMBER() OVER (ORDER BY UsersName) AS NewOrder
+        FROM dbo.Users
+        WHERE UsersName IN (SELECT UsersName FROM inserted)
     )
-    UPDATE dbo.TaiKhoan
+    UPDATE dbo.Users
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.TaiKhoan.TenTaiKhoan = UpdatedRows.TenTaiKhoan;
+    WHERE dbo.Users.UsersName = UpdatedRows.UsersName;
 END;
 GO
 
--- Tạo trigger cho bảng ThongBao
-CREATE TRIGGER trg_ThongBao_AfterInsert
-ON dbo.ThongBao
+-- Tạo trigger cho bảng Notification
+CREATE TRIGGER trg_Notification_AfterInsert
+ON dbo.Notification
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.ThongBao;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Notification;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.ThongBao
+    UPDATE dbo.Notification
     SET hide = 1, 
-        datebegin = GETDATE(),
-        meta = NULL
+        datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.ThongBao.IDThongBao = inserted.IDThongBao;
+    WHERE dbo.Notification.IDNotification = inserted.IDNotification;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
-        SELECT IDThongBao, ROW_NUMBER() OVER (ORDER BY IDThongBao) AS NewOrder
-        FROM dbo.ThongBao
-        WHERE IDThongBao IN (SELECT IDThongBao FROM inserted)
+        SELECT IDNotification, ROW_NUMBER() OVER (ORDER BY IDNotification) AS NewOrder
+        FROM dbo.Notification
+        WHERE IDNotification IN (SELECT IDNotification FROM inserted)
     )
-    UPDATE dbo.ThongBao
+    UPDATE dbo.Notification
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.ThongBao.IDThongBao = UpdatedRows.IDThongBao;
+    WHERE dbo.Notification.IDNotification = UpdatedRows.IDNotification;
 END;
 GO
 
