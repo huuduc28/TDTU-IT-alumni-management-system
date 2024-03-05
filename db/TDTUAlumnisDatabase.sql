@@ -154,12 +154,6 @@ PRIMARY KEY CLUSTERED
 GO
 
 
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
-REFERENCES [dbo].[IDAdmin] ([IDAdmin])
-GO
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
-REFERENCES [dbo].[Alumni] ([IDHSSV])
-GO
 --Bảng Header
 CREATE TABLE [dbo].[Header](
 	[IDHeader] [nvarchar](15) NOT NULL,
@@ -274,10 +268,10 @@ ALTER TABLE [dbo].[Admin]  WITH CHECK ADD FOREIGN KEY([UsersName])
 REFERENCES [dbo].[Users] ([UsersName])
 GO
 
-ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
 REFERENCES [dbo].[Admin] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
 REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/

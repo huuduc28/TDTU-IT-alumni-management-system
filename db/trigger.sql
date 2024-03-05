@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-use TDTUAlumnisManagrmentSystem
+use TDTUAlumnisManagementSystem
 GO
 
 -- Tạo trigger cho bảng ChatBot
@@ -159,34 +159,34 @@ BEGIN
 END;
 GO
 
--- Tạo trigger cho bảng Notification
-CREATE TRIGGER trg_Notification_AfterInsert
-ON dbo.Notification
+-- Tạo trigger cho bảng Notify
+CREATE TRIGGER trg_Notify_AfterInsert
+ON dbo.Notify
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Notification;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Notify;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.Notification
+    UPDATE dbo.Notify
     SET hide = 1, 
         datebegin = GETDATE()
     FROM inserted
-    WHERE dbo.Notification.IDNotification = inserted.IDNotification;
+    WHERE dbo.Notify.IDNotify = inserted.IDNotify;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
-        SELECT IDNotification, ROW_NUMBER() OVER (ORDER BY IDNotification) AS NewOrder
-        FROM dbo.Notification
-        WHERE IDNotification IN (SELECT IDNotification FROM inserted)
+        SELECT IDNotify, ROW_NUMBER() OVER (ORDER BY IDNotify) AS NewOrder
+        FROM dbo.Notify
+        WHERE IDNotify IN (SELECT IDNotify FROM inserted)
     )
-    UPDATE dbo.Notification
+    UPDATE dbo.Notify
     SET [order] = @MaxOrder + NewOrder
     FROM UpdatedRows
-    WHERE dbo.Notification.IDNotification = UpdatedRows.IDNotification;
+    WHERE dbo.Notify.IDNotify = UpdatedRows.IDNotify;
 END;
 GO
 
