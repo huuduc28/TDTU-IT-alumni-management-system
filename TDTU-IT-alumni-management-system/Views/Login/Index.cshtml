@@ -46,16 +46,9 @@
                             <label for="password" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
                         </div>
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Vai trò</label>
-                            <select class="form-select" id="role">
-                                <option selected>Chọn vai trò...</option>
-                                <option value="admin">Quản trị viên</option>
-                                <option value="alumni">Cựu sinh viên</option>
-                            </select>
-                        </div>
+                        
                         <div class="d-flex justify-content-center">
-                            <button onclick="redirectToIndex()" type="button" class="btn btn-block btn-danger btn-login">Đăng nhập</button>
+                            <button type="submit" class="btn btn-block btn-danger btn-login">Đăng nhập</button>
                         </div>
 
                         <div class="text-center mt-3">
@@ -97,6 +90,41 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#loginForm").submit(function (event) {
+                event.preventDefault(); 
+
+                var username = $("#userID").val();
+                var password = $("#password").val();
+
+                
+                $.ajax({
+                    url: '/Login/Login', 
+                    type: 'POST',
+                    data: {
+                        Username: username,
+                        Password: password
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            
+                            window.location.href = '/Home/Index';
+                        } else {
+                            
+                            alert(response.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Lỗi khi gửi dữ liệu đăng nhập:", textStatus, errorThrown);
+                        alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         // Hàm để hiển thị form quên mật khẩu và ẩn form đăng nhập
         function showForgotPasswordForm() {
@@ -116,13 +144,7 @@
             forgotPasswordForm.style.display = 'none';
         }
     </script>
-    <script>
-        // Hàm JavaScript để chuyển hướng khi button được nhấn
-        function redirectToIndex() {
-            // Thay đổi window.location.href để chuyển hướng đến '/Home/Index'
-            window.location.href = '/Home/Index';
-        }
-    </script>
+
 
 
 </body>
