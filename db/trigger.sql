@@ -171,7 +171,7 @@ BEGIN
     SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Notify;
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.Notification
+    UPDATE dbo.Notify
     SET hide = 1, 
         datebegin = GETDATE()
     FROM inserted

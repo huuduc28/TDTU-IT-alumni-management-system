@@ -12,7 +12,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
     public class HeadersController : Controller
     {
-        private Model1 db = new Model1();
+        private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
         // GET: Admin/Headers
         public ActionResult Index()

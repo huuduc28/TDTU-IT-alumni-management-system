@@ -62,6 +62,7 @@ CREATE TABLE [dbo].[Enterprise](
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
 	[Website] [nvarchar](50) NULL,
+	[ImgLogo] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
@@ -72,6 +73,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 
 
 /****** Object:  Table [dbo].[CuuHSSV]    Script Date: 22/2/2024 6:23:33 PM ******/
@@ -154,6 +156,12 @@ PRIMARY KEY CLUSTERED
 GO
 
 
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
+REFERENCES [dbo].[IDAdmin] ([IDAdmin])
+GO
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+REFERENCES [dbo].[Alumni] ([IDHSSV])
+GO
 --Bảng Header
 CREATE TABLE [dbo].[Header](
 	[IDHeader] [nvarchar](15) NOT NULL,
@@ -234,11 +242,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[RecruitmentNews](
-	[IDRecruitmentNews] [nvarchar](15) NOT NULL,
+CREATE TABLE [dbo].[RecruitmentNew](
+	[IDRecruitmentNew] [nvarchar](15) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
-	[ImgNews] [nvarchar](100) NOT NULL,
 	[IDEnterprise] [nvarchar](15) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
@@ -246,13 +253,12 @@ CREATE TABLE [dbo].[RecruitmentNews](
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDRecruitmentNews] ASC
+	[IDRecruitmentNew] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-
-ALTER TABLE [dbo].[RecruitmentNews]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
+ALTER TABLE [dbo].[RecruitmentNew]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
 REFERENCES [dbo].[Enterprise] ([IDEnterprise])
 GO
 
@@ -268,10 +274,10 @@ ALTER TABLE [dbo].[Admin]  WITH CHECK ADD FOREIGN KEY([UsersName])
 REFERENCES [dbo].[Users] ([UsersName])
 GO
 
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
+ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDSender])
 REFERENCES [dbo].[Admin] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+ALTER TABLE [dbo].[Notification]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
 REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
