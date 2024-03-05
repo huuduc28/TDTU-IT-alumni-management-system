@@ -12,7 +12,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
     public class NewsController : Controller
     {
-        private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
+        private Model1 db = new Model1();
 
         // GET: Admin/News
         public ActionResult Index()

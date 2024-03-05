@@ -6,37 +6,27 @@ namespace TDTU_IT_alumni_management_system.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Enterprise")]
-    public partial class Enterprise
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Enterprise()
+        public User()
         {
-            RecruitmentNews = new HashSet<RecruitmentNew>();
+            Admins = new HashSet<Admin>();
+            Alumni = new HashSet<Alumnus>();
+            ChatBots = new HashSet<ChatBot>();
         }
 
         [Key]
-        [StringLength(15)]
-        public string IDEnterprise { get; set; }
+        [StringLength(50)]
+        public string UsersName { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string EnterpriseName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string EnterpriseAddress { get; set; }
-
-        [Required]
-        [StringLength(15)]
-        public string Phone { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string Email { get; set; }
-
-        [StringLength(50)]
-        public string Website { get; set; }
+        public string Roles { get; set; }
 
         [StringLength(50)]
         public string meta { get; set; }
@@ -49,6 +39,12 @@ namespace TDTU_IT_alumni_management_system.Models
         public DateTime? datebegin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecruitmentNew> RecruitmentNews { get; set; }
+        public virtual ICollection<Admin> Admins { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alumnus> Alumni { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatBot> ChatBots { get; set; }
     }
 }

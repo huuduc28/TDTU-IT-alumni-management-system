@@ -9,7 +9,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
 {
     public class HomeController : Controller
     {
-        TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
+        Model1 _db = new Model1();
         public ActionResult Index()
         {
             return View();

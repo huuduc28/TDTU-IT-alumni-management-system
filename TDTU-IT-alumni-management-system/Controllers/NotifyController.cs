@@ -9,7 +9,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
 {
     public class NotifyController : Controller
     {
-        TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
+        Model1 _db = new Model1();
         // GET: Notifications
         public ActionResult GetNofityDetal(string id)
         {
