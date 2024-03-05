@@ -66,6 +66,27 @@ namespace TDTU_IT_alumni_management_system.Controllers
                      select t).Take(12);
             return PartialView(v.ToList());
         }
+        public ActionResult GetRecruitmentNew(int count)
+        {
+            ViewBag.meta = "tin-tuyen-dung";
+            var v = (from t in _db.RecruitmentNews
+                     join c in _db.Enterprises on t.IDEnterprise equals c.IDEnterprise
+                     where t.hide == true
+                     orderby t.datebegin descending
+                     select new RecruitmentNewsViewModel
+                     {
+                         IDRecruitmentNew = t.IDRecruitmentNew,
+                         Title = t.Title,
+                         Content = t.Content,
+                         IDEnterprise = t.IDEnterprise,
+                         ImgLogo = c.ImgLogo,
+                         Meta = t.meta,
+                         Hide = (bool)t.hide,
+                         Order = (int)t.order,
+                         DateBegin = (DateTime)t.datebegin,
+                     }).Take(count);
+            return PartialView(v.ToList());
+        }
 
     }
 }

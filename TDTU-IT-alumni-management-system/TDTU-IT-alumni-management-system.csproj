@@ -309,7 +309,8 @@
     <Compile Include="Models\RecruitmentNew.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\RecruitmentNewsViewModel.cs" />
+    <Compile Include="Models\TaiKhoan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -463,6 +464,9 @@
     <Content Include="Views\Home\GetNotifyHome.cshtml" />
     <Content Include="Views\Notify\GetNofityDetal.cshtml" />
     <Content Include="Views\Notify\GetNofity.cshtml" />
+    <Content Include="Views\Home\GetRecruitmentNew.cshtml" />
+    <Content Include="Views\Enterprises\GetRecruitmentNewList.cshtml" />
+    <Content Include="Views\Enterprises\GetRecruitmentNewDetal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

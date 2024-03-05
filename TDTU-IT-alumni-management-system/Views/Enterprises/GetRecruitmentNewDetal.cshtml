@@ -1,0 +1,20 @@
+﻿@model TDTU_IT_alumni_management_system.Models.RecruitmentNew
+
+@{
+    ViewBag.Title = "GetRecruitmentNewDetal";
+    Layout = "~/Views/Shared/Mylayout.cshtml";
+}
+
+<body >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 news-detail">
+                <h1 class="mb-4">@Model.Title</h1>
+                <p class="text-muted"> @Model.datebegin.Value.ToString("MM/dd/yyyy h:mm tt")</p><hr>
+                <p>@Model.Content</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<link href="~/Content/css/news.css" rel="stylesheet">

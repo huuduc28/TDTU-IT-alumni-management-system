@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.RecruitmentNewsViewModel>
+
+<div class="row g-4">
+    @foreach (var i in Model)
+    {
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s"  onclick="window.location.href='/@ViewBag.meta/@i.Meta/@i.IDRecruitmentNew'">
+            <div class="cpn-item">
+                <div class="overflow-hidden" style="text-align: left;">
+                    <img class="img-fluid img-company p-1"
+                         src="~/Upload/images/Logo/@i.ImgLogo"
+                         alt="">
+                </div>
+                <div class="mt-2 p-1">
+                    <h5 class="mb-0">@i.Title</h5>
+                    <small class="pt-2">
+                        @{
+                            // Tách chuỗi thành các từ
+                            string[] words = i.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (words.Length > 45)
+                            {
+                                string partialContent = "";
+
+                                for (int j = 0; j < 45; j++)
+                                {
+                                    partialContent += words[j] + " ";
+                                }
+
+                                // Thêm dấu "..." vào cuối chuỗi
+                                partialContent += "...";
+
+                                // Hiển thị chuỗi mới
+                                @partialContent
+                            }
+                            else
+                            {
+                                // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
+                                @i.Content
+                            }
+                        }
+                    </small><br>
+                </div>
+                <div class="mt-1 p-1">
+                    <a id="ngay-thang-tb" style="margin-top: 5%;">Đăng ngày: @i.DateBegin.ToString("dd/MM/yyyy")</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<h6 class="bg-white bi-text-right text-primary md-5" onclick="location.href='/@ViewBag.meta'"
+    style="float: right;">
+    Xem thêm ->
+</h6>
+
