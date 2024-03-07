@@ -173,7 +173,8 @@ BEGIN
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
     UPDATE dbo.Notify
     SET hide = 1, 
-        datebegin = GETDATE()
+        datebegin = GETDATE(),
+		ReadStatus = 1
     FROM inserted
     WHERE dbo.Notify.IDNotify = inserted.IDNotify;
 
