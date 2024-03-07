@@ -46,7 +46,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDMenu,TieuDe,ParentID,HasChild,meta,hide,order,datebegin")] Menu menu)
+        public ActionResult Create([Bind(Include = "IDMenu,Title,ParentID,HasChild,meta,hide,order,datebegin")] Menu menu)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDMenu,TieuDe,ParentID,HasChild,meta,hide,order,datebegin")] Menu menu)
+        public ActionResult Edit([Bind(Include = "IDMenu,Title,ParentID,HasChild,meta,hide,order,datebegin")] Menu menu)
         {
             if (ModelState.IsValid)
             {
