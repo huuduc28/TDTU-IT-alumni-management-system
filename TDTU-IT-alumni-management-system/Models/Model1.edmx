@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="IDAdmin" />
@@ -92,7 +92,7 @@
             <PropertyRef Name="IDHeader" />
           </Key>
           <Property Name="IDHeader" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="TieuDe" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ImgLogo" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
@@ -225,8 +225,7 @@
             <End Role="RecruitmentNew" EntitySet="RecruitmentNew" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TDTUAlumnisManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -314,18 +313,6 @@
           <Property Name="datebegin" Type="DateTime" Precision="0" />
           <NavigationProperty Name="RecruitmentNews" Relationship="Self.FK__Recruitme__IDEnt__690797E6" FromRole="Enterprise" ToRole="RecruitmentNew" />
           <NavigationProperty Name="RecruitmentNews1" Relationship="Self.FK__Recruitme__IDEnt__6AEFE058" FromRole="Enterprise" ToRole="RecruitmentNew" />
-        </EntityType>
-        <EntityType Name="Header">
-          <Key>
-            <PropertyRef Name="IDHeader" />
-          </Key>
-          <Property Name="IDHeader" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TieuDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImgLogo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hide" Type="Boolean" />
-          <Property Name="order" Type="Int32" />
-          <Property Name="datebegin" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -437,7 +424,6 @@
           <EntitySet Name="Banners" EntityType="Self.Banner" />
           <EntitySet Name="ChatBots" EntityType="Self.ChatBot" />
           <EntitySet Name="Enterprises" EntityType="Self.Enterprise" />
-          <EntitySet Name="Headers" EntityType="Self.Header" />
           <EntitySet Name="Menus" EntityType="Self.Menu" />
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="Notifies" EntityType="Self.Notify" />
@@ -455,7 +441,20 @@
             <End Role="Enterprise" EntitySet="Enterprises" />
             <End Role="RecruitmentNew" EntitySet="RecruitmentNews" />
           </AssociationSet>
+          <EntitySet Name="Headers" EntityType="TDTUAlumnisManagementSystemModel.Header" />
         </EntityContainer>
+        <EntityType Name="Header">
+          <Key>
+            <PropertyRef Name="IDHeader" />
+          </Key>
+          <Property Name="IDHeader" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImgLogo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -549,19 +548,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Headers">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Header">
-              <MappingFragment StoreEntitySet="Header">
-                <ScalarProperty Name="IDHeader" ColumnName="IDHeader" />
-                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
-                <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Menus">
             <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Menu">
               <MappingFragment StoreEntitySet="Menu">
@@ -629,6 +615,19 @@
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Headers">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Header">
+              <MappingFragment StoreEntitySet="Header">
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IDHeader" ColumnName="IDHeader" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

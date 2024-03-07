@@ -8,109 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
 
-namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
+namespace TDTU_IT_alumni_management_system.Areas.Admin.Views
 {
-    public class HeadersController : Controller
+    public class NewsController : Controller
     {
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
-        // GET: Admin/Headers
+        // GET: Admin/News
         public ActionResult Index()
         {
-            return View(db.Headers.ToList());
+            return View(db.News.ToList());
         }
 
-        // GET: Admin/Headers/Details/5
+        // GET: Admin/News/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Header header = db.Headers.Find(id);
-            if (header == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(header);
+            return View(news);
         }
 
-        // GET: Admin/Headers/Create
+        // GET: Admin/News/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Headers/Create
+        // POST: Admin/News/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDHeader,Title,ImgLogo,meta,hide,order,datebegin")] Header header)
+        public ActionResult Create([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Headers.Add(header);
+                db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(header);
+            return View(news);
         }
 
-        // GET: Admin/Headers/Edit/5
+        // GET: Admin/News/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Header header = db.Headers.Find(id);
-            if (header == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(header);
+            return View(news);
         }
 
-        // POST: Admin/Headers/Edit/5
+        // POST: Admin/News/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDHeader,Title,ImgLogo,meta,hide,order,datebegin")] Header header)
+        public ActionResult Edit([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(header).State = EntityState.Modified;
+                db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(header);
+            return View(news);
         }
 
-        // GET: Admin/Headers/Delete/5
+        // GET: Admin/News/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Header header = db.Headers.Find(id);
-            if (header == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(header);
+            return View(news);
         }
 
-        // POST: Admin/Headers/Delete/5
+        // POST: Admin/News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Header header = db.Headers.Find(id);
-            db.Headers.Remove(header);
+            News news = db.News.Find(id);
+            db.News.Remove(news);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

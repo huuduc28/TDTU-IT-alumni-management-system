@@ -5,13 +5,10 @@
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<h2>Quản lý Banner</h2>
+<h2>Index</h2>
 
 <p>
-    <a href="@Url.Action("Create", "Banners")" class="btn btn-primary">
-        <span class="lnr lnr-pencil"></span>
-    </a>
-    @*@Html.ActionLink("Create New", "Create")*@
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -36,7 +33,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBaner)"  width="100px" height="50px"/>
+            @Html.DisplayFor(modelItem => item.ImgBaner)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.meta)

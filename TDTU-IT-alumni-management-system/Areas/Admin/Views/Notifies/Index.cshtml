@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Header>
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Notify>
 
 @{
     ViewBag.Title = "Index";
@@ -16,7 +16,13 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImgLogo)
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDSender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDReceiver)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.meta)
@@ -39,7 +45,13 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImgLogo)
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDSender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDReceiver)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.meta)
@@ -54,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.datebegin)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDHeader }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDHeader }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDHeader })
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDNotify }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDNotify }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDNotify })
         </td>
     </tr>
 }
