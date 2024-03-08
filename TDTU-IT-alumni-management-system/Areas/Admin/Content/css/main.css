@@ -1,5 +1,5 @@
 :root {
-  --darkBlue:#031f44;
+  --mainColor:white;
   --blue:#00AAFF;
 }
 
@@ -66,7 +66,7 @@ footer {
   width: 260px;
   height: 100%;
   float: left;
-  background-color: var(--darkBlue);;
+  background-color: var(--mainColor);
   position: fixed;
   left: 0;
 }
@@ -453,33 +453,47 @@ ul.notifications>li>.more:focus {
 }
 
 .sidebar {
-  z-index: 9;
+    z-index: 9;
+    overflow-y: hidden; /* Ban đầu ẩn thanh cuộn */
+    transition: all 1s ease; /* Thêm hiệu ứng chuyển đổi */
 }
+    .sidebar:hover {
+        overflow-y: auto; /* Kích hoạt thanh cuộn khi hover vào sidebar */
+    }
 
 .sidebar .nav>li>a {
   padding: 18px 30px;
-  color: #AEB7C2;
+  color: black;
   border-left: 5px solid transparent;
 }
 
-.sidebar .nav>li>a:hover,
-.sidebar .nav>li>a:focus,
-.sidebar .nav>li>a.active {
-  color: #fff;
-  background-color: transparent;
-}
+    .sidebar .nav > li > a:hover {
+        color: #5D87FF;
+        background-color: #EEF3FF;
 
-.sidebar .nav>li>a:hover i,
-.sidebar .nav>li>a:focus i,
-.sidebar .nav>li>a.active i {
-  color: #00AAFF;
-}
+    }
+    .sidebar .nav > li > a:focus,
+    .sidebar .nav > li > a.active {
+        /*        màu hover thẻ a*/
+        color: #fff;
+        background-color: #EEF3FF;
+    }
 
-.sidebar .nav>li>a:focus,
-.sidebar .nav>li>a.active {
-  background-color: #252c35;
-  border-left-color: #00AAFF;
-}
+    .sidebar .nav > li > a:hover i {
+        color: #5D87FF;
+        overflow-y: auto; /* Kích hoạt thanh cuộn khi hover vào sidebar */
+    }
+    .sidebar .nav > li > a:focus i,
+    .sidebar .nav > li > a.active i {
+         color: #fff;
+    }
+
+    .sidebar .nav > li > a:focus,
+    .sidebar .nav > li > a.active {
+        /*        màu nền chính*/ 
+        background-color: #5D87FF;
+        border-left-color: #FF090F;
+    }
 
 .sidebar .nav>li>a[data-toggle="collapse"] .icon-submenu {
   display: inline-block;

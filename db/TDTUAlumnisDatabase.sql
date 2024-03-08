@@ -215,26 +215,23 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 --Bảng footer
---Bảng Tin Tức
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[News](
-	[IDNews] [nvarchar](15) NOT NULL,
+	[IDNews] [INT] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
+	[Describe][nvarchar](max) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[ImgNews] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
-	[order] [int] NULL,
+	[order] [INT] IDENTITY(1,1) NOT NULL,
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[IDNews] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
+
+
 --Bảng Tin Tuyển dụng
 SET ANSI_NULLS ON
 GO
@@ -243,6 +240,7 @@ GO
 CREATE TABLE [dbo].[RecruitmentNew](
 	[IDRecruitmentNew] [nvarchar](15) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
+	[Describe][nvarchar](max) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[IDEnterprise] [nvarchar](15) NOT NULL,
 	[meta] [nvarchar](50) NULL,

@@ -4,61 +4,97 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Quản lý Header</h2>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">Thêm 
+                <span class="lnr lnr-file-add"></span>
+            </a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ImgLogo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.meta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.hide)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.order)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.datebegin)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<h2>Index</h2>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/Upload/images/Logo/@Html.DisplayFor(modelItem => item.ImgLogo)" style="width : 100px ; height:90px" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.meta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datebegin)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = item.IDHeader })" class="btn btn-primary">
+                                    <span class="lnr lnr-pencil"></span>
+                                </a>
+                                <a href="@Url.Action("Details", new {id = item.IDHeader})" class="btn btn-info">
+                                    <span class="lnr lnr-layers"></span>
+                                </a>
+                                <a href="@Url.Action("Delete", new {id = item.IDHeader})" class="btn btn-danger">
+                                    <span class="lnr lnr-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgLogo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.meta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </th>
-        <th></th>
-    </tr>
+                </tbody>
+            </table>
+        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgLogo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.meta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hide)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.order)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.datebegin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDHeader }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDHeader }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDHeader })
-        </td>
-    </tr>
-}
+    </div>
+</div>
+<style>
+    th {
+        text-align: center;
+    }
 
-</table>
+    td {
+        text-align: center;
+    }
+</style>
+<script>
+        window.onload = active();
+    function active() {
+        if (document.getElementById("nav-headers").className == "") {
+            document.getElementById("nav-headers").className = "active";
+        }
+    }
+
+</script>

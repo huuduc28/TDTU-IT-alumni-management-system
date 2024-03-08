@@ -4,67 +4,119 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Quản lý tin tức</h2>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                Thêm
+                <span class="lnr lnr-file-add"></span>
+            </a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ImgNews)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </th>
 
-<h2>Index</h2>
+                        <th>
+                            @Html.DisplayNameFor(model => model.meta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.hide)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.order)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.datebegin)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgNews)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.meta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </th>
-        <th></th>
-    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd gradeX">
+                            <td>
+                                <img src="~/Upload/images/News/@Html.DisplayFor(modelItem => item.ImgNews)" style="width : 150px ; height:90px" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @{
+                                    // Tách chuỗi thành các từ
+                                    string[] words = item.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (words.Length > 50)
+                                    {
+                                        string partialContent = "";
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgNews)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.meta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hide)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.order)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.datebegin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDNews }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDNews }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDNews })
-        </td>
-    </tr>
-}
+                                        for (int j = 0; j < 50; j++)
+                                        {
+                                            partialContent += words[j] + " ";
+                                        }
 
-</table>
+                                        // Thêm dấu "..." vào cuối chuỗi
+                                        partialContent += "...";
+
+                                        // Hiển thị chuỗi mới
+                                        @partialContent
+                                    }
+                                    else
+                                    {
+                                        // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
+                                        @item.Content
+                                    }
+                                }
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.meta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datebegin)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new {id = item.IDNews})" class="btn btn-primary">
+                                    <span class="lnr lnr-pencil"></span>
+                                </a>
+                                <a href="@Url.Action("Details", new {id = item.IDNews})" class="btn btn-info">
+                                    <span class="lnr lnr-layers"></span>
+                                </a>
+                                <a href="@Url.Action("Delete", new {id = item.IDNews})" class="btn btn-danger">
+                                    <span class="lnr lnr-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<script>
+        window.onload = active();
+    function active() {
+        if (document.getElementById("nav-news").className == "") {
+            document.getElementById("nav-news").className = "active";
+        }
+    }
+
+</script>

@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="~/Areas/Admin/Content/css/main.css">
     <!-- ICONS -->
     <link rel="icon" type="image/png" sizes="96x96" href="~/Upload/images/logo-tdtu.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @RenderSection("_Header", false)
+
 </head>
 
 <body>
@@ -22,7 +25,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="brand">
-                <a href="index.html">
+                <a href="/Admin">
                     <img src="https://elab.tdtu.edu.vn/pluginfile.php/1/theme_moove/logo/1697513026/Brand-left-vi-1_0_0.png"
                          alt="Logo" class="img-responsive logo">
                 </a>
@@ -93,8 +96,8 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/Upload/images/mèo.jpg"
-                                     class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
+                                <img src="~/Upload/images/Avata/Avata.jpg"
+                                     class="img-circle" alt="Avatar"> <span>Nguyễn Hữu Đức</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
@@ -114,13 +117,13 @@
                 <nav>
                     <ul class="nav">
                         <li>
-                            <a href="@Url.Action("Index","Default")" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
+                            <a href="@Url.Action("Index","Default")" id="nav-home" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
                         </li>
-                        <li><a href="@Url.Action("Index","Menus")" class=""><i class="lnr lnr-menu-circle"></i> <span>Menu</span></a></li>
-                        <li><a href="@Url.Action("Index","Headers")" class=""><i class="lnr lnr-flag"></i> <span>Header</span></a></li>
-                        <li><a href="@Url.Action("Index","Banners")" class=""><i class="lnr lnr-picture"></i> <span>Banner</span></a></li>
-                        <li><a href="@Url.Action("Index","News")" class=""><i class="lnr lnr-star"></i>News</a></li>
-                        <li><a href="@Url.Action("Index","Notifies")" class=""><i class="lnr lnr-alarm"></i>Notification</a></li>
+                        <li><a href="@Url.Action("Index","Menus")" id="nav-menus" class=""><i class="lnr lnr-menu-circle"></i> <span>Menu</span></a></li>
+                        <li><a href="@Url.Action("Index","Headers")" id="nav-headers" class=""><i class="lnr lnr-flag"></i> <span>Header</span></a></li>
+                        <li><a href="@Url.Action("Index","Banners")" id="nav-banners" class=""><i class="lnr lnr-picture"></i> <span>Banner</span></a></li>
+                        <li><a href="@Url.Action("Index","News")" id="nav-news" class=""><i class="lnr lnr-star"></i>News</a></li>
+                        <li><a href="@Url.Action("Index","Notifies")" id="nav-notifi" class=""><i class="lnr lnr-alarm"></i>Notification</a></li>
                         <li>
                             <a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a>
                         </li>
@@ -172,9 +175,10 @@
         </div>
     </div>
     <!-- END WRAPPER -->
-    <script src="~/Areas/Admin/Content/vendor/jquery/jquery.min.js"></script>
     <script src="~/Areas/Admin/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Areas/Admin/Content/scripts/main.js"></script>
+    @RenderSection("_Footer", false);
+
 </body>
 
 </html>

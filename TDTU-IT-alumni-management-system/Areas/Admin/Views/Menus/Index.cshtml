@@ -5,66 +5,94 @@
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Quản lý Menu</h2>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                Thêm  
+                <span class="lnr lnr-file-add"></span>
+            </a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ParentID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HasChild)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.meta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.hide)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.order)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.datebegin)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HasChild)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.meta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </th>
-        <th></th>
-    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd gradeX">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParentID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HasChild)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.meta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datebegin)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new {id = item.IDMenu})" class="btn btn-primary">
+                                    <span class="lnr lnr-pencil"></span>
+                                </a>
+                                <a href="@Url.Action("Details", new {id = item.IDMenu})" class="btn btn-info">
+                                    <span class="lnr lnr-layers"></span>
+                                </a>
+                                <a href="@Url.Action("Delete", new {id = item.IDMenu})" class="btn btn-danger">
+                                    <span class="lnr lnr-trash"></span>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HasChild)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.meta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hide)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.order)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.datebegin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDMenu }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDMenu }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDMenu })
-        </td>
-    </tr>
-}
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-</table>
+    </div>
+</div>
+<script>
+        window.onload = active();
+    function active() {
+        if (document.getElementById("nav-menus").className == "") {
+            document.getElementById("nav-menus").className = "active";
+        }
+    }
+
+</script>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -46,13 +48,41 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news , HttpPostedFileBase ImgNews)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.News.Add(news);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var path = "";
+                var filename = "";
+                if (ModelState.IsValid)
+                {
+                    if (ImgNews != null)
+                    {
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + ImgNews.FileName;
+                        path = Path.Combine(Server.MapPath("~/Upload/images/News/"), filename);
+                        ImgNews.SaveAs(path);
+                        news.ImgNews = filename; //Lưu ý
+                    }
+                    else
+                    {
+                        news.ImgNews = "logo.png";
+                    }
+                    news.IDNews = "10";
+                    news.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    //news.meta = ConvertToUnSign(news.Title); //convert Tiếng Việt không dấu
+                    db.News.Add(news);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw e;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
             return View(news);
@@ -122,6 +152,21 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private string ConvertToUnSign(string input)
+        {
+            // Bảng chữ cái có dấu và không dấu tương ứng
+            string[] signs = new string[] { "aAeEoOuUiIdDyY", "áàạảãâấầậẩẫăắằặẳẵÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴéèẹẻẽêếềệểễÉÈẸẺẼÊẾỀỆỂỄóòọỏõôốồộổỗơớờợởỡÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠúùụủũưứừựửữÚÙỤỦŨƯỨỪỰỬỮíìịỉĩÍÌỊỈĨđĐýỳỵỷỹÝỲỴỶỸ" };
+
+            // Duyệt qua mỗi ký tự trong input
+            for (int i = 0; i < signs[0].Length; i++)
+            {
+                // Thay thế ký tự có dấu bằng ký tự không dấu
+                input = input.Replace(signs[1][i], signs[0][i]);
+            }
+
+            // Trả về kết quả
+            return input;
         }
     }
 }

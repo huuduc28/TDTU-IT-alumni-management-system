@@ -12,19 +12,9 @@
                         @i.Title
                     </h6>
                     <p class="card-text " style="font-size: 0.9em;">
-                        @{
-                            // Tìm vị trí của dấu chấm đầu tiên
-                            int dotIndex = i.Content.IndexOf('.');
-                            // Tìm vị trí của khoảng trắng gần nhất sau 250 ký tự
-                            int spaceIndex = i.Content.IndexOf(' ', 250);
-
-                            // Kiểm tra xem có dấu chấm và khoảng trắng nào gần hơn không
-                            int index = dotIndex != -1 && dotIndex <= spaceIndex ? dotIndex : spaceIndex;
-
-                            // Cắt chuỗi từ đầu đến vị trí index hoặc lấy toàn bộ chuỗi nếu không có index
-                            string partialContent = index != -1 ? i.Content.Substring(0, index) : i.Content;
-                            @partialContent
-                        }
+                        <div>
+                            Đang phát triển
+                        </div>
                     </p>
                     <a id="ngay-thang-tb">TDTU @i.datebegin.Value.ToString("dd/MM/yyyy")</a>
                 </div>
