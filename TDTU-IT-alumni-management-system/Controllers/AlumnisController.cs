@@ -22,6 +22,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
             // Khởi tạo context của Entity Framework
             using (var context = new TDTUAlumnisManagementSystemEntities())
             {
+                ViewBag.meta = "cuu-sinh-vien";
                 // Lấy danh sách sinh viên theo ngành, sắp xếp theo order tăng dần
                 var alumni = context.Alumni.Where(a => a.Majors == major)
                                               .OrderBy(a => a.order)
@@ -31,13 +32,20 @@ namespace TDTU_IT_alumni_management_system.Controllers
             }
         }
 
+
         public ActionResult AlumniCategory()
         {
             return View();
         }
-        public ActionResult DetailAlumni()
+        public ActionResult DetailAlumni(string ID)
         {
-            return View();
+            using (var context = new TDTUAlumnisManagementSystemEntities())
+            {
+                ViewBag.meta = "cuu-sinh-vien";
+                // Lấy danh sách sinh viên theo ngành, sắp xếp theo order tăng dần
+                var alumni = context.Alumni.Where(a => a.IDAlumni == ID).OrderBy(a => a.order).FirstOrDefault(); // Lấy 4 sinh viên đầu tiên;
+                return View(alumni);
+            }            
         }
         public ActionResult PersonInfo()
         {
