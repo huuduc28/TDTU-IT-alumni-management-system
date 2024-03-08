@@ -16,29 +16,29 @@ namespace TDTU_IT_alumni_management_system.Controllers
         }
 
         //POST: Login/Login
-       [HttpPost]
-        public ActionResult Login(string Username, string Password)
-        {
+       //[HttpPost]
+        //public ActionResult Login(string Username, string Password)
+        //{
 
-            using (var db = new TDTUAlumnisManagementSystemEntities())
-            {
+        //    using (var db = new TDTUAlumnisManagementSystemEntities())
+        //    {
 
-                var user = db.Users.Where(u => u.UsersName == Username && u.Password == Password).FirstOrDefault();
+        //        var user = db.Users.Where(u => u.UsersName == Username && u.Password == Password).FirstOrDefault();
 
-                if (user != null)
-                {
+        //        if (user != null)
+        //        {
 
-                    Session["Username"] = user.UsersName;
+        //            Session["Username"] = user.UsersName;
 
 
-                    return Json(new { success = true });
-                }
-                else
-                {
+        //            return Json(new { success = true });
+        //        }
+        //        else
+        //        {
 
-                    return Json(new { success = false, message = "Tên đăng nhập hoặc mật khẩu không hợp lệ!" });
-                }
-            }
-        }
+        //            return Json(new { success = false, message = "Tên đăng nhập hoặc mật khẩu không hợp lệ!" });
+        //        }
+        //    }
+        //}
     }
 }

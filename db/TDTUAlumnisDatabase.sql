@@ -161,7 +161,7 @@ GO
 --Bảng Header
 CREATE TABLE [dbo].[Header](
 	[IDHeader] [nvarchar](15) NOT NULL,
-	[TieuDe] [nvarchar](100) NOT NULL,
+	[Title] [nvarchar](100) NOT NULL,
 	[ImgLogo] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
@@ -173,6 +173,8 @@ CREATE TABLE [dbo].[Header](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+drop table Header
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](

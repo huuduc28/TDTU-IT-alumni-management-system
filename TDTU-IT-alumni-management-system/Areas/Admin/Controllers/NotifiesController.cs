@@ -10,107 +10,107 @@ using TDTU_IT_alumni_management_system.Models;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
-    public class NewsController : Controller
+    public class NotifiesController : Controller
     {
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
-        // GET: Admin/News
+        // GET: Admin/Notifies
         public ActionResult Index()
         {
-            return View(db.News.ToList());
+            return View(db.Notifies.ToList());
         }
 
-        // GET: Admin/News/Details/5
+        // GET: Admin/Notifies/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Notify notify = db.Notifies.Find(id);
+            if (notify == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View(notify);
         }
 
-        // GET: Admin/News/Create
+        // GET: Admin/Notifies/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/News/Create
+        // POST: Admin/Notifies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
+        public ActionResult Create([Bind(Include = "IDNotify,Title,Content,IDSender,IDReceiver,meta,hide,order,datebegin")] Notify notify)
         {
             if (ModelState.IsValid)
             {
-                db.News.Add(news);
+                db.Notifies.Add(notify);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(news);
+            return View(notify);
         }
 
-        // GET: Admin/News/Edit/5
+        // GET: Admin/Notifies/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Notify notify = db.Notifies.Find(id);
+            if (notify == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View(notify);
         }
 
-        // POST: Admin/News/Edit/5
+        // POST: Admin/Notifies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news)
+        public ActionResult Edit([Bind(Include = "IDNotify,Title,Content,IDSender,IDReceiver,meta,hide,order,datebegin")] Notify notify)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(news).State = EntityState.Modified;
+                db.Entry(notify).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(news);
+            return View(notify);
         }
 
-        // GET: Admin/News/Delete/5
+        // GET: Admin/Notifies/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Notify notify = db.Notifies.Find(id);
+            if (notify == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View(notify);
         }
 
-        // POST: Admin/News/Delete/5
+        // POST: Admin/Notifies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            News news = db.News.Find(id);
-            db.News.Remove(news);
+            Notify notify = db.Notifies.Find(id);
+            db.Notifies.Remove(notify);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

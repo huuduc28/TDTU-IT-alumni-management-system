@@ -105,12 +105,12 @@ VALUES
 
 -- dữ liệu header
 INSERT INTO Header
-	(IDHeader,TieuDe,ImgLogo, meta, hide, [order], datebegin)
+	(IDHeader,Title,ImgLogo, meta, hide, [order], datebegin)
 VALUES
 	-- Dữ liệu cho Banner
 	('01',N'Cổng thông tin cựu sinh viên','logo-tdtu.png', '', 1, 1, GETDATE());
 
-select * from News
+select * from Header
 
 INSERT INTO News
 	(IDNews, Title ,Content,ImgNews, meta, hide, [order], datebegin)
