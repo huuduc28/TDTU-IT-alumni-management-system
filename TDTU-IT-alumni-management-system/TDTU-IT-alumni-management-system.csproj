@@ -474,6 +474,7 @@
     <Content Include="Views\Home\GetRecruitmentNew.cshtml" />
     <Content Include="Views\Enterprises\GetRecruitmentNewList.cshtml" />
     <Content Include="Views\Enterprises\GetRecruitmentNewDetal.cshtml" />
+    <Content Include="Views\Alumnis\GetAlumniByMajor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
