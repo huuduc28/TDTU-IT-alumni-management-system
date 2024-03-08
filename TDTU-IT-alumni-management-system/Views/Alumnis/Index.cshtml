@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Mylayout.cshtml";
+    string[] majorKeys = { "ky-thuat-phan-mem", "khoa-hoc-may-tinh", "mang-may-tinh" };
 }
 <style>
     .img-alumni {
@@ -33,23 +34,23 @@
                 <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
                 <h1>Kỹ thuật phần mềm</h1>
             </div>
-            <h6 class="bg-white bi-text-right text-primary" onclick="location.href='listSv.html'">Xem thêm -></h6>
+            <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[0]'">Xem thêm -></h6>
 
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Kỹ Thuật Phần Mềm" });}
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Kỹ Thuật Phần Mềm", count = 4 });}
 
             <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
                 <h1 class="mb-3 ">Khoa học máy tính</h1>
             </div>
-            <h6 class="bg-white bi-text-right text-primary">Xem thêm -></h6>
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Khoa Học Máy Tính" });}
+            <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[1]'">Xem thêm -></h6>
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Khoa Học Máy Tính", count = 4 });}
 
             <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
                 <h1 class="mb-3 ">Mạng Máy Tính Và Truyền Thông Dữ Liệu</h1>
             </div>
-            <h6 class="bg-white bi-text-right text-primary">Xem thêm -></h6>
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Mạng Máy Tính Và Truyền Thông Dữ Liệu" });}
+            <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[2]'">Xem thêm -></h6>
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", count = 4 });}
 
         </div>
     </div>

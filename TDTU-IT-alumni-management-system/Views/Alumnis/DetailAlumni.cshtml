@@ -1,4 +1,4 @@
-﻿
+﻿@model TDTU_IT_alumni_management_system.Models.Alumnus
 @{
     ViewBag.Title = "DetailAlumni";
     Layout = "~/Views/Shared/Mylayout.cshtml";
@@ -12,17 +12,17 @@
 
         <div class="row align-items-center p-4">
             <div class="col-lg-2 col-md-2 col-sm-2 col-12 DetailAlumni-profile-pics">
-                <img src="~/Upload/images/mèo.jpg" class="rounded-circle img-fluid" alt="Profile Picture">
+                <img src="@Model.ProfilePicture" class="rounded-circle img-fluid" alt="Profile Picture">
             </div>
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-12 mt-3">
-                <h2 id="name" class="text-break DetailAlumni-center-text">Nguyễn Văn A</h2>
-                <p id="job-title" class="text-break DetailAlumni-center-text">Kỹ sư phần mềm</p>
-                <p id="company" class="text-break DetailAlumni-center-text">Shopee Việt nam</p>
+                <h2 id="name" class="text-break DetailAlumni-center-text">@Model.Name</h2>
+                <p id="job-title" class="text-break DetailAlumni-center-text">@Model.Majors</p>
+                <p id="company" class="text-break DetailAlumni-center-text">@Model.CurrentCompany</p>
             </div>
 
             <div class="col-lg-2 col-md-2 col-12 DetailAlumni-center-btn">
-                <button id="connect-to" type="button" class="btn btn-primary">Kết nối</button>
+                <button onclick="href='@Model.PersonalWebsite'" id="connect-to" type="button" class="btn btn-primary">Kết nối</button>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
             <ul>
                 <li class="mb-2">
                     <p id="university">Ton Duc Thang University</p>
-                    <p id="major">Kỹ thuật phần mềm 2020 - 2024</p>
+                    <p id="major">@Model.Majors @(Model.GraduationYear-4) - @Model.GraduationYear</p>
                 </li>
             </ul>
         </div>
@@ -52,8 +52,8 @@
                 <li class="mb-2">
                     <p id="job" class="h5">Kỹ sư phần mềm</p>
                     <ul>
-                        <li id="company-experience" class="mb-1">Shopee - Full-time</li>
-                        <li id="duration" class="mb-1">05/2022 – Hiện tại</li>
+                        <li id="company-experience" class="mb-1">@Model.CurrentCompany</li>
+                        <li id="duration" class="mb-1">@Model.jobBeginDate – Hiện tại</li>
                         <li id="description">
                             Tham gia Nhóm Nghiên cứu cơ bản của nhóm Tìm kiếm & Đề
                             xuất của
@@ -61,18 +61,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="mb-2">
-                    <p id="job" class="h5">Kỹ sư phần mềm</p>
-                    <ul>
-                        <li id="company-experience" class="mb-1">Shopee - Full-time</li>
-                        <li id="duration" class="mb-1">05/2022 – Hiện tại</li>
-                        <li id="description">
-                            Tham gia Nhóm Nghiên cứu cơ bản của nhóm Tìm kiếm & Đề
-                            xuất của
-                            Shopee
-                        </li>
-                    </ul>
-                </li>
+                
             </ul>
 
         </div>
@@ -85,10 +74,10 @@
         </div>
         <div class="p-2">
             <ul id="skills-list">
-                <li class="mb-2">Python</li>
-                <li class="mb-2">JavaScript</li>
-                <li class="mb-2">C#</li>
-
+                @foreach(var s in Model.skill.Split(','))
+                {
+                    <li class="mb-2">@s</li>
+                }
             </ul>
         </div>
     </div>
