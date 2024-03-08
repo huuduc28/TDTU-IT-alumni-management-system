@@ -247,12 +247,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannersController.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\HeadersController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenusController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\NotifiesController.cs" />
-    <Compile Include="Areas\Admin\Views\Headers\BannersController.cs" />
-    <Compile Include="Areas\Admin\Views\NewsController.cs" />
     <Compile Include="Controllers\AlumnisController.cs" />
     <Compile Include="Controllers\BotChatController.cs" />
     <Compile Include="Controllers\EnterprisesController.cs" />
@@ -375,7 +375,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Shared\LayoutAdmin.cshtml" />
     <Content Include="Areas\Admin\Content\css\main.css.map" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
@@ -391,12 +390,13 @@
     <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.ttf" />
     <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff" />
     <Content Include="Areas\Admin\Content\vendor\linearicons\fonts\Linearicons-Free.woff2" />
+    <Content Include="Areas\Admin\Views\Shared\LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Menus\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Headers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Headers\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Headers\Details.cshtml" />
@@ -407,16 +407,16 @@
     <Content Include="Areas\Admin\Views\Banners\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Notifies\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Notifies\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Notifies\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Notifies\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Notifies\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Create.cshtml" />
     <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\News\Details.cshtml" />
     <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifies\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifies\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifies\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifies\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifies\Index.cshtml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

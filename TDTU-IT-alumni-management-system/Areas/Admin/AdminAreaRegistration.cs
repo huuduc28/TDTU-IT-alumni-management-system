@@ -15,9 +15,16 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Admin_default",
+                url: "Admin/{controller}/{action}/{id}",
+                defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                name: "Admin_default_no_controller",
+                url: "Admin/",
+                defaults: new { controller = "Default", action = "Index" },
+                namespaces: new[] { "Tên_Namespace_Của_Controllers_Của_Bạn" }
             );
         }
     }

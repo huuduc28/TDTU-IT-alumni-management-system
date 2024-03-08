@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
 
-
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
     public class MenusController : Controller

@@ -45,7 +45,30 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Content)
+            @{
+                // Tách chuỗi thành các từ
+                string[] words = item.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (words.Length > 50)
+                {
+                    string partialContent = "";
+
+                    for (int j = 0; j < 50; j++)
+                    {
+                        partialContent += words[j] + " ";
+                    }
+
+                    // Thêm dấu "..." vào cuối chuỗi
+                    partialContent += "...";
+
+                    // Hiển thị chuỗi mới
+                    @partialContent
+                }
+                else
+                {
+                    // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
+                    @item.Content
+                }
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IDSender)
@@ -66,6 +89,7 @@
             @Html.DisplayFor(modelItem => item.datebegin)
         </td>
         <td>
+
             @Html.ActionLink("Edit", "Edit", new { id=item.IDNotify }) |
             @Html.ActionLink("Details", "Details", new { id=item.IDNotify }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.IDNotify })
