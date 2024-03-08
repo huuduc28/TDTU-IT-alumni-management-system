@@ -20,6 +20,18 @@ namespace TDTU_IT_alumni_management_system
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute(
+                name: "ChiTietSinhVien",
+                url: "cuu-sinh-vien/chi-tiet/{id}",
+                defaults: new { controller = "Alumnis", action = "DetailAlumni" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+                name: "DanhSachSinhVien",
+                url: "cuu-sinh-vien/{majorKey}",
+                defaults: new { controller = "Alumnis", action = "AlumniCategory" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
                name: "DoanhNghiep",
                url: "doanh-nghiep",
                defaults: new { controller = "Enterprises", action = "Index" },
