@@ -4,6 +4,28 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xóa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa <span id="delete-news-title"></span> không?</p>
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "News", FormMethod.Post, new { id = "deleteForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Id", null, new { id = "newsId" })
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Quản lý tin tức</h2>
@@ -18,27 +40,25 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.ImgNews)
+                            Hình ảnh
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Title)
+                            Tiêu đề
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Content)
+                            Mô tả
                         </th>
 
                         <th>
                             @Html.DisplayNameFor(model => model.meta)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.hide)
+                            Ngày đăng
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.order)
+                            Trạng thái
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.datebegin)
-                        </th>
+
                         <th></th>
                     </tr>
                 </thead>
@@ -54,43 +74,27 @@
                                 @Html.DisplayFor(modelItem => item.Title)
                             </td>
                             <td>
-                                @{
-                                    // Tách chuỗi thành các từ
-                                    string[] words = item.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                    if (words.Length > 50)
-                                    {
-                                        string partialContent = "";
-
-                                        for (int j = 0; j < 50; j++)
-                                        {
-                                            partialContent += words[j] + " ";
-                                        }
-
-                                        // Thêm dấu "..." vào cuối chuỗi
-                                        partialContent += "...";
-
-                                        // Hiển thị chuỗi mới
-                                        @partialContent
-                                    }
-                                    else
-                                    {
-                                        // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
-                                        @item.Content
-                                    }
-                                }
+                                @Html.DisplayFor(modelItem => item.Description)
                             </td>
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.meta)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.hide)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.order)
-                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
+                            </td>
+                            <td style="background-color: @((bool)item.hide ? "lightgreen" : "lightcoral")">
+                                @{
+                                    if ((bool)item.hide)
+                                    {
+                                        @Html.Raw("Hiện")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("Ẩn")
+                                    }
+                                }
                             </td>
                             <td>
                                 <a href="@Url.Action("Edit", new {id = item.IDNews})" class="btn btn-primary">
@@ -99,7 +103,7 @@
                                 <a href="@Url.Action("Details", new {id = item.IDNews})" class="btn btn-info">
                                     <span class="lnr lnr-layers"></span>
                                 </a>
-                                <a href="@Url.Action("Delete", new {id = item.IDNews})" class="btn btn-danger">
+                                <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDNews">
                                     <span class="lnr lnr-trash"></span>
                                 </a>
                             </td>
@@ -111,12 +115,31 @@
 
     </div>
 </div>
-<script>
-        window.onload = active();
-    function active() {
-        if (document.getElementById("nav-news").className == "") {
-            document.getElementById("nav-news").className = "active";
-        }
-    }
 
-</script>
+@section _Footer
+{
+    <script>
+        $(document).ready(function () {
+            $('.delete-btn').click(function (e) {
+                e.preventDefault();
+                var newsId = $(this).data('id');
+                var newsTitle = $(this).closest('tr').find('td:eq(1)').text();
+                $('#newsId').val(newsId);
+                $('#delete-news-title').text(newsTitle); // Đặt giá trị cho span có id "delete-news-title"
+                $('#confirmDeleteModal').modal('show');
+            });
+
+            // Tự động chạy hàm active khi trang được tải
+        });
+        window.onload = active();
+        function active() {
+            if (document.getElementById("nav-news").className == "") {
+                document.getElementById("nav-news").className = "active";
+            }
+        };
+
+    </script>
+
+}
+
+

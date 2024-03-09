@@ -214,23 +214,33 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
---Bảng footer
-CREATE TABLE [dbo].[News](
-	[IDNews] [INT] IDENTITY(1,1) NOT NULL,
-	[Title] [nvarchar](100) NOT NULL,
-	[Describe][nvarchar](max) NOT NULL,
-	[Content] [nvarchar](max) NOT NULL,
-	[ImgNews] [nvarchar](100) NOT NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [INT] IDENTITY(1,1) NOT NULL,
-	[datebegin] [smalldatetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[IDNews] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
+
+--Bảng News
+CREATE TABLE [dbo].[News](
+    [IDNews] [INT] IDENTITY(1,1) NOT NULL,
+    [Title] [nvarchar](100) NOT NULL,
+    [Content] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+    [ImgNews] [nvarchar](100) NOT NULL,
+    [meta] [nvarchar](50) NULL,
+    [hide] [bit] NULL DEFAULT 1,
+    [order] [INT] NOT NULL,
+    [datebegin] [smalldatetime] DEFAULT GETDATE(), -- Đặt mặc định là GETDATE()
+    PRIMARY KEY CLUSTERED 
+    (
+        [IDNews] ASC
+    ) WITH (
+        PAD_INDEX = OFF, 
+        STATISTICS_NORECOMPUTE = OFF, 
+        IGNORE_DUP_KEY = OFF, 
+        ALLOW_ROW_LOCKS = ON, 
+        ALLOW_PAGE_LOCKS = ON, 
+        OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
+    ) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
+
+Drop table News
 
 --Bảng Tin Tuyển dụng
 SET ANSI_NULLS ON

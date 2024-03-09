@@ -12,7 +12,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
         // GET: News
         TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
 
-        public ActionResult GetNewsDetal(string id)
+        public ActionResult GetNewsDetal(int id)
         {
             var v = from t in _db.News
                     where t.IDNews == id && t.hide == true

@@ -21,20 +21,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         }
 
         // GET: Admin/Banners/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Banner banner = db.Banners.Find(id);
-            if (banner == null)
-            {
-                return HttpNotFound();
-            }
-            return View(banner);
-        }
-
         // GET: Admin/Banners/Create
         public ActionResult Create()
         {

@@ -8,15 +8,15 @@
                     <img class="card-img-top card-img-tb" src="~/Upload/images/News/@i.ImgNews" alt="Card image">
                 </div>
                 <div class="card-body">
-                    <h6 class="card-title">
+                    <h6 class="card-title" style=" text-transform: uppercase">
                         @i.Title
                     </h6>
-                    <p class="card-text " style="font-size: 0.9em;">
+                    <p class="card-text " style="font-size: 0.8em;">
                         <div>
-                            Đang phát triển
+                            @i.Description
                         </div>
                     </p>
-                    <a id="ngay-thang-tb">TDTU @i.datebegin.Value.ToString("dd/MM/yyyy")</a>
+                    <a id="ngay-thang-tb">TDTU @i.datebegin</a>
                 </div>
             </div>
         </div>

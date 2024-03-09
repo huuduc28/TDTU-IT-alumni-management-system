@@ -19,19 +19,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.ImgBaner)
+                            Hình ảnh
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.meta)
+                            Ngày đăng
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.hide)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.order)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.datebegin)
+                            Trạng thái
                         </th>
                         <th>Tùy chọn</th>
                     </tr>
@@ -42,26 +36,26 @@
                     {
                         <tr>
                             <td style="text-align: center;">
-                                <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBaner)" style="width : 200px ; height:90px"/>
-                            </td>   
-                            <td>
-                                @Html.DisplayFor(modelItem => item.meta)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.hide)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.order)
+                                <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBaner)" style="width : 200px ; height:90px" />
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
                             </td>
+                            <td style="background-color: @((bool)item.hide ? "lightgreen" : "lightcoral")">
+                                @{
+                                    if ((bool)item.hide)
+                                    {
+                                        @Html.Raw("Hiện")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("Ẩn")
+                                    }
+                                }
+                            </td>
                             <td>
                                 <a href="@Url.Action("Edit", new {id = item.IDBaner})" class="btn btn-primary">
                                     <span class="lnr lnr-pencil"></span>
-                                </a>
-                                <a href="@Url.Action("Details",  new {id = item.IDBaner})" class="btn btn-info">
-                                    <span class="lnr lnr-layers"></span>
                                 </a>
                                 <a href="@Url.Action("Delete", new {id = item.IDBaner})" class="btn btn-danger">
                                     <span class="lnr lnr-trash"></span>

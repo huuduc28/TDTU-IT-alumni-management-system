@@ -19,22 +19,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         {
             return View(db.Headers.ToList());
         }
-
-        // GET: Admin/Headers/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Header header = db.Headers.Find(id);
-            if (header == null)
-            {
-                return HttpNotFound();
-            }
-            return View(header);
-        }
-
         // GET: Admin/Headers/Create
         public ActionResult Create()
         {
@@ -88,33 +72,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             }
             return View(header);
         }
-
-        // GET: Admin/Headers/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Header header = db.Headers.Find(id);
-            if (header == null)
-            {
-                return HttpNotFound();
-            }
-            return View(header);
-        }
-
-        // POST: Admin/Headers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Header header = db.Headers.Find(id);
-            db.Headers.Remove(header);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

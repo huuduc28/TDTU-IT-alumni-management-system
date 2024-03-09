@@ -13,11 +13,30 @@
         }
     </style>
 }
+<!-- Modal hiển thị thông báo lỗi -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="errorModalLabel">Lỗi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Hiển thị thông báo lỗi -->
+                <p>@TempData["ErrorMessage"]</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="panel panel-default">
     <div class="panel-body">
-
         <h2>Tạo tin tức</h2>
-
         @using (Html.BeginForm("Create", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -25,39 +44,38 @@
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.IDNews, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.IDNews, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.IDNews, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
                 <div class="form-group">
-                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = true, @maxlength = "255" } })
+                        <div id="wordCountTitle" class="text-danger"></div>
                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
-                    @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Mô tả", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @required = true, @maxlength = "250" })
+                        <div id="wordCountDescription" class="text-danger"></div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
                         @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @required = true } })
                         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
-                    @Html.Label("Hình ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Ảnh bìa", htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
                         <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Meta", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Meta", htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
@@ -65,7 +83,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
                         <div class="checkbox">
                             @{
@@ -78,26 +96,17 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label col-md-1" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.datebegin, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.datebegin, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                        <div class="btn btn-default">
-                            @Html.ActionLink("Back to List", "Index")
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Tạo Tin" class="btn btn-primary" />
+                        <div class="btn btn-secondary">
+                            @Html.ActionLink("Trở về", "Index")
                         </div>
                     </div>
                 </div>
@@ -105,33 +114,82 @@
         }
     </div>
 </div>
- @section _Footer
+@section _Footer
 {
-            <script src="~/Areas/Admin/Content/ckfinder/ckfinder.js"></script>
-            <script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
-            <script type="text/javascript">
-                var editor = CKEDITOR.replace("Content");
-                var editor = CKEDITOR.replace("Content", { height: '600px' });
-                customConfig: '/Areas/Admin/Content/ckeditor/config.js';
-            </script>
-            <script>
-                $(function () {
-                    $("#Title").keyup(function () {
-                        var text = $.trim($(this).val().toLowerCase());
-                        var text_create;
-                        text_create = text.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
-                        $('#meta').val(text_create);
-                    }).keyup();
-                });
-            </script>
-            <script>
-                window.onload = active();
-                function active() {
+    <script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
 
-                    if (document.getElementById("nav-news").className == "") {
-                        document.getElementById("nav-news").className = "active";
-                    }
+        CKEDITOR.replace("Content", {
+            height: '400px',
+            customConfig: '/Areas/Admin/Content/ckeditor/config.js'
+        });    
+        function removeDiacritics(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        $("#Title").keyup(function () {
+            var text = $(this).val().toLowerCase();
+            var textWithoutDiacritics = removeDiacritics(text);
+            var text_create = textWithoutDiacritics.replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+            $('#meta').val(text_create);
+        }).keyup();
+
+        window.onload = active();
+        function active() {
+
+            if (document.getElementById("nav-news").className == "") {
+                document.getElementById("nav-news").className = "active";
+            }
+        }
+
+        $(document).ready(function () {
+            $('#Description').on('input', function () {
+                var words = this.value.match(/\S+/g).length;
+                if (words > 50) {
+                    var trimmed = $(this).val().split(/\s+/, 50).join(" ");
+                    $(this).val(trimmed + " ...");
+                    $('#wordCountDescription').text("Chỉ được nhập tối đa 50 từ.");
+                } else {
+                    $('#wordCountDescription').text('Số từ: ' + words + '/50');
                 }
+            });
+        });
 
-            </script>
+        $(document).ready(function () {
+            $('#Title').on('input', function () {
+                var words = this.value.match(/\S+/g).length;
+                if (words > 25) {
+                    var trimmed = $(this).val().split(/\s+/, 25).join(" ");
+                    $(this).val(trimmed + " ...");
+                    $('#wordCountTitle').text("Chỉ được nhập tối đa 25 từ.");
+                } else {
+                    $('#wordCountTitle').text('Số từ: ' + words + '/25');
+                }
+            });
+        });
+        $(document).ready(function () {
+            // Kiểm tra nếu có thông báo lỗi, hiển thị modal
+            @if (TempData["ErrorMessage"] != null)
+            {
+                @:$('#errorModal').modal('show');
+            }
+
+        });
+
+        // Kiểm tra nếu có dữ liệu trong TempData, khôi phục và hiển thị trên form
+        $(document).ready(function () {
+            var formData = @Html.Raw(Json.Encode(TempData["FormData"]));
+            if (formData) {
+                $('#Title').val(formData.Title);
+                $('#Description').val(formData.Description);
+                if (CKEDITOR.instances['Content']) {
+                    CKEDITOR.instances['Content'].setData(formData.Content);
+                } else {
+                    // Nếu CKEditor chưa được khởi tạo, bạn có thể sử dụng jQuery để đặt dữ liệu trực tiếp vào trường
+                    $('#Content').val(formData.Content);
+                }
+                $('#meta').val(formData.meta);
+            }
+        });
+    </script>
 }

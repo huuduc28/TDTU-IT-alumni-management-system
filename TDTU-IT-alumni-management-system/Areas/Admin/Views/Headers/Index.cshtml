@@ -22,19 +22,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Title)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.meta)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.hide)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.order)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.datebegin)
-                        </th>
-                        <th></th>
+                        <th>Chỉnh sửa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,26 +37,8 @@
                                 @Html.DisplayFor(modelItem => item.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.meta)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.hide)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.order)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.datebegin)
-                            </td>
-                            <td>
                                 <a href="@Url.Action("Edit", new { id = item.IDHeader })" class="btn btn-primary">
                                     <span class="lnr lnr-pencil"></span>
-                                </a>
-                                <a href="@Url.Action("Details", new {id = item.IDHeader})" class="btn btn-info">
-                                    <span class="lnr lnr-layers"></span>
-                                </a>
-                                <a href="@Url.Action("Delete", new {id = item.IDHeader})" class="btn btn-danger">
-                                    <span class="lnr lnr-trash"></span>
                                 </a>
                             </td>
                         </tr>
