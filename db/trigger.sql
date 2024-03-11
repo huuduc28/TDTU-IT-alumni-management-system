@@ -229,3 +229,25 @@ BEGIN
 END;
 GO
 
+CREATE TRIGGER trg_GraduationInfo_AfterInsert
+ON dbo.GraduationInfo
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.GraduationInfo;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.GraduationInfo n
+    INNER JOIN inserted i ON n.ID = i.ID;
+
+END;
+GO
+

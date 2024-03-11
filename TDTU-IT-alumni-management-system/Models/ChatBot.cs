@@ -15,14 +15,14 @@ namespace TDTU_IT_alumni_management_system.Models
     public partial class ChatBot
     {
         public string IDBot { get; set; }
-        public string NoiDungNguoiDung { get; set; }
-        public string NoiDungPhanHoi { get; set; }
-        public string TenTaiKhoan { get; set; }
+        public string Prompt { get; set; }
+        public string Result { get; set; }
+        public string UsersName { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
     
-        public virtual TaiKhoan TaiKhoan { get; set; }
+        public virtual User User { get; set; }
     }
 }

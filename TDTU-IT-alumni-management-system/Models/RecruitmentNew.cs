@@ -16,6 +16,7 @@ namespace TDTU_IT_alumni_management_system.Models
     {
         public string IDRecruitmentNew { get; set; }
         public string Title { get; set; }
+        public string Describe { get; set; }
         public string Content { get; set; }
         public string IDEnterprise { get; set; }
         public string meta { get; set; }
@@ -24,6 +25,5 @@ namespace TDTU_IT_alumni_management_system.Models
         public Nullable<System.DateTime> datebegin { get; set; }
     
         public virtual Enterprise Enterprise { get; set; }
-        public virtual Enterprise Enterprise1 { get; set; }
     }
 }

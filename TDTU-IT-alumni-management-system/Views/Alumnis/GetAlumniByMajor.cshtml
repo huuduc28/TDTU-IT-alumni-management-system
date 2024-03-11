@@ -1,5 +1,4 @@
-﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Alumnus>
-
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.AlumnusModel>
 
 
 @if (Model != null)
@@ -24,8 +23,8 @@
                 </div>
                 <div class="text-center p-4">
                     <h5 class="mb-0">@alumni.Name</h5>
-                    <small>@alumni.Majors</small><br>
-                    <small>Khóa: @(alumni.GraduationYear-4) - @(alumni.GraduationYear)</small>
+                    <small>@alumni.GraduationInfo.Majors</small><br>
+                    <small>Khóa: @(alumni.GraduationInfo.GraduationYear - 4) - @alumni.GraduationInfo.GraduationYear</small>
                 </div>
             </div>
         </div>

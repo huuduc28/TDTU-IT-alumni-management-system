@@ -16,6 +16,7 @@ namespace TDTU_IT_alumni_management_system.Models
     {
         public int IDNotify { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         public string Content { get; set; }
         public bool TargetType { get; set; }
         public string IDSender { get; set; }
@@ -24,8 +25,8 @@ namespace TDTU_IT_alumni_management_system.Models
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
-        public string Description { get; set; }
     
+        public virtual Admin Admin { get; set; }
         public virtual GraduationInfo GraduationInfo { get; set; }
     }
 }

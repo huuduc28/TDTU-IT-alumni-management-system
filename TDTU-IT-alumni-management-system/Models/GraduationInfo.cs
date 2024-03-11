@@ -17,13 +17,20 @@ namespace TDTU_IT_alumni_management_system.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GraduationInfo()
         {
+            this.Alumni = new HashSet<Alumnus>();
             this.Notifies = new HashSet<Notify>();
         }
     
         public int ID { get; set; }
         public string Majors { get; set; }
         public int GraduationYear { get; set; }
+        public string meta { get; set; }
+        public Nullable<bool> hide { get; set; }
+        public Nullable<int> order { get; set; }
+        public Nullable<System.DateTime> datebegin { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alumnus> Alumni { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notify> Notifies { get; set; }
     }

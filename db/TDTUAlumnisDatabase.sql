@@ -90,11 +90,12 @@ CREATE TABLE [dbo].[Alumni](
     [HomeTown] [nvarchar](50) NOT NULL,
     [PersonalWebsite] [nvarchar](50) NULL,
     [GraduationType] [nvarchar](50) NOT NULL,
-    [GraduationInfoID] [INT] NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
+    [GraduationInfoID] [INT] Not NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
     [CurrentCompany] [nvarchar](50) NOT NULL,
     [AcademicLevel] [nvarchar](50) NOT NULL,
     [TimeToCompletionOfThesisDefense] [date] NOT NULL,
     [UsersName] [nvarchar](50) NULL,
+	[Profession] [nvarchar](50) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
     [skill] [nvarchar](100) NOT NULL,
     [meta] [nvarchar](50) NULL,
@@ -144,13 +145,17 @@ CREATE TABLE [dbo].[Notify](
     PRIMARY KEY CLUSTERED ([IDNotify] ASC)
 );
 
-Drop table Notify
+--Drop table Notify
 
 --BẢNG THÔNG TIN KHÓA HỌC
 CREATE TABLE [dbo].[GraduationInfo](
     [ID] [INT] IDENTITY(1,1) NOT NULL,
     [Majors] [nvarchar](50) NOT NULL,
     [GraduationYear] [INT] NOT NULL,
+	[meta] [nvarchar](255) NULL,
+    [hide] [bit] NULL,
+    [order] [int] NULL,
+    [datebegin] [smalldatetime] NULL,
     PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
@@ -160,11 +165,11 @@ REFERENCES [dbo].[GraduationInfo] ([ID]);
 ALTER TABLE [dbo].[Notify] WITH CHECK ADD CONSTRAINT [FK_Notify_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
-BEGIN
-    ALTER TABLE dbo.Notify
-    ADD GraduationInfoID INT NULL
-END
+--IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
+--BEGIN
+--    ALTER TABLE dbo.Notify
+  --  ADD GraduationInfoID INT NULL
+--END
 
 --Bảng Header
 CREATE TABLE [dbo].[Header](
@@ -182,7 +187,7 @@ CREATE TABLE [dbo].[Header](
 ) ON [PRIMARY]
 GO
 
-drop table Header
+--drop table Header
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](
@@ -223,7 +228,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-Drop table Banner
+--Drop table Banner
 
 
 --Bảng News
@@ -250,7 +255,7 @@ CREATE TABLE [dbo].[News](
     ) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
-Drop table News
+--Drop table News
 
 --Bảng Tin Tuyển dụng
 SET ANSI_NULLS ON
@@ -260,7 +265,7 @@ GO
 CREATE TABLE [dbo].[RecruitmentNew](
 	[IDRecruitmentNew] [nvarchar](15) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
-	[Describe][nvarchar](max) NOT NULL,
+	[Describe][nvarchar](max) NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[IDEnterprise] [nvarchar](15) NOT NULL,
 	[meta] [nvarchar](50) NULL,
@@ -293,8 +298,8 @@ GO
 ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
 REFERENCES [dbo].[Admin] ([IDAdmin])
 GO
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
-REFERENCES [dbo].[Alumni] ([IDAlumni])
+--ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
+--REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON

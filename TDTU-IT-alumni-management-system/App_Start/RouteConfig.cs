@@ -74,6 +74,14 @@ namespace TDTU_IT_alumni_management_system
               },
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
+            routes.MapRoute("Enterprise", "{type}/{meta}/{id}",
+              new { Controller = "Enterprises", action = "EnterpriseRecruitmentBoard", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","doanh-nghiep" }
+              },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

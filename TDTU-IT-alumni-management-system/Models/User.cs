@@ -12,22 +12,28 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TaiKhoan
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaiKhoan()
+        public User()
         {
+            this.Admins = new HashSet<Admin>();
+            this.Alumni = new HashSet<Alumnus>();
             this.ChatBots = new HashSet<ChatBot>();
         }
     
-        public string TenTaiKhoan { get; set; }
-        public string MatKhau { get; set; }
-        public string PhanQuyen { get; set; }
+        public string UsersName { get; set; }
+        public string Password { get; set; }
+        public string Roles { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Admin> Admins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alumnus> Alumni { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatBot> ChatBots { get; set; }
     }

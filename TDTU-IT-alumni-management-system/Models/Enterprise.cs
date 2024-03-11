@@ -18,7 +18,6 @@ namespace TDTU_IT_alumni_management_system.Models
         public Enterprise()
         {
             this.RecruitmentNews = new HashSet<RecruitmentNew>();
-            this.RecruitmentNews1 = new HashSet<RecruitmentNew>();
         }
     
         public string IDEnterprise { get; set; }
@@ -35,7 +34,5 @@ namespace TDTU_IT_alumni_management_system.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecruitmentNew> RecruitmentNews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecruitmentNew> RecruitmentNews1 { get; set; }
     }
 }

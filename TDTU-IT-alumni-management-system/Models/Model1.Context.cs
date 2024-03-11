@@ -12,8 +12,6 @@ namespace TDTU_IT_alumni_management_system.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class TDTUAlumnisManagementSystemEntities : DbContext
     {
@@ -38,24 +36,6 @@ namespace TDTU_IT_alumni_management_system.Models
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Notify> Notifies { get; set; }
         public virtual DbSet<RecruitmentNew> RecruitmentNews { get; set; }
-        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
-    
-        public virtual int CheckAccessRights(string username, string tableName, ObjectParameter accessGranted)
-        {
-            var usernameParameter = username != null ?
-                new ObjectParameter("Username", username) :
-                new ObjectParameter("Username", typeof(string));
-    
-            var tableNameParameter = tableName != null ?
-                new ObjectParameter("TableName", tableName) :
-                new ObjectParameter("TableName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CheckAccessRights", usernameParameter, tableNameParameter, accessGranted);
-        }
-    
-        public virtual ObjectResult<GetAllDataNotifi_Result> GetAllDataNotifi()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDataNotifi_Result>("GetAllDataNotifi");
-        }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

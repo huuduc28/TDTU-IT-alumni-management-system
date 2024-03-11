@@ -1,4 +1,4 @@
-﻿@model TDTU_IT_alumni_management_system.Models.Alumnus
+﻿@model TDTU_IT_alumni_management_system.Models.AlumnusModel
 @{
     ViewBag.Title = "DetailAlumni";
     Layout = "~/Views/Shared/Mylayout.cshtml";
@@ -17,7 +17,7 @@
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-12 mt-3">
                 <h2 id="name" class="text-break DetailAlumni-center-text">@Model.Name</h2>
-                <p id="job-title" class="text-break DetailAlumni-center-text">@Model.Majors</p>
+                <p id="job-title" class="text-break DetailAlumni-center-text">@Model.Profession</p>
                 <p id="company" class="text-break DetailAlumni-center-text">@Model.CurrentCompany</p>
             </div>
 
@@ -36,7 +36,7 @@
             <ul>
                 <li class="mb-2">
                     <p id="university">Ton Duc Thang University</p>
-                    <p id="major">@Model.Majors @(Model.GraduationYear-4) - @Model.GraduationYear</p>
+                    <p id="major">@Model.GraduationInfo.Majors @(Model.GraduationInfo.GraduationYear-4) - @Model.GraduationInfo.GraduationYear</p>
                 </li>
             </ul>
         </div>
@@ -55,9 +55,7 @@
                         <li id="company-experience" class="mb-1">@Model.CurrentCompany</li>
                         <li id="duration" class="mb-1">@Model.jobBeginDate – Hiện tại</li>
                         <li id="description">
-                            Tham gia Nhóm Nghiên cứu cơ bản của nhóm Tìm kiếm & Đề
-                            xuất của
-                            Shopee
+                            @Model.Profession tại @Model.CurrentCompany
                         </li>
                     </ul>
                 </li>

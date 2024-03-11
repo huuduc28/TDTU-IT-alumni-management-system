@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.RecruitmentNewsViewModel>
+
+@{
+    ViewBag.Title = "EnterpriseRecruitmentBoard";
+    Layout = "~/Views/Shared/Mylayout.cshtml";
+}
+
+<style>
+
+    .img-company {
+        width: 25%;
+        height: 30%;
+    }
+
+    .cpn-box {
+        border: 1px solid rgb(214, 214, 214);
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px #cacaca;
+    }
+</style>
+<div class="content">
+    <div class="container">
+        <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Jobs</h6>
+            <h3>Tin tuyển dụng công ty @(ViewData["eName"])</h3>
+        </div>
+        <div class="row g-4">
+            @foreach (var i in Model)
+            {
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" onclick="window.location.href='/@ViewBag.meta/@i.Meta/@i.IDRecruitmentNew'">
+                    <div class="cpn-item">
+                        <div class="overflow-hidden" style="text-align: left;">
+                            <img class="img-fluid img-company p-1"
+                                 src="~/Upload/images/Logo/@i.ImgLogo"
+                                 alt="">
+                        </div>
+                        <div class="mt-2 p-1">
+                            <h5 class="mb-0">@i.Title</h5>
+                            <small class="pt-2">
+                                @{
+                                    // Tách chuỗi thành các từ
+                                    string[] words = i.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    if (words.Length > 45)
+                                    {
+                                        string partialContent = "";
+
+                                        for (int j = 0; j < 45; j++)
+                                        {
+                                            partialContent += words[j] + " ";
+                                        }
+
+                                        // Thêm dấu "..." vào cuối chuỗi
+                                        partialContent += "...";
+
+                                        // Hiển thị chuỗi mới
+                                        @partialContent
+                                    }
+                                    else
+                                    {
+                                        // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
+                                        @i.Content
+                                    }
+                                }
+                            </small><br>
+                        </div>
+                        <div class="mt-1 p-1">
+                            <a id="ngay-thang-tb" style="margin-top: 5%;">Đăng ngày: @i.DateBegin.ToString("dd/MM/yyyy")</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

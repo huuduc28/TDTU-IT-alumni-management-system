@@ -1,0 +1,26 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Enterprise>
+
+
+@if (Model != null)
+{
+    foreach (var enterprise in Model)
+    {
+        <div class="col-lg-4 mt-3">
+            <div class="cpn-box wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row p-2" onclick="location.href='/@ViewBag.meta/@enterprise.meta/@enterprise.IDEnterprise'">
+                    <div class="col-lg-3">
+                        <img src="https://it.tdtu.edu.vn/sites/cntt/files/companies/techbase.png" @*src="~/Upload/images/Logo/@enterprise.ImgLogo*@ width="100%"
+                             height="100%">
+                    </div>
+                    <div class="col-lg-9">
+                        <h6>
+                            @enterprise.EnterpriseName
+                        </h6>
+                        <a style="font-size:smaller;">Website: https://www.techbasevn.com/ @*@enterprise.Website*@</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
