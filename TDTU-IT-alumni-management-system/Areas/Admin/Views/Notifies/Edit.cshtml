@@ -4,93 +4,198 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+@{
+    var graduationInfoList = ViewBag.GraduationInfoList as List<TDTU_IT_alumni_management_system.Models.GraduationInfo>;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Quản lý tin tức</h2>
+        @using (Html.BeginForm("Edit", "Notifies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-<h2>Edit</h2>
+            <div class="form-horizontal">
+                <h4>Notify</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IDNotify)
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Notify</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDNotify)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDSender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IDSender, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IDSender, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDReceiver, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IDReceiver, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IDReceiver, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.hide)
-                    @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        <div id="wordCountTitle" class="text-danger"></div>
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Mô tả", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @required = true, @maxlength = "250" })
+                        <div id="wordCountDescription" class="text-danger"></div>
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Đối tượng", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(model => model.TargetType, new SelectList(new[] { new { Value = true, Text = "Nhóm" }, new { Value = false, Text = "Chung" } }, "Value", "Text"), "Chọn", new { @class = "form-control", @required = true, id = "TargetTypeDropdown" })
+                        @Html.ValidationMessageFor(model => model.TargetType, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @{
+                                bool hide = (Model.hide.GetValueOrDefault(false) ? true : false);
+                            }
+                            @Html.CheckBoxFor(model => hide)
+                        </div>
+                    </div>
+                </div>
+                <!-- Dropdown cho việc chọn thông tin tốt nghiệp -->
+                <div class="form-group" id="GraduationInfoDropdown">
+                    @Html.Label("Nhóm", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @{
+                            var dropdownItems = graduationInfoList.Select(info => new SelectListItem
+                            {
+                                Text = $"{info.Majors} - {info.GraduationYear}",
+                                Value = info.ID.ToString()
+                            });
+                        }
+                        @Html.DropDownListFor(model => model.GraduationInfoID, dropdownItems, "Chọn", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GraduationInfoID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <div class="btn btn-secondary">
+                            @Html.ActionLink("Trở về", "Index")
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.order, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.datebegin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.datebegin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.datebegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        }
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+<script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+
+    CKEDITOR.replace("Content", {
+        height: '400px',
+        customConfig: '/Areas/Admin/Content/ckeditor/config.js'
+    });
+    function removeDiacritics(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    $("#Title").keyup(function () {
+        var text = $(this).val().toLowerCase();
+        var textWithoutDiacritics = removeDiacritics(text);
+        var text_create = textWithoutDiacritics.replace(/\s+/g, '-').replace(/[-]+/g, '-').replace(/[^a-z0-9\-]/g, '');
+        $('#meta').val(text_create);
+    }).keyup();
+    $(document).ready(function () {
+    // Function để lấy danh sách thông tin tốt nghiệp
+    function getGraduationInfoList() {
+        $.ajax({
+            url: '@Url.Action("GetGraduationInfoList", "YourControllerName")',
+            type: 'GET',
+            success: function (data) {
+                // Cập nhật dropdown của GraduationInfo với danh sách thông tin tốt nghiệp nhận được
+                var dropdown = $("#GraduationInfoID");
+                dropdown.empty();
+                $.each(data, function () {
+                    dropdown.append($('<option>').val(this.ID).text(this.Majors));
+                });
+                // Hiển thị dropdown của GraduationInfo
+                $("#GraduationInfoDropdown").show();
+            }
+        });
+    }
+
+    // Kiểm tra giá trị của TargetType khi trang được tải
+    var targetTypeValue = $("#TargetTypeDropdown").val();
+    if (targetTypeValue === "True") {
+        // Nếu TargetType là "Nhóm", gọi hàm để hiển thị và tải dữ liệu cho dropdown GraduationInfoID
+        getGraduationInfoList();
+    }
+
+    // Xử lý sự kiện change của dropdown TargetType
+    $("#TargetTypeDropdown").change(function () {
+        var selectedValue = $(this).val();
+
+        // Nếu TargetType là "Nhóm", hiển thị dropdown của GraduationInfo và tải dữ liệu
+        if (selectedValue === "True") {
+            $("#GraduationInfoDropdown").show();
+            getGraduationInfoList();
+        } else {
+            // Nếu TargetType là "Chung", ẩn dropdown của GraduationInfo
+            $("#GraduationInfoDropdown").hide();
+            // Đặt giá trị của GraduationInfoID thành null
+            $("#GraduationInfoID").val(null);
+        }
+    });
+    });
+    $(document).ready(function () {
+        $("#GraduationInfoID").change(function () {
+            var selectedId = $(this).val();
+            // Gán giá trị ID của đối tượng GraduationInfo đã chọn vào model.GraduationInfoID
+            $("#GraduationInfoID").val(selectedId);
+        });
+    });
+    $(document).ready(function () {
+        // Sự kiện khi giá trị của dropdown thay đổi
+        $("#TargetTypeDropdown").change(function () {
+            // Lấy giá trị được chọn
+            var selectedValue = $(this).val();
+
+            // Cập nhật giá trị của TargetType
+            $("#TargetType").val(selectedValue);
+        });
+    });
+
+        $(document).ready(function () {
+            $('#Description').on('input', function () {
+                var words = this.value.match(/\S+/g).length;
+                if (words > 50) {
+                    var trimmed = $(this).val().split(/\s+/, 50).join(" ");
+                    $(this).val(trimmed + " ...");
+                    $('#wordCountDescription').text("Chỉ được nhập tối đa 50 từ.");
+                } else {
+                    $('#wordCountDescription').text('Số từ: ' + words + '/50');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#Title').on('input', function () {
+                var words = this.value.match(/\S+/g).length;
+                if (words > 25) {
+                    var trimmed = $(this).val().split(/\s+/, 25).join(" ");
+                    $(this).val(trimmed + " ...");
+                    $('#wordCountTitle').text("Chỉ được nhập tối đa 25 từ.");
+                } else {
+                    $('#wordCountTitle').text('Số từ: ' + words + '/25');
+                }
+            });
+        });
+</script>
+
+

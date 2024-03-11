@@ -21,7 +21,7 @@ namespace TDTU_IT_alumni_management_system.Models
         public string ImgNews { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
-        public int order { get; set; }
+        public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
     }
 }

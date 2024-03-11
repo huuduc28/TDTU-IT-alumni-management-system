@@ -167,27 +167,65 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- Lấy giá trị tối đa của cột "order"
     DECLARE @MaxOrder INT;
     SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Notify;
 
-    -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.Notify
-    SET hide = 1, 
-        datebegin = GETDATE(),
-		ReadStatus = 1
-    FROM inserted
-    WHERE dbo.Notify.IDNotify = inserted.IDNotify;
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.Notify n
+    INNER JOIN inserted i ON n.IDNotify = i.IDNotify;
 
-    -- Cập nhật giá trị [order] cho các bản ghi mới
-    WITH UpdatedRows AS (
-        SELECT IDNotify, ROW_NUMBER() OVER (ORDER BY IDNotify) AS NewOrder
-        FROM dbo.Notify
-        WHERE IDNotify IN (SELECT IDNotify FROM inserted)
-    )
-    UPDATE dbo.Notify
-    SET [order] = @MaxOrder + NewOrder
-    FROM UpdatedRows
-    WHERE dbo.Notify.IDNotify = UpdatedRows.IDNotify;
+END;
+GO
+
+
+
+CREATE TRIGGER trg_News_AfterInsert
+ON dbo.News
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.News;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1,  -- Tăng giá trị order lên 1 so với giá trị lớn nhất hiện có
+        hide = 1,  -- Đặt cột "hide" thành true
+        datebegin = GETDATE()  -- Đặt cột "datebegin" thành giá trị hiện tại
+    FROM dbo.News n
+    INNER JOIN inserted i ON n.IDNews = i.IDNews;
+
+END;
+GO
+
+
+CREATE TRIGGER trg_Banner_AfterInsert
+ON dbo.Banner
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Banner;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.Banner n
+    INNER JOIN inserted i ON n.IDBanner = i.IDBanner;
+
 END;
 GO
 

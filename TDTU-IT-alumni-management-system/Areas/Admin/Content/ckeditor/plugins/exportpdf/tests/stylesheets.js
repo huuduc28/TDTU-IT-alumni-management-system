@@ -1,18 +1,278 @@
-﻿(function(){bender.loadExternalPlugin("exportpdf","/apps/plugin/");CKEDITOR.plugins.load("exportpdf",function(){function a(a){var e=exportPdfUtils.getDefaultConfig("unit",a.extraConfig||{});bender.editorBot.create({name:"editor"+Date.now(),config:e,creator:a.creator},function(d){var c=d.editor;d.setHtmlWithSelection(a.initialHtml);c.once("exportPdf",function(b){assert.areEqual(a.initialHtml,b.data.html)},null,null,10);c.once("exportPdf",function(b){b.cancel();a.expectCss?assert.isNotUndefined(b.data.css,
-"Some CSS should be sent."):assert.isUndefined(b.data.css,"No CSS should be sent.");b=b.data.html.replace(/\?t=[a-z0-9]+/gi,"");assert.areEqual(a.expectedHtml,b,"HTML is incorrect.")},null,null,16);c.execCommand("exportPdf")})}bender.test({setUp:function(){bender.tools.ignoreUnsupportedEnvironment("exportpdf")},"test no custom stylesheets attached to divarea editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',
-expectCss:!1})},"test one absolute path custom stylesheet attached to divarea editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{exportPdf_stylesheets:["https://ckeditor.com"]}})},"test two absolute path custom stylesheets attached to divarea editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.css/"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://cksource.css/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{exportPdf_stylesheets:["https://ckeditor.css","https://cksource.css"]}})},"test one relative path custom stylesheet attached to divarea editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css"]}})},"test two relative path custom stylesheets attached to divarea editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',
-expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/cksource.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css","/css/cksource.css"]}})},"test one relative and one absolute path custom stylesheets attached to divarea editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css","https://ckeditor.com"]}})},"test no custom stylesheets attached to inline editor":function(){a({creator:"inline",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1})},"test one absolute path custom stylesheet attached to inline editor":function(){a({creator:"inline",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',
-expectCss:!1,extraConfig:{exportPdf_stylesheets:["https://ckeditor.com"]}})},"test two absolute path custom stylesheets attached to inline editor":function(){a({creator:"inline",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.css/"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://cksource.css/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',
-expectCss:!1,extraConfig:{exportPdf_stylesheets:["https://ckeditor.css","https://cksource.css"]}})},"test one relative path custom stylesheet attached to inline editor":function(){a({creator:"inline",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,
-extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css"]}})},"test two relative path custom stylesheets attached to inline editor":function(){a({creator:"inline",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/cksource.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',
-expectCss:!1,extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css","/css/cksource.css"]}})},"test one relative and one absolute path custom stylesheets attached to inline editor":function(){a({creator:"inline",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',
-expectCss:!1,extraConfig:{exportPdf_stylesheets:["/css/ckeditor.css","https://ckeditor.com"]}})},"test no custom stylesheets attached to classic editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!0,extraConfig:{removePlugins:"divarea"}})},"test one absolute path custom stylesheet attached to classic editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{removePlugins:"divarea",exportPdf_stylesheets:["https://ckeditor.com"]}})},"test two absolute path custom stylesheets attached to classic editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',
-expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.css/"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://cksource.css/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{removePlugins:"divarea",exportPdf_stylesheets:["https://ckeditor.css","https://cksource.css"]}})},"test one relative path custom stylesheet attached to classic editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{removePlugins:"divarea",exportPdf_stylesheets:["/css/ckeditor.css"]}})},"test two relative path custom stylesheets attached to classic editor":function(){a({creator:"replace",initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',
-expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/cksource.css")+'"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{removePlugins:"divarea",exportPdf_stylesheets:["/css/ckeditor.css","/css/cksource.css"]}})},"test one relative and one absolute path custom stylesheets attached to classic editor":function(){a({creator:"replace",
-initialHtml:'\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e',expectedHtml:'\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"'+exportPdfUtils.toAbsoluteUrl("/css/ckeditor.css")+'"\x3e\x3clink type\x3d"text/css" rel\x3dstylesheet href\x3d"https://ckeditor.com/"\x3e\x3cdiv class\x3d"cke_editable cke_contents_ltr"\x3e\x3cp id\x3d"test"\x3eHello, World!\x3c/p\x3e\x3c/div\x3e',expectCss:!1,extraConfig:{removePlugins:"divarea",exportPdf_stylesheets:["/css/ckeditor.css","https://ckeditor.com"]}})}})})})();
+/* bender-tags: exportpdf,feature,31 */
+/* bender-ckeditor-plugins: toolbar,wysiwygarea,divarea */
+/* bender-include: _helpers/tools.js */
+/* global exportPdfUtils */
+
+( function() {
+	'use strict';
+
+	var inputHtml = '<p id="test">Hello, World!</p>',
+		outputHtml = '<div class="cke_editable cke_contents_ltr"><p id="test">Hello, World!</p></div>';
+
+	bender.loadExternalPlugin( 'exportpdf', '/apps/plugin/' );
+
+	CKEDITOR.plugins.load( 'exportpdf', function() {
+		bender.test( {
+			setUp: function() {
+				bender.tools.ignoreUnsupportedEnvironment( 'exportpdf' );
+			},
+
+			'test no custom stylesheets attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: outputHtml,
+					expectCss: false
+				} );
+			},
+
+			'test one absolute path custom stylesheet attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.com/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ 'https://ckeditor.com' ]
+					}
+				} );
+			},
+
+			'test two absolute path custom stylesheets attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.css/">' +
+						'<link type="text/css" rel=stylesheet href="https://cksource.css/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ 'https://ckeditor.css', 'https://cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative path custom stylesheet attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css' ]
+					}
+				} );
+			},
+
+			'test two relative path custom stylesheets attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/cksource.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css', '/css/cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative and one absolute path custom stylesheets attached to divarea editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + 'https://ckeditor.com/' + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css', 'https://ckeditor.com' ]
+					}
+				} );
+			},
+
+			'test no custom stylesheets attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: outputHtml,
+					expectCss: false
+				} );
+			},
+
+			'test one absolute path custom stylesheet attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.com/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ 'https://ckeditor.com' ]
+					}
+				} );
+			},
+
+			'test two absolute path custom stylesheets attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.css/">' +
+						'<link type="text/css" rel=stylesheet href="https://cksource.css/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ 'https://ckeditor.css', 'https://cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative path custom stylesheet attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css' ]
+					}
+				} );
+			},
+
+			'test two relative path custom stylesheets attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/cksource.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css', '/css/cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative and one absolute path custom stylesheets attached to inline editor': function() {
+				testAttachingStylesheets( {
+					creator: 'inline',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + 'https://ckeditor.com/' + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						exportPdf_stylesheets: [ '/css/ckeditor.css', 'https://ckeditor.com' ]
+					}
+				} );
+			},
+
+			'test no custom stylesheets attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: outputHtml,
+					expectCss: true,
+					extraConfig: {
+						removePlugins: 'divarea'
+					}
+				} );
+			},
+
+			'test one absolute path custom stylesheet attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.com/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						removePlugins: 'divarea',
+						exportPdf_stylesheets: [ 'https://ckeditor.com' ]
+					}
+				} );
+			},
+
+			'test two absolute path custom stylesheets attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="https://ckeditor.css/">' +
+						'<link type="text/css" rel=stylesheet href="https://cksource.css/">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						removePlugins: 'divarea',
+						exportPdf_stylesheets: [ 'https://ckeditor.css', 'https://cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative path custom stylesheet attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						removePlugins: 'divarea',
+						exportPdf_stylesheets: [ '/css/ckeditor.css' ]
+					}
+				} );
+			},
+
+			'test two relative path custom stylesheets attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/cksource.css' ) + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						removePlugins: 'divarea',
+						exportPdf_stylesheets: [ '/css/ckeditor.css', '/css/cksource.css' ]
+					}
+				} );
+			},
+
+			'test one relative and one absolute path custom stylesheets attached to classic editor': function() {
+				testAttachingStylesheets( {
+					creator: 'replace',
+					initialHtml: inputHtml,
+					expectedHtml: '<link type="text/css" rel=stylesheet href="' + exportPdfUtils.toAbsoluteUrl( '/css/ckeditor.css' ) + '">' +
+						'<link type="text/css" rel=stylesheet href="' + 'https://ckeditor.com/' + '">' + outputHtml,
+					expectCss: false,
+					extraConfig: {
+						removePlugins: 'divarea',
+						exportPdf_stylesheets: [ '/css/ckeditor.css', 'https://ckeditor.com' ]
+					}
+				} );
+			}
+		} );
+
+		function testAttachingStylesheets( options ) {
+			var config = exportPdfUtils.getDefaultConfig( 'unit', options.extraConfig || {} );
+
+			bender.editorBot.create( {
+				name: 'editor' + Date.now(),
+				config: config,
+				creator: options.creator
+			}, function( bot ) {
+				var editor = bot.editor;
+
+				bot.setHtmlWithSelection( options.initialHtml );
+
+				editor.once( 'exportPdf', function( evt ) {
+					assert.areEqual( options.initialHtml, evt.data.html );
+				}, null, null, 10 );
+
+				editor.once( 'exportPdf', function( evt ) {
+					evt.cancel();
+					if ( options.expectCss ) {
+						assert.isNotUndefined( evt.data.css, 'Some CSS should be sent.' );
+					} else {
+						assert.isUndefined( evt.data.css, 'No CSS should be sent.' );
+					}
+
+					// (#103)
+					var actualValue = evt.data.html.replace( /\?t=[a-z0-9]+/gi, '' );
+					assert.areEqual( options.expectedHtml, actualValue, 'HTML is incorrect.' );
+				}, null, null, 16 );
+
+				editor.execCommand( 'exportPdf' );
+			} );
+		}
+	} );
+} )();

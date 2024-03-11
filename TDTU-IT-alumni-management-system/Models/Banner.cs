@@ -14,8 +14,8 @@ namespace TDTU_IT_alumni_management_system.Models
     
     public partial class Banner
     {
-        public string IDBaner { get; set; }
-        public string ImgBaner { get; set; }
+        public int IDBanner { get; set; }
+        public string ImgBanner { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }
         public Nullable<int> order { get; set; }

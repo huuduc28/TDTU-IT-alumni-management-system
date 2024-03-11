@@ -292,6 +292,12 @@
     <Compile Include="Models\Enterprise.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllDataNotifi_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GraduationInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Header.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -316,6 +322,7 @@
     <Compile Include="Models\News.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationViewModel.cs" />
     <Compile Include="Models\Notify.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -481,6 +488,10 @@
     <Content Include="Areas\Admin\Content\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\dialog\styles\dialog.css" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\icons\exportpdf.png" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\icons\hidpi\exportpdf.png" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\lang\en.js" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\plugin.js" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\plugindefinition.js" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\tests\authentication.js" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\tests\exportpdf.js" />
@@ -768,11 +779,9 @@
     <Content Include="Areas\Admin\Views\Headers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Headers\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Banners\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banners\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\News\Details.cshtml" />
     <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
@@ -781,17 +790,16 @@
     <Content Include="Areas\Admin\Views\Notifies\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Notifies\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Notifies\Index.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Content\ckeditor\bender-runner.config.json" />
     <Content Include="Areas\Admin\Content\ckeditor\CHANGES.md" />
     <Content Include="Areas\Admin\Content\ckeditor\LICENSE.md" />
     <Content Include="Areas\Admin\Content\ckeditor\package.json" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Areas\Admin\Content\ckeditor\README.md" />
+    <Content Include="Areas\Admin\Content\ckeditor\SECURITY.md" />
+    <Content Include="Areas\Admin\Content\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\CHANGELOG.md" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\LICENSE.md" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\README.md" />
@@ -809,12 +817,13 @@
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\tests\manual\tokentwoeditorswrong.md" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\tests\manual\tokenwithouturl.md" />
     <Content Include="Areas\Admin\Content\ckeditor\plugins\exportpdf\tests\manual\wrongendpoint.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\CHANGELOG.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\README.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\SECURITY.md" />
-    <Content Include="Areas\Admin\Content\ckeditor\skins\moono-lisa\readme.md" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

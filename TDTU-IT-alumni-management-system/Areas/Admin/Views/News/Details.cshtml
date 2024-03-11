@@ -1,75 +1,85 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.News
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết tin tức";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Quản lý tin tức</h2>
+        <div>
+            <h4>News</h4>
+            <hr />
+            <div class="form-horizontal">
 
-<h2>Details</h2>
+                <div class="form-group">
+                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        <h3 style="font-weight: bold; color: black;">
+                            @Html.DisplayFor(model => model.Title)
+                        </h3>
+                    </div>
+                </div>
 
-<div>
-    <h4>News</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                <div class="form-group">
+                    @Html.Label("Mô tả", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                <div class="form-group">
+                    @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        @Html.Raw(Model.Content)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Ảnh bìa", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        <img src="~/Upload/images/News/@Model.ImgNews" width="200px" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Đường dẫn", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        @Html.DisplayFor(model => model.meta)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Ngày đăng", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        @Html.DisplayFor(model => model.datebegin)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Trạng thái", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10">
+                        @{
+                            if ((bool)Model.hide)
+                            {
+                                @Html.Raw("Hiển thị")
+                            }
+                            else
+                            {
+                                @Html.Raw("Ẩn")
+                            }
+                        }
+                    </div>
+                </div>
+                <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+                <div class="form-group">
+                    <div class="col-md-offset-0 col-md-10">
+                        <a href="@Url.Action("Edit", new {id = Model.IDNews})" class="btn btn-primary">
+                            Chỉnh sửa
+                        </a>
+                        <div class="btn btn-secondary">
+                            @Html.ActionLink("Trở về", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgNews)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImgNews)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datebegin)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDNews }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

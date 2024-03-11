@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.News>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý tin tức";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
@@ -35,10 +35,12 @@
                 <span class="lnr lnr-file-add"></span>
             </a>
         </p>
+        <hr />
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>
                             Hình ảnh
                         </th>
@@ -47,10 +49,6 @@
                         </th>
                         <th>
                             Mô tả
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.meta)
                         </th>
                         <th>
                             Ngày đăng
@@ -63,10 +61,13 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    @{ var Number = 1;}
                     @foreach (var item in Model)
                     {
                         <tr class="odd gradeX">
+                            <td>
+                                @Html.Raw(Number ++)
+                            </td>
                             <td>
                                 <img src="~/Upload/images/News/@Html.DisplayFor(modelItem => item.ImgNews)" style="width : 150px ; height:90px" />
                             </td>
@@ -75,12 +76,7 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.meta)
-                            </td>
-
+                            </td>   
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
                             </td>

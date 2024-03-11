@@ -10,22 +10,15 @@
 namespace TDTU_IT_alumni_management_system.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Notify
+    public partial class GetAllDataNotifi_Result
     {
         public int IDNotify { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public bool TargetType { get; set; }
         public string IDSender { get; set; }
-        public Nullable<int> GraduationInfoID { get; set; }
-        public string meta { get; set; }
-        public Nullable<bool> hide { get; set; }
-        public Nullable<int> order { get; set; }
-        public Nullable<System.DateTime> datebegin { get; set; }
-        public string Description { get; set; }
-    
-        public virtual GraduationInfo GraduationInfo { get; set; }
+        public string Majors { get; set; }
+        public Nullable<int> GraduationYear { get; set; }
     }
 }

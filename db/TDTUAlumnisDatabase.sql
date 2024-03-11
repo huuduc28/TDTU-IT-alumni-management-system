@@ -30,6 +30,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 /****** Object:  Table [dbo].[ChatBot]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -77,41 +78,33 @@ GO
 
 
 /****** Object:  Table [dbo].[CuuHSSV]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Alumni](
-	[IDAlumni] [nvarchar](15) NOT NULL,
-	[Name] [nvarchar](50) NOT NULL,
-	[Email] [nvarchar](50) NOT NULL,
-	[Phone] [nvarchar](15) NOT NULL,
-	[Birthday] [date] NOT NULL,
-	[Gender] [nvarchar](10) NOT NULL,
-	[ProfilePicture] [nvarchar](50) NULL,
-	[Nationality] [nvarchar](50) NOT NULL,
-	[HomeTown] [nvarchar](50) NOT NULL,
-	[PersonalWebsite] [nvarchar](50) NULL,
-	[GraduationType] [nvarchar](50) NOT NULL,
-	[Majors] [nvarchar](50) NOT NULL,
-	[GraduationYear] [int] NOT NULL,
-	[CurrentCompany] [nvarchar](50) NOT NULL,
-	[AcademicLevel] [nvarchar](50) NOT NULL,
-	[TimeToCompletionOfThesisDefense] [date] NOT NULL,
-	[UsersName] [nvarchar](50) NULL,
-	[jobBeginDate] [date] NOT NULL,
-	[skill] [nvarchar](100) NOT NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [int] NULL,
-	[datebegin] [smalldatetime] NULL,
-	
-PRIMARY KEY CLUSTERED 
-(
-	[IDAlumni] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+    [IDAlumni] [nvarchar](15) NOT NULL,
+    [Name] [nvarchar](50) NOT NULL,
+    [Email] [nvarchar](50) NOT NULL,
+    [Phone] [nvarchar](15) NOT NULL,
+    [Birthday] [date] NOT NULL,
+    [Gender] [nvarchar](10) NOT NULL,
+    [ProfilePicture] [nvarchar](50) NULL,
+    [Nationality] [nvarchar](50) NOT NULL,
+    [HomeTown] [nvarchar](50) NOT NULL,
+    [PersonalWebsite] [nvarchar](50) NULL,
+    [GraduationType] [nvarchar](50) NOT NULL,
+    [GraduationInfoID] [INT] NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
+    [CurrentCompany] [nvarchar](50) NOT NULL,
+    [AcademicLevel] [nvarchar](50) NOT NULL,
+    [TimeToCompletionOfThesisDefense] [date] NOT NULL,
+    [UsersName] [nvarchar](50) NULL,
+    [jobBeginDate] [date] NOT NULL,
+    [skill] [nvarchar](100) NOT NULL,
+    [meta] [nvarchar](50) NULL,
+    [hide] [bit] NULL,
+    [order] [int] NULL,
+    [datebegin] [smalldatetime] NULL,
+    PRIMARY KEY CLUSTERED ([IDAlumni] ASC)
+);
+
+
 /****** Object:  Table [dbo].[QuanTriVien]    Script Date: 22/2/2024 6:23:33 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -135,28 +128,43 @@ PRIMARY KEY CLUSTERED
 GO
 
 /****** Object:  Table [dbo].[ThongBao]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+--BẢNG THÔNG BÁO
 CREATE TABLE [dbo].[Notify](
-	[IDNotify] [nvarchar](15) NOT NULL,
-	[Title] [nvarchar](100) NOT NULL,
-	[Content] [nvarchar](max) NOT NULL,
-	[IDSender] [nvarchar](15) NULL,
-	[IDReceiver] [nvarchar](15) NULL,
-	[ReadStatus] [bit] NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [int] NULL,
-	[datebegin] [smalldatetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[IDnotify] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
+    [IDNotify] [INT] IDENTITY(1,1) NOT NULL,
+    [Title] [nvarchar](100) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+    [Content] [nvarchar](max) NOT NULL,
+    [TargetType] [bit] NOT NULL, --- nếu là true tức là sẽ gửi cho nhóm đối tượng cụ thể 
+    [IDSender] [nvarchar](15) NULL,
+    [GraduationInfoID] [INT] NULL,
+    [meta] [nvarchar](255) NULL,
+    [hide] [bit] NULL,
+    [order] [int] NULL,
+    [datebegin] [smalldatetime] NULL,
+    PRIMARY KEY CLUSTERED ([IDNotify] ASC)
+);
 
+Drop table Notify
+
+--BẢNG THÔNG TIN KHÓA HỌC
+CREATE TABLE [dbo].[GraduationInfo](
+    [ID] [INT] IDENTITY(1,1) NOT NULL,
+    [Majors] [nvarchar](50) NOT NULL,
+    [GraduationYear] [INT] NOT NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+ALTER TABLE [dbo].[Alumni] WITH CHECK ADD CONSTRAINT [FK_Alumni_GraduationInfo] FOREIGN KEY([GraduationInfoID])
+REFERENCES [dbo].[GraduationInfo] ([ID]);
+
+ALTER TABLE [dbo].[Notify] WITH CHECK ADD CONSTRAINT [FK_Notify_GraduationInfo] FOREIGN KEY([GraduationInfoID])
+REFERENCES [dbo].[GraduationInfo] ([ID]);
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
+BEGIN
+    ALTER TABLE dbo.Notify
+    ADD GraduationInfoID INT NULL
+END
 
 --Bảng Header
 CREATE TABLE [dbo].[Header](
@@ -200,33 +208,35 @@ CREATE TABLE [dbo].[Menu](
 ) ON [PRIMARY]
 Go
 
---Bảng Banner
+--BẢNG BANNER
 CREATE TABLE [dbo].[Banner](
-	[IDBaner] [nvarchar](15) NOT NULL,
-	[ImgBaner] [nvarchar](100) NOT NULL,
+	[IDBanner] [INT] IDENTITY(1,1)  NOT NULL,
+	[ImgBanner] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[IDBaner] ASC
+	[IDBanner] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+Drop table Banner
 
 
 --Bảng News
 CREATE TABLE [dbo].[News](
     [IDNews] [INT] IDENTITY(1,1) NOT NULL,
-    [Title] [nvarchar](100) NOT NULL,
+    [Title] [nvarchar](255) NOT NULL,
     [Content] [nvarchar](max) NOT NULL,
 	[Description] [nvarchar](max) NOT NULL,
     [ImgNews] [nvarchar](100) NOT NULL,
-    [meta] [nvarchar](50) NULL,
-    [hide] [bit] NULL DEFAULT 1,
-    [order] [INT] NOT NULL,
-    [datebegin] [smalldatetime] DEFAULT GETDATE(), -- Đặt mặc định là GETDATE()
+    [meta] [nvarchar](255) NULL,
+    [hide] [bit] NULL ,
+    [order] [INT] NULL,
+    [datebegin] [smalldatetime] NULL, -- Đặt mặc định là GETDATE()
     PRIMARY KEY CLUSTERED 
     (
         [IDNews] ASC

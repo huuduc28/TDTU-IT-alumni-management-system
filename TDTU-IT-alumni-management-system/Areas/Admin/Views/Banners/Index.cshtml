@@ -1,19 +1,43 @@
 ﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Banner>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý banner";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="confirmDeleteModalLabel">Xóa banner</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa banner <span id="delete-banners-title"></span> không?</p>
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "Banners", FormMethod.Post, new { id = "deleteForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Id", null, new { id = "bannersId" })
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Quản lý Banner</h2>
-
         <p>
-            <a href="@Url.Action("Create")" class="btn btn-primary">Thêm 
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                Thêm
                 <span class="lnr lnr-file-add"></span>
             </a>
         </p>
+        <hr />
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
@@ -36,7 +60,7 @@
                     {
                         <tr>
                             <td style="text-align: center;">
-                                <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBaner)" style="width : 200px ; height:90px" />
+                                <img src="~/Upload/images/Banner/@Html.DisplayFor(modelItem => item.ImgBanner)" style="width : 200px ; height:90px" />
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
@@ -45,7 +69,7 @@
                                 @{
                                     if ((bool)item.hide)
                                     {
-                                        @Html.Raw("Hiện")
+                                        @Html.Raw("Hiển thị")
                                     }
                                     else
                                     {
@@ -54,10 +78,10 @@
                                 }
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit", new {id = item.IDBaner})" class="btn btn-primary">
+                                <a href="@Url.Action("Edit", new {id = item.IDBanner})" class="btn btn-primary">
                                     <span class="lnr lnr-pencil"></span>
                                 </a>
-                                <a href="@Url.Action("Delete", new {id = item.IDBaner})" class="btn btn-danger">
+                                <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDBanner">
                                     <span class="lnr lnr-trash"></span>
                                 </a>
                             </td>
@@ -85,5 +109,14 @@
             document.getElementById("nav-banners").className = "active";
         }
     }
+    $(document).ready(function () {
+        $('.delete-btn').click(function (e) {
+            e.preventDefault();
+            var bannersId = $(this).data('id'); 
+            $('#bannersId').val(bannersId); 
+            $('#delete-banners-title').text(bannersId); 
+            $('#confirmDeleteModal').modal('show');
+        });
+    });
 
 </script>

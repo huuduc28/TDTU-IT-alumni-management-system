@@ -70,7 +70,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     // Kiểm tra xem các trường bắt buộc có được nhập hay không
-                    if (string.IsNullOrEmpty(news.Title) || string.IsNullOrEmpty(news.Description) || string.IsNullOrEmpty(news.Content) || img == null)
+                    if (img == null)
                     {
                         string errorMessage = "Vui lòng nhập đầy đủ thông tin cho các trường bắt buộc.";
                         TempData["ErrorMessage"] = errorMessage;
@@ -87,11 +87,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                         img.SaveAs(path);
                         news.ImgNews = filename; //Lưu ý
                     }
-                    else
-                    {
-                        news.ImgNews = "logo.png";
-                    }
-                    news.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                     db.News.Add(news);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -136,7 +131,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "IDNews,Title,Content,ImgNews,meta,hide,order,datebegin")] News news , HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "IDNews,Title,Description,Content,ImgNews,meta,hide,order,datebegin")] News news, HttpPostedFileBase img)
         {
             try
             {
@@ -145,30 +140,44 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 News temp = getById(news.IDNews);
                 if (ModelState.IsValid)
                 {
+                    if (news.Content != null) // Kiểm tra nếu news.Content không phải null
+                    {
+                        temp.Content = news.Content; // Gán giá trị của news.Content cho temp.Content
+                    }
                     if (img != null)
                     {
-                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + Path.GetFileName(img.FileName);
                         path = Path.Combine(Server.MapPath("~/Upload/images/News"), filename);
                         img.SaveAs(path);
-                        temp.ImgNews = filename; //Lưu ý
+                        temp.ImgNews = filename;
+                    }
+                    else
+                    {
+                        temp.ImgNews = temp.ImgNews;
                     }
                     temp.Title = news.Title;
-                    temp.Content = news.Content;
                     temp.Description = news.Description;
-                    news.datebegin = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                    temp.meta = ConvertToUnSign(news.meta); //convert Tiếng Việt không dấu
+                    temp.datebegin = DateTime.Now;
+                    temp.meta = news.meta;
+                    temp.hide = news.hide;
+                    temp.order = news.order;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
-            catch (DbEntityValidationException e)
+            catch (DbEntityValidationException ex)
             {
-                throw e;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}",
+                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật tin tức. Vui lòng kiểm tra lại thông tin.";
+                return RedirectToAction("Edit", new { id = news.IDNews });
             }
             return View(news);
         }
@@ -234,20 +243,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         public News getById(long id)
         {
             return db.News.Where(x => x.IDNews == id).FirstOrDefault();
-
         }
-        //private string GetFirstWords(string input, int wordCount)
-        //{
-        //    // Tách chuỗi thành mảng các từ
-        //    string[] words = input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        //    // Lấy số từ cần thiết từ mảng
-        //    int numWords = Math.Min(wordCount, words.Length);
-
-        //    // Kết hợp các từ thành chuỗi kết quả
-        //    string result = string.Join(" ", words, 0, numWords);
-
-        //    return result;
-        //}
     }
 }

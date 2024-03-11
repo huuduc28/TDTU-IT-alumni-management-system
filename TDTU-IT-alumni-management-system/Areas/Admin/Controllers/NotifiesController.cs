@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,11 +18,12 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Notifies
         public ActionResult Index()
         {
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
             return View(db.Notifies.ToList());
         }
 
         // GET: Admin/Notifies/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -59,7 +61,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         }
 
         // GET: Admin/Notifies/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -70,6 +72,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
             return View(notify);
         }
 
@@ -78,19 +81,47 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDNotify,Title,Content,IDSender,IDReceiver,meta,hide,order,datebegin")] Notify notify)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "IDNotify,Title,Description,Content,TargetType,IDSender,GraduationInfoID,meta,hide,order,datebegin")] Notify notify)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(notify).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Notify temp = GetById(notify.IDNotify);
+                if (ModelState.IsValid)
+                {
+                    if (notify.Content != null) // Kiểm tra nếu news.Content không phải null
+                    {
+                        temp.Content = notify.Content; // Gán giá trị của news.Content cho temp.Content
+                    }
+                    temp.Title = notify.Title;
+                    temp.Description = notify.Description;
+                    temp.TargetType = notify.TargetType;
+                    temp.GraduationInfoID = notify.GraduationInfoID;
+                    temp.IDSender = "Admin1";
+                    temp.meta = notify.meta;
+                    temp.hide = notify.hide;
+                    temp.datebegin = DateTime.Now;
+                    db.Entry(temp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}",
+                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
             }
             return View(notify);
         }
 
         // GET: Admin/Notifies/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +138,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // POST: Admin/Notifies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             Notify notify = db.Notifies.Find(id);
             db.Notifies.Remove(notify);
@@ -122,6 +153,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public GraduationInfo GetGraduationInfoById(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
+            return graduationInfo;
+        }
+        public Notify GetById(long id)
+        {
+            return db.Notifies.Where(x => x.IDNotify == id).FirstOrDefault();
+        }
+        public ActionResult GetGraduationInfoList()
+        {
+            var graduationInfoList = db.GraduationInfoes.ToList();
+            return Json(graduationInfoList, JsonRequestBehavior.AllowGet);
         }
     }
 }

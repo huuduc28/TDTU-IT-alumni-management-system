@@ -61,7 +61,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
         {
             ViewBag.meta = "thong-bao";
             var v = (from t in _db.Notifies
-                     where t.hide == true
+                     where t.TargetType == false && t.hide == true 
                      orderby t.datebegin descending
                      select t).Take(12);
             return PartialView(v.ToList());

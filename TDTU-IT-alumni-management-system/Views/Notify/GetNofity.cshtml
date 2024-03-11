@@ -9,7 +9,6 @@
     body {
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;
-        padding-top: 20px;
     }
 
     .container {
@@ -79,10 +78,10 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-gap">
+            <div class="col-lg-3 col-gap">
                 <!-- Added spacing -->
                 <div class="search-column">
-                    <h2>Tìm kiếm thông báo</h2>
+                    <h4>Tìm kiếm thông báo</h4>
                     <form action="#">
                         <div class="mb-3">
                             <label for="searchByName" class="form-label">Tìm kiếm theo tên thông báo</label>
@@ -92,7 +91,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="searchByContent" class="form-label">Tìm kiếm trong nội dung thông báo</label>
+                            <label for="searchByContent" class="form-label">Tìm kiếm trong nội dung</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="searchByContent" placeholder="Nhập từ khóa">
                                 <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
@@ -100,18 +99,18 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="department" class="form-label">Chọn Khoa/Phòng</label>
+                                <label for="department" class="form-label">Khoa/Phòng</label>
                                 <select class="form-select" id="department">
-                                    <option value="">Chọn Khoa/Phòng</option>
+                                    <option value="">Khoa/Phòng</option>
                                     <option value="1">Khoa CNTT</option>
                                     <option value="2">Khoa Kinh tế</option>
                                     <option value="3">Khoa Ngoại ngữ</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="category" class="form-label">Chọn thể loại</label>
+                                <label for="category" class="form-label">Thể loại</label>
                                 <select class="form-select" id="category">
-                                    <option value="">Chọn thể loại</option>
+                                    <option value="">Thể loại</option>
                                     <option value="1">Thông báo chung</option>
                                     <option value="2">Thông báo học tập</option>
                                     <option value="3">Thông báo sinh hoạt</option>
@@ -142,7 +141,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-8 col-gap">
+            <div class="col-lg-9 col-gap">
                 <!-- Added spacing -->
                 <main>
                     <div class="list-thong-bao">

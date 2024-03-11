@@ -11,7 +11,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
     {
         TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
         // GET: Notifications
-        public ActionResult GetNofityDetal(string id)
+        public ActionResult GetNofityDetal(int id)
         {
             var v = from t in _db.Notifies
                     where t.IDNotify == id && t.hide == true
@@ -19,18 +19,10 @@ namespace TDTU_IT_alumni_management_system.Controllers
                     select t;
             return PartialView(v.FirstOrDefault());
         }
-        public ActionResult GetNofityList()
-        {
-            var v = (from t in _db.Notifies
-                     where t.hide == true
-                     orderby t.datebegin descending
-                     select t).Take(10);
-            return PartialView(v.ToList());
-        }
         public ActionResult GetNofity()
         {
             var v = (from t in _db.Notifies
-                     where t.hide == true
+                     where t.TargetType == false && t.hide == true
                      orderby t.datebegin descending
                      select t).Take(10);
             return PartialView(v.ToList());
