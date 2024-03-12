@@ -1,166 +1,245 @@
-﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Alumnus>
+﻿@using PagedList;
+@model IPagedList<TDTU_IT_alumni_management_system.Models.Alumnus>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Quản lý cựu sinh viên</h2>
+                <p>
+                    <a href="@Url.Action("Create")" class="btn btn-primary">
+                        Thêm
+                        <span class="lnr lnr-file-add"></span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div class="search-container" style="margin-top:5%; margin-bottom:5%;">
+                    <form id="searchForm" action="@Url.Action("Search")" method="get">
+                        <div class="input-group mb-4">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="searchString" placeholder="Search...">
 
-<h2>Index</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @Html.DropDownList("majorKey", new SelectList(new[]
+                {
+                    new SelectListItem { Value = "Khoa học máy tính", Text = "Khoa học máy tính" },
+                    new SelectListItem { Value = "Kỹ thuật phần mềm", Text = "Kỹ thuật phần mềm" },
+                    new SelectListItem { Value = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", Text = "Mạng Máy Tính Và Truyền Thông Dữ Liệu" }
+                }, "Value", "Text"), "Chọn ngành...", new { @class = "form-control" })
+            </div>
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            STT
+                        </th>
+                        <th>
+                            Ảnh đại diện
+                        </th>
+                        <th>
+                            Mã cựu sinh viên
+                        </th>
+                        <th>
+                            Họ và tên
+                        </th>
+                        <th>
+                            Thông tin liên hệ
+                        </th>
+                        <th>
+                            Ngành tốt nghiệp
+                        </th>
+                        <th>
+                            Công việc hiện tại
+                        </th>
+                        <th>
+                            Trình độ
+                        </th>
+                        <th>
+                            Kĩ năng
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="alumniPartialContainer">
+                    @{ var Number = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd gradeX">
+                            <td>
+                                @Html.Raw(Number++)
+                            </td>
+                            <td>
+                                <img src="~/Upload/images/Avata/@item.ProfilePicture" alt="Avatar" style="border-radius: 50%; width: 100px; height: 100px;">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDAlumni)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email) @("-") @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GraduationInfo.Majors) @("-") @Html.DisplayFor(modelItem => item.GraduationInfo.GraduationYear)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Profession) @("-") @Html.DisplayFor(modelItem => item.CurrentCompany)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AcademicLevel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.skill)
+                            </td>
+                            <td style="width:100px">
+                                <a href="@Url.Action("Edit", new {id = item.IDAlumni})" class="btn btn-primary">
+                                    <span class="lnr lnr-pencil"></span>
+                                </a>
+                                <a href="@Url.Action("Details", new {id = item.IDAlumni})" class="btn btn-info">
+                                    <span class="lnr lnr-layers"></span>
+                                </a>
+                                <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDAlumni">
+                                    <span class="lnr lnr-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        @*Phân trang*@
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-container">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <span class="page-link">Page @Model.PageNumber.ToString() of @Model.PageCount.ToString()</span>
+                    </li>
+                    @if (Model.PageNumber > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = 1 })" aria-label="First">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })" aria-label="Previous">
+                                <span aria-hidden="true">&lsaquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfilePicture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nationality)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HomeTown)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PersonalWebsite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.skill)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GraduationType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GraduationInfoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentCompany)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AcademicLevel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeToCompletionOfThesisDefense)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsersName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Profession)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.jobBeginDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.meta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </th>
-        <th></th>
-    </tr>
+                    @for (var i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                        </li>
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfilePicture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nationality)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HomeTown)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PersonalWebsite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.skill)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GraduationType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GraduationInfoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentCompany)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AcademicLevel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeToCompletionOfThesisDefense)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsersName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profession)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.jobBeginDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.meta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hide)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.order)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.datebegin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDAlumni }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDAlumni }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDAlumni })
-        </td>
-    </tr>
-}
+                    @if (Model.PageNumber < Model.PageCount)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })" aria-label="Next">
+                                <span aria-hidden="true">&rsaquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageCount })" aria-label="Last">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Last</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
 
-</table>
+<script>
+    $(document).ready(function () {
+        $('.delete-btn').click(function (e) {
+            e.preventDefault();
+            var newsId = $(this).data('id');
+            var newsTitle = $(this).closest('tr').find('td:eq(1)').text();
+            $('#newsId').val(newsId);
+            $('#delete-news-title').text(newsTitle); // Đặt giá trị cho span có id "delete-news-title"
+            $('#confirmDeleteModal').modal('show');
+        });
+
+        // Tự động chạy hàm active khi trang được tải
+    });
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-alumnis").className == "") {
+            document.getElementById("nav-alumnis").className = "active";
+        }
+    };
+    $(function () {
+        $('#searchForm').submit(function (event) {
+            event.preventDefault(); // Ngăn chặn việc gửi form một cách truyền thống
+
+            // Gửi yêu cầu tìm kiếm bằng phương thức GET
+            $.get($(this).attr('action'), $(this).serialize(), function (response) {
+                // Tìm phần tử tbody của bảng
+                var tbody = $('#dataTables-example tbody');
+
+                // Xóa hết các dòng hiện có trong tbody
+                tbody.empty();
+
+                // Thêm từng dòng mới vào tbody
+                tbody.append($(response).find('.gradeX'));
+                // Đếm số lượng dòng dữ liệu
+                var rowCount = tbody.find('tr').length;
+                if (rowCount > 10) {
+                    $('.pagination-container').show();
+                } else {
+                    $('.pagination-container').hide();
+                }
+            });
+        });
+    });
+
+     $(document).ready(function () {
+        $('#majorKey').change(function () {
+            var majorKey = $(this).val(); 
+            $.ajax({
+                url: '@Url.Action("DataFilter", "Alumni")',
+                type: 'GET',
+                data: { majorKey: majorKey }, 
+                success: function (response) {
+                    var tbody = $('#dataTables-example tbody');
+                    tbody.empty();
+                    $('#alumniPartialContainer').html(response);
+                    $('.pagination-container').hide();
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi lọc dữ liệu!');
+                }
+            });
+        });
+    });
+
+</script>

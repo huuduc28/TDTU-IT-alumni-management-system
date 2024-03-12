@@ -1,0 +1,48 @@
+﻿@model List<TDTU_IT_alumni_management_system.Models.Alumnus>
+@{ var Number = 1;}
+@foreach (var item in Model)
+{
+    <tr class="odd gradeX">
+        <td>
+            @Html.Raw(Number++)
+        </td>
+        <td>
+            <img src="~/Upload/images/Avata/@item.ProfilePicture" alt="Avatar" style="border-radius: 50%; width: 100px; height: 100px;">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDAlumni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email) @("-") @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GraduationInfo.Majors) @("-") @Html.DisplayFor(modelItem => item.GraduationInfo.GraduationYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profession) @("-") @Html.DisplayFor(modelItem => item.CurrentCompany)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.skill)
+        </td>
+        <td style="width:100px">
+            <a href="@Url.Action("Edit", new {id = item.IDAlumni})" class="btn btn-primary">
+                <span class="lnr lnr-pencil"></span>
+            </a>
+            <a href="@Url.Action("Details", new {id = item.IDAlumni})" class="btn btn-info">
+                <span class="lnr lnr-layers"></span>
+            </a>
+            <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDAlumni">
+                <span class="lnr lnr-trash"></span>
+            </a>
+        </td>
+    </tr>
+}
+
+
+
