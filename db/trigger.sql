@@ -229,8 +229,9 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER trg_GraduationInfo_AfterInsert
-ON dbo.GraduationInfo
+-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG DOANH NGHIỆP
+CREATE TRIGGER trg_Enterprise_AfterInsert
+ON dbo.Enterprise
 AFTER INSERT
 AS
 BEGIN
@@ -238,16 +239,38 @@ BEGIN
 
     -- Lấy giá trị tối đa của cột "order"
     DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.GraduationInfo;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Enterprise;
 
     -- Cập nhật giá trị cho mỗi bản ghi mới
     UPDATE n
     SET [order] = @MaxOrder + 1, 
         hide = 1,  
         datebegin = GETDATE()  
-    FROM dbo.GraduationInfo n
-    INNER JOIN inserted i ON n.ID = i.ID;
+    FROM dbo.Enterprise n
+    INNER JOIN inserted i ON n.IDEnterprise = i.IDEnterprise;
 
 END;
 GO
 
+-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG TIN TUYỂN DỤNG
+CREATE TRIGGER trg_RecruitmentNew_AfterInsert
+ON dbo.RecruitmentNew
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.RecruitmentNew;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.RecruitmentNew n
+    INNER JOIN inserted i ON n.IDRecruitmentNew = i.IDRecruitmentNew;
+
+END;
+GO

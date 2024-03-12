@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,10 +19,23 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
         // GET: Admin/News
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.News.ToList());
+            var pageSize = 10; // Số lượng phần tử trên mỗi trang
+            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
+
+            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+            var data = db.News.OrderByDescending(n => n.datebegin).ToList();
+
+            // Chuyển đổi danh sách thành đối tượng IPagedList
+            var pagedData = data.ToPagedList(pageNumber, pageSize);
+            // Trả về view với đối tượng IPagedList
+            return View(pagedData);
         }
+        //public ActionResult Index()
+        //{
+        //    return View(db.News.ToList());
+        //}
 
         // GET: Admin/News/Details/5
         public ActionResult Details(int? id)
@@ -243,6 +257,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         public News getById(long id)
         {
             return db.News.Where(x => x.IDNews == id).FirstOrDefault();
+        }
+        public ActionResult Search(string searchString, int? page)
+        {
+            var pageSize = 10; // Số lượng phần tử trên mỗi trang
+            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
+
+            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+            var data = db.News.OrderByDescending(n => n.datebegin).ToList();
+
+            // Nếu có chuỗi tìm kiếm, lọc dữ liệu dựa trên chuỗi đó
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                data = data.Where(n => n.Title.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+            }
+            // Chuyển đổi danh sách thành đối tượng IPagedList
+            var pagedData = data.ToPagedList(pageNumber, pageSize);
+            // Trả về view với đối tượng IPagedList
+            return View("Index", pagedData);
         }
 
     }

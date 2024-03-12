@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
@@ -16,12 +18,20 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
         // GET: Admin/Notifies
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View(db.Notifies.ToList());
-        }
+            var pageSize = 10; // Số lượng phần tử trên mỗi trang
+            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
 
+            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+            var data = db.Notifies.OrderByDescending(n => n.datebegin).ToList();
+
+            // Chuyển đổi danh sách thành đối tượng IPagedList
+            var pagedData = data.ToPagedList(pageNumber, pageSize);
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+            // Trả về view với đối tượng IPagedList
+            return View(pagedData);
+        }
         // GET: Admin/Notifies/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,12 +44,14 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
             return View(notify);
         }
 
         // GET: Admin/Notifies/Create
         public ActionResult Create()
         {
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
             return View();
         }
 
@@ -48,15 +60,30 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDNotify,Title,Content,IDSender,IDReceiver,meta,hide,order,datebegin")] Notify notify)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "IDNotify,Title,Description,Content,TargetType,IDSender,GraduationInfoID,meta,hide,order,datebegin")] Notify notify)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Notifies.Add(notify);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    notify.IDSender = "admin1";
+                    db.Notifies.Add(notify);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}",
+                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
             return View(notify);
         }
 
@@ -154,23 +181,30 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
-        public GraduationInfo GetGraduationInfoById(int? id)
-        {
-            if (id == null)
-            {
-                return null;
-            }
-            GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
-            return graduationInfo;
-        }
         public Notify GetById(long id)
         {
             return db.Notifies.Where(x => x.IDNotify == id).FirstOrDefault();
         }
-        public ActionResult GetGraduationInfoList()
+        public ActionResult Search(string searchString, int? page)
         {
-            var graduationInfoList = db.GraduationInfoes.ToList();
-            return Json(graduationInfoList, JsonRequestBehavior.AllowGet);
+            var pageSize = 10; // Số lượng phần tử trên mỗi trang
+            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
+
+            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+            var data = db.Notifies.OrderByDescending(n => n.datebegin).ToList();
+
+            // Nếu có chuỗi tìm kiếm, lọc dữ liệu dựa trên chuỗi đó
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                data = data.Where(n => n.Title.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+            }
+
+            // Chuyển đổi danh sách thành đối tượng IPagedList
+            var pagedData = data.ToPagedList(pageNumber, pageSize);
+            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+
+            // Trả về view với đối tượng IPagedList
+            return View("Index", pagedData);
         }
     }
 }

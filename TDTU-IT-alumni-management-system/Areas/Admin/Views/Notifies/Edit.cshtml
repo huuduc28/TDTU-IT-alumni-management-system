@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
-}
-@{
     var graduationInfoList = ViewBag.GraduationInfoList as List<TDTU_IT_alumni_management_system.Models.GraduationInfo>;
+
 }
+
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Quản lý tin tức</h2>
@@ -111,48 +111,51 @@
         var text_create = textWithoutDiacritics.replace(/\s+/g, '-').replace(/[-]+/g, '-').replace(/[^a-z0-9\-]/g, '');
         $('#meta').val(text_create);
     }).keyup();
+
     $(document).ready(function () {
-    // Function để lấy danh sách thông tin tốt nghiệp
-    function getGraduationInfoList() {
-        $.ajax({
-            url: '@Url.Action("GetGraduationInfoList", "YourControllerName")',
-            type: 'GET',
-            success: function (data) {
-                // Cập nhật dropdown của GraduationInfo với danh sách thông tin tốt nghiệp nhận được
-                var dropdown = $("#GraduationInfoID");
-                dropdown.empty();
-                $.each(data, function () {
-                    dropdown.append($('<option>').val(this.ID).text(this.Majors));
-                });
-                // Hiển thị dropdown của GraduationInfo
+        // Function để lấy danh sách thông tin tốt nghiệp
+        function getGraduationInfoList() {
+            $.ajax({
+                url: '@Url.Action("GetGraduationInfoList", "YourControllerName")',
+                type: 'GET',
+                success: function (data) {
+                    // Cập nhật dropdown của GraduationInfo với danh sách thông tin tốt nghiệp nhận được
+                    var dropdown = $("#GraduationInfoID");
+                    dropdown.empty();
+                    $.each(data, function () {
+                        dropdown.append($('<option>').val(this.ID).text(this.Majors));
+                    });
+                    // Hiển thị dropdown của GraduationInfo
+                    $("#GraduationInfoDropdown").show();
+                }
+            });
+        }
+
+        // Kiểm tra giá trị của TargetType khi trang được tải
+        var targetTypeValue = $("#TargetTypeDropdown").val();
+        if (targetTypeValue === "True") {
+            // Nếu TargetType là "Nhóm", gọi hàm để hiển thị và tải dữ liệu cho dropdown GraduationInfoID
+            getGraduationInfoList();
+        }
+        if (targetTypeValue === "False") {
+            $("#GraduationInfoDropdown").hide();
+        }
+        // Xử lý sự kiện change của dropdown TargetType
+        $("#TargetTypeDropdown").change(function () {
+            var selectedValue = $(this).val();
+            // Nếu TargetType là "Nhóm", hiển thị dropdown của GraduationInfo và tải dữ liệu
+            if (selectedValue === "True") {
                 $("#GraduationInfoDropdown").show();
+                getGraduationInfoList();
+            } else {
+                // Nếu TargetType là "Chung", ẩn dropdown của GraduationInfo
+                $("#GraduationInfoDropdown").hide();
+                // Đặt giá trị của GraduationInfoID thành null
+                $("#GraduationInfoID").val(null);
             }
         });
-    }
-
-    // Kiểm tra giá trị của TargetType khi trang được tải
-    var targetTypeValue = $("#TargetTypeDropdown").val();
-    if (targetTypeValue === "True") {
-        // Nếu TargetType là "Nhóm", gọi hàm để hiển thị và tải dữ liệu cho dropdown GraduationInfoID
-        getGraduationInfoList();
-    }
-
-    // Xử lý sự kiện change của dropdown TargetType
-    $("#TargetTypeDropdown").change(function () {
-        var selectedValue = $(this).val();
-
-        // Nếu TargetType là "Nhóm", hiển thị dropdown của GraduationInfo và tải dữ liệu
-        if (selectedValue === "True") {
-            $("#GraduationInfoDropdown").show();
-            getGraduationInfoList();
-        } else {
-            // Nếu TargetType là "Chung", ẩn dropdown của GraduationInfo
-            $("#GraduationInfoDropdown").hide();
-            // Đặt giá trị của GraduationInfoID thành null
-            $("#GraduationInfoID").val(null);
-        }
     });
-    });
+
     $(document).ready(function () {
         $("#GraduationInfoID").change(function () {
             var selectedId = $(this).val();

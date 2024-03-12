@@ -65,40 +65,35 @@ VALUES
 
 -- Thêm dữ liệu vào bảng CuuHSSV
 INSERT INTO Alumni
-	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel, TimeToCompletionOfThesisDefense, UsersName, jobBeginDate, skill, Profession, GraduationInfoID)
+	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel, TimeToCompletionOfThesisDefense, UsersName, jobBeginDate, skill, Profession,ProfilePicture,[Password])
 VALUES
-	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'Java, Python', 'Back-end dev', 1),
-	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01',  'Java, Python', 'Back-end dev', 2),
-	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01',  'Java, Python', 'Back-end dev', 3),
-	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01',  'Java, Python', 'Back-end dev', 4),
-	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01',  'Java, Python', 'Back-end dev', 5),
-	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python', 'Back-end dev', 6),
-	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python', 'Back-end dev', 7),
-	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python', 'Front-end dev', 8),
-	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev', 9),
-	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev', 10),
-	('alumni0011', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python','Front-end dev', 11),
-	('alumni0012', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python','Front-end dev', 12),
-	('alumni0013', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python','Front-end dev', 13),
-	('alumni0014', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev', 14),
-	('alumni0015', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev', 15);
+	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
+	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python', 'Front-end dev','Avata.jpg','123456789'),
+	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni0011', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni0012', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni0013', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni0014', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
+	('alumni0015', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev','Avata.jpg','123456789');
 
 
 -- Thêm dữ liệu vào bảng CongTyDoanhNghiep
 INSERT INTO Enterprise
-	(IDEnterprise, EnterpriseName, EnterpriseAddress, Phone, Email,ImgLogo, meta, hide, [order], datebegin)
+	(EnterpriseName, EnterpriseAddress, Phone, Email,ImgLogo,meta)
 VALUES
-	('enterprise001', N'ABC Company', N'123 Main Street, City, Country', '0123456789', 'info@abccompany.com','LogoIT.png','cong-ty',1, 1, GETDATE()),
-	('enterprise002', N'XYZ Corporation', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp.com','LogoIT.png','cong-ty',1, 2, GETDATE()),
-	('enterprise003', N'ABC Company 2', N'123 Main Street, City, Country', '0123456789', 'info@abccompany2.com','LogoIT.png','cong-ty',1, 3, GETDATE()),
-	('enterprise004', N'XYZ Corporation 2', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp2.com','LogoIT.png','cong-ty',1, 4, GETDATE()),
-	('enterprise005', N'ABC Company 3', N'123 Main Street, City, Country', '0123456789', 'info@abccompany3.com','LogoIT.png','cong-ty',1, 5, GETDATE()),
-	('enterprise006', N'XYZ Corporation 3', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp3.com','LogoIT.png','cong-ty',1, 6, GETDATE()),
-	('enterprise007', N'ABC Company 4', N'123 Main Street, City, Country', '0123456789', 'info@abccompany4.com','LogoIT.png','cong-ty',1, 7, GETDATE()),
-	('enterprise008', N'XYZ Corporation 4', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp4.com','LogoIT.png','cong-ty',1, 8, GETDATE()),
-	('enterprise009', N'ABC Company 5', N'123 Main Street, City, Country', '0123456789', 'info@abccompany5.com','LogoIT.png','cong-ty',1, 9, GETDATE()),
-	('enterprise010', N'XYZ Corporation 5', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp5.com','LogoIT.png','cong-ty',1, 10, GETDATE());
+	(N'ABC Company', N'123 Main Street, City, Country', '0123456789', 'info@abccompany.com','LogoIT.png','cong-ty'),
+	(N'XYZ Corporation', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp.com','LogoIT.png','cong-ty'),
+	(N'ABC Company 2', N'123 Main Street, City, Country', '0123456789', 'info@abccompany2.com','LogoIT.png','cong-ty'),
+	(N'XYZ Corporation 2', N'456 First Avenue, City, Country', '0987654321', 'info@xyzcorp2.com','LogoIT.png','cong-ty');
 
+select * from Enterprise
 -- dữ liệu banner
 INSERT INTO Banner
 	(ImgBanner, meta)
@@ -157,34 +152,37 @@ Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc th
 các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.',0,'admin001',15,'tin-hom-nay');
 
 
+INSERT INTO GraduationInfo (Majors, GraduationYear)
+VALUES 
+    (N'Khoa học máy tính', 2019),
+    (N'Kỹ thuật phần mềm', 2019),
+    (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2019),
+    (N'Khoa học máy tính', 2020),
+    (N'Kỹ thuật phần mềm', 2020),
+    (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2020),
+    (N'Khoa học máy tính', 2021),
+    (N'Kỹ thuật phần mềm', 2021),
+    (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2021),
+    (N'Khoa học máy tính', 2022),
+    (N'Kỹ thuật phần mềm', 2022),
+    (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2022),
+    (N'Khoa học máy tính', 2023),
+    (N'Kỹ thuật phần mềm', 2023),
+    (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2023);
 
 
 
 INSERT INTO RecruitmentNew
-	(IDRecruitmentNew, Title ,Content,IDEnterprise, meta, hide, [order], datebegin)
+	(Title,Describe ,Content,IDEnterprise, meta)
 VALUES
-	('01', N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
+	(N'FPT Software tuyển dụng Fresher.Net',N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
 Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
 Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','enterprise001', 'tuyen-dung', 1, 1, GETDATE()),
-	('02', N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
-Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
-Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','enterprise001', 'tuyen-dung', 1, 1, GETDATE()),
-	('03', N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
-Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
-Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','enterprise001', 'tuyen-dung', 1, 1, GETDATE()),
-	('04', N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
-Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
-Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','enterprise001', 'tuyen-dung', 1, 1, GETDATE()),
-	('05', N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
-Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
-Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','enterprise001', 'tuyen-dung', 1, 1, GETDATE());
-	
+các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','1', 'tuyen-dung');
+
 
 select * from RecruitmentNew
 select * from Enterprise
 select * from Banner
+Select * from Enterprise
+Drop table Enterprise

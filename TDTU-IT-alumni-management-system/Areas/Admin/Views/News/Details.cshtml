@@ -6,15 +6,15 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Quản lý tin tức</h2>
+        <h2>Chi tiết tin tức</h2>
         <div>
             <h4>News</h4>
             <hr />
             <div class="form-horizontal">
 
                 <div class="form-group">
-                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         <h3 style="font-weight: bold; color: black;">
                             @Html.DisplayFor(model => model.Title)
                         </h3>
@@ -22,39 +22,39 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Mô tả", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Mô tả", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         @Html.DisplayFor(model => model.Description)
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Nội dung", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         @Html.Raw(Model.Content)
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.Label("Ảnh bìa", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Ảnh bìa", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         <img src="~/Upload/images/News/@Model.ImgNews" width="200px" />
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.Label("Đường dẫn", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Đường dẫn", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         @Html.DisplayFor(model => model.meta)
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.Label("Ngày đăng", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-11">
+                    @Html.Label("Ngày đăng", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         @Html.DisplayFor(model => model.datebegin)
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.Label("Trạng thái", htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-10">
+                    @Html.Label("Trạng thái", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
                         @{
                             if ((bool)Model.hide)
                             {
@@ -82,4 +82,5 @@
             </div>
         </div>
     </div>
+</div>
 

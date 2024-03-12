@@ -554,10 +554,10 @@ ul.notifications>li>.more:focus {
   padding-bottom: 10px;
 }
 
-.sidebar .nav .nav>li>a:focus,
-.sidebar .nav .nav>li>a.active {
-  background-color: transparent;
-  border-left-color: transparent;
+.sidebar .nav .nav > li > a:focus,
+.sidebar .nav .nav > li > a.active {
+    background-color: #5d87ff;
+    border-left-color: transparent;
 }
 
 .sidebar .nav .nav>li>a.active a {

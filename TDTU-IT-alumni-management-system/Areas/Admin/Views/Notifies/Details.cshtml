@@ -1,74 +1,95 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.Notify
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết thông báo";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+    var graduationInfoList = ViewBag.GraduationInfoList as List<TDTU_IT_alumni_management_system.Models.GraduationInfo>;
+
 }
 
-<h2>Details</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Chi tiết thông báo</h2>
+        <hr />
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("Tiêu đề:", htmlAttributes: new { @class = "col-md-12" })
+                <div class=" col-md-offset-1 col-md-12">
+                    <h3 style="font-weight: bold; color: black;">
+                        @Html.DisplayFor(model => model.Title)
+                    </h3>
+                </div>
+            </div>
 
-<div>
-    <h4>Notify</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <div class="form-group">
+                @Html.Label("Mô tả:", htmlAttributes: new { @class = "col-md-12" })
+                <div class=" col-md-offset-1 col-md-11">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <div class="form-group">
+                @Html.Label("Nội dung:", htmlAttributes: new { @class = "col-md-2" })
+                <div class="col-md-offset-1 col-md-11">
+                    @Html.Raw(Model.Content)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Đối tượng:", htmlAttributes: new { @class = "col-md-12" })
+                <div class="col-md-offset-1 col-md-11">
+                    @if (Model.TargetType)
+                    {
+                        // Nếu TargetType là true, kiểm tra và hiển thị thông tin tốt nghiệp
+                        var selectedGraduationInfo = graduationInfoList.FirstOrDefault(info => info.ID == Model.GraduationInfoID);
+                        @Html.DisplayFor(modelItem => selectedGraduationInfo.Majors) @(" - ") @Html.DisplayFor(modelItem => selectedGraduationInfo.GraduationYear);
+                    }
+                    else
+                    {
+                        <text>Tất cả</text>
+                    }
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.Label("Đường dẫn:", htmlAttributes: new { @class = "col-md-12" })
+                <div class=" col-md-offset-1 col-md-12">
+                    @Html.DisplayFor(model => model.meta)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Ngày đăng:", htmlAttributes: new { @class = "col-md-12" })
+                <div class=" col-md-offset-1 col-md-11">
+                    @Html.DisplayFor(model => model.datebegin)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Trạng thái:", htmlAttributes: new { @class = "col-md-12" })
+                <div class="col-md-offset-1 col-md-10">
+                    @{
+                        if ((bool)Model.hide)
+                        {
+                            @Html.Raw("Hiển thị")
+                        }
+                        else
+                        {
+                            @Html.Raw("Ẩn")
+                        }
+                    }
+                </div>
+            </div>
+            <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IDSender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IDSender)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datebegin)
-        </dd>
-
-    </dl>
+            <div class="form-group">
+                <div class="col-md-offset-0 col-md-10">
+                    <a href="@Url.Action("Edit", new {id = Model.IDNotify})" class="btn btn-primary">
+                        Chỉnh sửa
+                    </a>
+                    <div class="btn btn-secondary">
+                        @Html.ActionLink("Trở về", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDNotify }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

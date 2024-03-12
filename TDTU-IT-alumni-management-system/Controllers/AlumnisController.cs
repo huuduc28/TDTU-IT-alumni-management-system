@@ -86,7 +86,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                     return PartialView(alumni);
                 }
             }
-            
+
         }
 
 

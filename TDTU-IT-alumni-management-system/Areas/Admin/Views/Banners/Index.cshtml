@@ -108,6 +108,9 @@
         if (document.getElementById("nav-banners").className == "") {
             document.getElementById("nav-banners").className = "active";
         }
+        if (document.getElementById("nav-subpage").className == "collapsed") {
+            document.getElementById("nav-subpage").className = "collapsed active";
+        }
     }
     $(document).ready(function () {
         $('.delete-btn').click(function (e) {

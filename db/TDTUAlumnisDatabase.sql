@@ -11,31 +11,7 @@ end
 GO
 USE [TDTUAlumnisManagementSystem]
 GO
-/****** Object:  Table [dbo].[TaiKhoan]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Users](
-	[UsersName] [nvarchar](50) NOT NULL,
-	[Password] [nvarchar](50) NOT NULL,
-	[Roles] [nvarchar](50) NOT NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [int] NULL,
-	[datebegin] [smalldatetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[UsersName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-/****** Object:  Table [dbo].[ChatBot]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+--BẢNG CHATBOT
 CREATE TABLE [dbo].[ChatBot](
 	[IDBot] [nvarchar](15) NOT NULL,
 	[Prompt] [nvarchar](max) NOT NULL,
@@ -51,20 +27,18 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
 /****** Object:  Table [dbo].[CongTyDoanhNghiep]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Enterprise](
-	[IDEnterprise] [nvarchar](15) NOT NULL,
+	[IDEnterprise] [INT] IDENTITY(1,1) NOT NULL,
 	[EnterpriseName] [nvarchar](50) NOT NULL,
 	[EnterpriseAddress] [nvarchar](100) NOT NULL,
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
-	[Website] [nvarchar](50) NULL,
-	[ImgLogo] [nvarchar](100) NOT NULL,
-	[meta] [nvarchar](50) NULL,
+	[Website] [nvarchar](255) NULL,
+	[ImgLogo] [nvarchar](255) NOT NULL,
+	[meta] [nvarchar](255) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
@@ -75,10 +49,10 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-
-
 /****** Object:  Table [dbo].[CuuHSSV]    Script Date: 22/2/2024 6:23:33 PM ******/
+
 CREATE TABLE [dbo].[Alumni](
+	---Thông tin cá nhân
     [IDAlumni] [nvarchar](15) NOT NULL,
     [Name] [nvarchar](50) NOT NULL,
     [Email] [nvarchar](50) NOT NULL,
@@ -89,6 +63,8 @@ CREATE TABLE [dbo].[Alumni](
     [Nationality] [nvarchar](50) NOT NULL,
     [HomeTown] [nvarchar](50) NOT NULL,
     [PersonalWebsite] [nvarchar](50) NULL,
+	[skill] [nvarchar](100) NOT NULL,
+	--Thông tin học vấn
     [GraduationType] [nvarchar](50) NOT NULL,
     [GraduationInfoID] [INT] Not NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
     [CurrentCompany] [nvarchar](50) NOT NULL,
@@ -98,6 +74,10 @@ CREATE TABLE [dbo].[Alumni](
 	[Profession] [nvarchar](50) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
     [skill] [nvarchar](100) NOT NULL,
+	[Profession] [nvarchar](50) NOT NULL,
+    [jobBeginDate] [date] NOT NULL, 
+	--Thông tin tài khoản
+	[Password] [nvarchar](50) NOT NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
     [order] [int] NULL,
@@ -106,17 +86,15 @@ CREATE TABLE [dbo].[Alumni](
 );
 
 
+
 /****** Object:  Table [dbo].[QuanTriVien]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Admin](
 	[IDAdmin] [nvarchar](15) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
-	[UsersName] [nvarchar](50) NULL,
+	[Password] [nvarchar](50) NOT NULL,
 	[meta] [nvarchar](50) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
@@ -165,11 +143,11 @@ REFERENCES [dbo].[GraduationInfo] ([ID]);
 ALTER TABLE [dbo].[Notify] WITH CHECK ADD CONSTRAINT [FK_Notify_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
 
---IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
---BEGIN
---    ALTER TABLE dbo.Notify
-  --  ADD GraduationInfoID INT NULL
---END
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
+BEGIN
+    ALTER TABLE dbo.Notify
+    ADD GraduationInfoID INT NULL
+END
 
 --Bảng Header
 CREATE TABLE [dbo].[Header](
@@ -187,7 +165,7 @@ CREATE TABLE [dbo].[Header](
 ) ON [PRIMARY]
 GO
 
---drop table Header
+drop table Header
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](
@@ -228,7 +206,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
---Drop table Banner
+Drop table Banner
 
 
 --Bảng News
@@ -255,20 +233,17 @@ CREATE TABLE [dbo].[News](
     ) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
---Drop table News
+Drop table News
 
 --Bảng Tin Tuyển dụng
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[RecruitmentNew](
-	[IDRecruitmentNew] [nvarchar](15) NOT NULL,
+    [IDRecruitmentNew] [INT] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
 	[Describe][nvarchar](max) NULL,
 	[Content] [nvarchar](max) NOT NULL,
-	[IDEnterprise] [nvarchar](15) NOT NULL,
-	[meta] [nvarchar](50) NULL,
+	[JobDescription] [nvarchar](max) NOT NULL,
+	[IDEnterprise] [INT] NOT NULL,
+	[meta] [nvarchar](255) NULL,
 	[hide] [bit] NULL,
 	[order] [int] NULL,
 	[datebegin] [smalldatetime] NULL,
@@ -279,6 +254,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+--KHÓA NGOẠI CHO BẢNG CÔNG TY
 ALTER TABLE [dbo].[RecruitmentNew]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
 REFERENCES [dbo].[Enterprise] ([IDEnterprise])
 GO
@@ -302,10 +278,7 @@ GO
 --REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 
 -- Thủ tục kiểm tra quyền truy cập
 /*CREATE PROCEDURE [dbo].[CheckAccessRights] 
