@@ -7,7 +7,7 @@ using TDTU_IT_alumni_management_system.Models;
 
 namespace TDTU_IT_alumni_management_system.Controllers
 {
-    public class EnterprisesController : Controller
+    public class EnterpriseController : Controller
     {
         // GET: Enterprises
         TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
@@ -45,7 +45,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
             return PartialView(enterprises);
         }
 
-        public ActionResult EnterpriseRecruitmentBoard(string id)
+        public ActionResult EnterpriseRecruitmentBoard(int id)
         {
             ViewBag.meta = "tin-tuyen-dung";
             ViewData["eName"] = _db.Enterprises.FirstOrDefault(e => e.IDEnterprise == id).EnterpriseName;
@@ -68,7 +68,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
             return PartialView(v.ToList());
 
         }
-        public ActionResult GetRecruitmentNewDetal(string id)
+        public ActionResult GetRecruitmentNewDetal(int id)
         {
 
             var v = from t in _db.RecruitmentNews

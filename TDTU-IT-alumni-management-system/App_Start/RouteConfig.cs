@@ -34,13 +34,13 @@ namespace TDTU_IT_alumni_management_system
             routes.MapRoute(
                name: "DoanhNghiep",
                url: "doanh-nghiep",
-               defaults: new { controller = "Enterprises", action = "Index" },
+               defaults: new { controller = "Enterprise", action = "Index" },
            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute(
                name: "TuyenDung",
                url: "tin-tuyen-dung",
-               defaults: new { controller = "Enterprises", action = "GetRecruitmentNewList" },
+               defaults: new { controller = "Enterprise", action = "GetRecruitmentNewList" },
            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute(
@@ -67,7 +67,7 @@ namespace TDTU_IT_alumni_management_system
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute("Recruitment", "{type}/{meta}/{id}",
-              new { Controller = "Enterprises", action = "GetRecruitmentNewDetal", id = UrlParameter.Optional },
+              new { Controller = "Enterprise", action = "GetRecruitmentNewDetal", id = UrlParameter.Optional },
               new RouteValueDictionary
               {
                     {"type","tin-tuyen-dung" }
@@ -75,7 +75,7 @@ namespace TDTU_IT_alumni_management_system
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute("Enterprise", "{type}/{meta}/{id}",
-              new { Controller = "Enterprises", action = "EnterpriseRecruitmentBoard", id = UrlParameter.Optional },
+              new { Controller = "Enterprise", action = "EnterpriseRecruitmentBoard", id = UrlParameter.Optional },
               new RouteValueDictionary
               {
                     {"type","doanh-nghiep" }

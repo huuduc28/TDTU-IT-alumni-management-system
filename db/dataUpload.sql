@@ -65,23 +65,23 @@ VALUES
 
 -- Thêm dữ liệu vào bảng CuuHSSV
 INSERT INTO Alumni
-	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel, TimeToCompletionOfThesisDefense, UsersName, jobBeginDate, skill, Profession,ProfilePicture,[Password])
+	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel, TimeToCompletionOfThesisDefense, UsersName, jobBeginDate, skill, Profession,GraduationInfoID,ProfilePicture,[Password])
 VALUES
-	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python', 'Back-end dev','Avata.jpg','123456789'),
-	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python', 'Front-end dev','Avata.jpg','123456789'),
-	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni0011', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni0012', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni0013', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni0014', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev','Avata.jpg','123456789'),
-	('alumni0015', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev','Avata.jpg','123456789');
+	('alumni001', N'Alice Smith', 'alice.smith@example.com', '0123456789', '1990-05-15', N'Nữ', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2022-01-01', 'user1', '2022-01-01', 'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni002', N'Bob Johnson', 'bob.johnson@example.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2023-01-01', 'user2', '2023-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni003', N'Emma Smith', 'emma.smith@example.com', '0123456789', '1993-05-20', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user3', '2023-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni004', N'Ethan Nguyen', 'ethan.nguyen@example.com', '0987654321', '1991-08-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user4', '2024-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni005', N'Ava Garcia', 'ava.garcia@example.com', '0123456789', '1992-06-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user5', '2023-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni006', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni007', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python', 'Back-end dev',16,'Avata.jpg','123456789'),
+	('alumni008', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python', 'Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni009', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni010', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni0011', N'Noah Hernandez', 'noah.hernandez@example.com', '0987654321', '1990-09-25', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user6', '2024-01-01',  'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni0012', N'Isabella Lopez', 'isabella.lopez@example.com', '0123456789', '1991-07-30', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user7', '2023-01-01',  'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni0013', N'Liam Lee', 'liam.lee@example.com', '0987654321', '1993-10-05', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user8', '2024-01-01',  'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni0014', N'Mia Kim', 'mia.kim@example.com', '0123456789', '1992-08-10', N'Nữ', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2023-01-01', 'user9', '2023-01-01',  'Java, Python','Front-end dev',16,'Avata.jpg','123456789'),
+	('alumni0015', N'William Wong', 'william.wong@example.com', '0987654321', '1990-11-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2024-01-01', 'user10', '2024-01-01', 'Java, Python','Front-end dev',16,'Avata.jpg','123456789');
 
 
 -- Thêm dữ liệu vào bảng CongTyDoanhNghiep
@@ -171,7 +171,6 @@ VALUES
     (N'Mạng Máy Tính Và Truyền Thông Dữ Liệu', 2023);
 
 
-
 INSERT INTO RecruitmentNew
 	(Title,Describe ,Content,IDEnterprise, meta)
 VALUES
@@ -186,3 +185,4 @@ select * from Enterprise
 select * from Banner
 Select * from Enterprise
 Drop table Enterprise
+Select * from GraduationInfo

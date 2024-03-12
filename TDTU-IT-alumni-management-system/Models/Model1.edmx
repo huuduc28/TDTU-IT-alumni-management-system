@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="IDAdmin" />
+          </Key>
+          <Property Name="IDAdmin" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Alumni">
+          <Key>
+            <PropertyRef Name="IDAlumni" />
+          </Key>
+          <Property Name="IDAlumni" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HomeTown" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonalWebsite" Type="nvarchar" MaxLength="50" />
+          <Property Name="skill" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GraduationType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GraduationInfoID" Type="int" Nullable="false" />
+          <Property Name="CurrentCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AcademicLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeToCompletionOfThesisDefense" Type="date" Nullable="false" />
+          <Property Name="UsersName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="jobBeginDate" Type="date" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="IDBanner" />
+          </Key>
+          <Property Name="IDBanner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImgBanner" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="ChatBot">
+          <Key>
+            <PropertyRef Name="IDBot" />
+          </Key>
+          <Property Name="IDBot" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NoiDungNguoiDung" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NoiDungPhanHoi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Enterprise">
+          <Key>
+            <PropertyRef Name="IDEnterprise" />
+          </Key>
+          <Property Name="IDEnterprise" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnterpriseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnterpriseAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImgLogo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="255" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="GraduationInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Majors" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GraduationYear" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Header">
+          <Key>
+            <PropertyRef Name="IDHeader" />
+          </Key>
+          <Property Name="IDHeader" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImgLogo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IDMenu" />
+          </Key>
+          <Property Name="IDMenu" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="15" />
+          <Property Name="HasChild" Type="bit" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="IDNews" />
+          </Key>
+          <Property Name="IDNews" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImgNews" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="255" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Notify">
+          <Key>
+            <PropertyRef Name="IDNotify" />
+          </Key>
+          <Property Name="IDNotify" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TargetType" Type="bit" Nullable="false" />
+          <Property Name="IDSender" Type="nvarchar" MaxLength="15" />
+          <Property Name="GraduationInfoID" Type="int" />
+          <Property Name="meta" Type="nvarchar" MaxLength="255" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="RecruitmentNew">
+          <Key>
+            <PropertyRef Name="IDRecruitmentNew" />
+          </Key>
+          <Property Name="IDRecruitmentNew" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Describe" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IDEnterprise" Type="int" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="255" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="TenTaiKhoan" />
+          </Key>
+          <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhanQuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="50" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
+        </EntityType>
+        <Association Name="FK__ChatBot__TenTaiK__36B12243">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="ChatBot" Type="Self.ChatBot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="ChatBot">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recruitme__IDEnt__5B78929E">
+          <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
+          <End Role="RecruitmentNew" Type="Self.RecruitmentNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enterprise">
+              <PropertyRef Name="IDEnterprise" />
+            </Principal>
+            <Dependent Role="RecruitmentNew">
+              <PropertyRef Name="IDEnterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notify_GraduationInfo">
+          <End Role="GraduationInfo" Type="Self.GraduationInfo" Multiplicity="0..1" />
+          <End Role="Notify" Type="Self.Notify" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GraduationInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notify">
+              <PropertyRef Name="GraduationInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TDTUAlumnisManagementSystemModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alumni" EntityType="Self.Alumni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatBot" EntityType="Self.ChatBot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enterprise" EntityType="Self.Enterprise" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GraduationInfo" EntityType="Self.GraduationInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Header" EntityType="Self.Header" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notify" EntityType="Self.Notify" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecruitmentNew" EntityType="Self.RecruitmentNew" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="ChatBot" EntitySet="ChatBot" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recruitme__IDEnt__5B78929E" Association="Self.FK__Recruitme__IDEnt__5B78929E">
+            <End Role="Enterprise" EntitySet="Enterprise" />
+            <End Role="RecruitmentNew" EntitySet="RecruitmentNew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notify_GraduationInfo" Association="Self.FK_Notify_GraduationInfo">
+            <End Role="GraduationInfo" EntitySet="GraduationInfo" />
+            <End Role="Notify" EntitySet="Notify" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TDTUAlumnisManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="IDAdmin" />
+          </Key>
+          <Property Name="IDAdmin" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Alumnus">
+          <Key>
+            <PropertyRef Name="IDAlumni" />
+          </Key>
+          <Property Name="IDAlumni" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HomeTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonalWebsite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="skill" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GraduationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GraduationInfoID" Type="Int32" Nullable="false" />
+          <Property Name="CurrentCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AcademicLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeToCompletionOfThesisDefense" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UsersName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Profession" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="jobBeginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="IDBanner" />
+          </Key>
+          <Property Name="IDBanner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImgBanner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ChatBot">
+          <Key>
+            <PropertyRef Name="IDBot" />
+          </Key>
+          <Property Name="IDBot" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDungNguoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoiDungPhanHoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__ChatBot__TenTaiK__36B12243" FromRole="ChatBot" ToRole="TaiKhoan" />
+        </EntityType>
+        <EntityType Name="Enterprise">
+          <Key>
+            <PropertyRef Name="IDEnterprise" />
+          </Key>
+          <Property Name="IDEnterprise" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnterpriseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnterpriseAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImgLogo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="RecruitmentNews" Relationship="Self.FK__Recruitme__IDEnt__5B78929E" FromRole="Enterprise" ToRole="RecruitmentNew" />
+        </EntityType>
+        <EntityType Name="GraduationInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Majors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GraduationYear" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notifies" Relationship="Self.FK_Notify_GraduationInfo" FromRole="GraduationInfo" ToRole="Notify" />
+        </EntityType>
+        <EntityType Name="Header">
+          <Key>
+            <PropertyRef Name="IDHeader" />
+          </Key>
+          <Property Name="IDHeader" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgLogo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IDMenu" />
+          </Key>
+          <Property Name="IDMenu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="HasChild" Type="Boolean" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="IDNews" />
+          </Key>
+          <Property Name="IDNews" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgNews" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Notify">
+          <Key>
+            <PropertyRef Name="IDNotify" />
+          </Key>
+          <Property Name="IDNotify" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TargetType" Type="Boolean" Nullable="false" />
+          <Property Name="IDSender" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="GraduationInfoID" Type="Int32" />
+          <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="GraduationInfo" Relationship="Self.FK_Notify_GraduationInfo" FromRole="Notify" ToRole="GraduationInfo" />
+        </EntityType>
+        <EntityType Name="RecruitmentNew">
+          <Key>
+            <PropertyRef Name="IDRecruitmentNew" />
+          </Key>
+          <Property Name="IDRecruitmentNew" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDEnterprise" Type="Int32" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Enterprise" Relationship="Self.FK__Recruitme__IDEnt__5B78929E" FromRole="RecruitmentNew" ToRole="Enterprise" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="TenTaiKhoan" />
+          </Key>
+          <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhanQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ChatBots" Relationship="Self.FK__ChatBot__TenTaiK__36B12243" FromRole="TaiKhoan" ToRole="ChatBot" />
+        </EntityType>
+        <Association Name="FK__ChatBot__TenTaiK__36B12243">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="ChatBot" Type="Self.ChatBot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Principal>
+            <Dependent Role="ChatBot">
+              <PropertyRef Name="TenTaiKhoan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recruitme__IDEnt__5B78929E">
+          <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
+          <End Role="RecruitmentNew" Type="Self.RecruitmentNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enterprise">
+              <PropertyRef Name="IDEnterprise" />
+            </Principal>
+            <Dependent Role="RecruitmentNew">
+              <PropertyRef Name="IDEnterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notify_GraduationInfo">
+          <End Role="GraduationInfo" Type="Self.GraduationInfo" Multiplicity="0..1" />
+          <End Role="Notify" Type="Self.Notify" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GraduationInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notify">
+              <PropertyRef Name="GraduationInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TDTUAlumnisManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Alumni" EntityType="Self.Alumnus" />
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
+          <EntitySet Name="ChatBots" EntityType="Self.ChatBot" />
+          <EntitySet Name="Enterprises" EntityType="Self.Enterprise" />
+          <EntitySet Name="GraduationInfoes" EntityType="Self.GraduationInfo" />
+          <EntitySet Name="Headers" EntityType="Self.Header" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="Notifies" EntityType="Self.Notify" />
+          <EntitySet Name="RecruitmentNews" EntityType="Self.RecruitmentNew" />
+          <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
+          <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="ChatBot" EntitySet="ChatBots" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recruitme__IDEnt__5B78929E" Association="Self.FK__Recruitme__IDEnt__5B78929E">
+            <End Role="Enterprise" EntitySet="Enterprises" />
+            <End Role="RecruitmentNew" EntitySet="RecruitmentNews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notify_GraduationInfo" Association="Self.FK_Notify_GraduationInfo">
+            <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
+            <End Role="Notify" EntitySet="Notifies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TDTUAlumnisManagementSystemModelStoreContainer" CdmEntityContainer="TDTUAlumnisManagementSystemEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="IDAdmin" ColumnName="IDAdmin" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alumni">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Alumnus">
+              <MappingFragment StoreEntitySet="Alumni">
+                <ScalarProperty Name="IDAlumni" ColumnName="IDAlumni" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
+                <ScalarProperty Name="PersonalWebsite" ColumnName="PersonalWebsite" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="GraduationType" ColumnName="GraduationType" />
+                <ScalarProperty Name="GraduationInfoID" ColumnName="GraduationInfoID" />
+                <ScalarProperty Name="CurrentCompany" ColumnName="CurrentCompany" />
+                <ScalarProperty Name="AcademicLevel" ColumnName="AcademicLevel" />
+                <ScalarProperty Name="TimeToCompletionOfThesisDefense" ColumnName="TimeToCompletionOfThesisDefense" />
+                <ScalarProperty Name="UsersName" ColumnName="UsersName" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="jobBeginDate" ColumnName="jobBeginDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Banner">
+              <MappingFragment StoreEntitySet="Banner">
+                <ScalarProperty Name="IDBanner" ColumnName="IDBanner" />
+                <ScalarProperty Name="ImgBanner" ColumnName="ImgBanner" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatBots">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.ChatBot">
+              <MappingFragment StoreEntitySet="ChatBot">
+                <ScalarProperty Name="IDBot" ColumnName="IDBot" />
+                <ScalarProperty Name="NoiDungNguoiDung" ColumnName="NoiDungNguoiDung" />
+                <ScalarProperty Name="NoiDungPhanHoi" ColumnName="NoiDungPhanHoi" />
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enterprises">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Enterprise">
+              <MappingFragment StoreEntitySet="Enterprise">
+                <ScalarProperty Name="IDEnterprise" ColumnName="IDEnterprise" />
+                <ScalarProperty Name="EnterpriseName" ColumnName="EnterpriseName" />
+                <ScalarProperty Name="EnterpriseAddress" ColumnName="EnterpriseAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GraduationInfoes">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.GraduationInfo">
+              <MappingFragment StoreEntitySet="GraduationInfo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Majors" ColumnName="Majors" />
+                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Headers">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Header">
+              <MappingFragment StoreEntitySet="Header">
+                <ScalarProperty Name="IDHeader" ColumnName="IDHeader" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="IDMenu" ColumnName="IDMenu" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="HasChild" ColumnName="HasChild" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="IDNews" ColumnName="IDNews" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImgNews" ColumnName="ImgNews" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifies">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Notify">
+              <MappingFragment StoreEntitySet="Notify">
+                <ScalarProperty Name="IDNotify" ColumnName="IDNotify" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="TargetType" ColumnName="TargetType" />
+                <ScalarProperty Name="IDSender" ColumnName="IDSender" />
+                <ScalarProperty Name="GraduationInfoID" ColumnName="GraduationInfoID" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecruitmentNews">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.RecruitmentNew">
+              <MappingFragment StoreEntitySet="RecruitmentNew">
+                <ScalarProperty Name="IDRecruitmentNew" ColumnName="IDRecruitmentNew" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="IDEnterprise" ColumnName="IDEnterprise" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoans">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="PhanQuyen" ColumnName="PhanQuyen" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

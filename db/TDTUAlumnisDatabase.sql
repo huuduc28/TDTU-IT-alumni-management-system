@@ -1,8 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [TDTUAlumnisManagementSystem]    Script Date: 22/2/2024 6:23:33 PM ******/
 CREATE DATABASE [TDTUAlumnisManagementSystem]
-
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
@@ -28,8 +26,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[CongTyDoanhNghiep]    Script Date: 22/2/2024 6:23:33 PM ******/
-
+--BẢNG DOANH NGHIỆP
 CREATE TABLE [dbo].[Enterprise](
 	[IDEnterprise] [INT] IDENTITY(1,1) NOT NULL,
 	[EnterpriseName] [nvarchar](50) NOT NULL,
@@ -49,8 +46,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[CuuHSSV]    Script Date: 22/2/2024 6:23:33 PM ******/
-
+---BẢNG CỰU SINH VIÊN
 CREATE TABLE [dbo].[Alumni](
 	---Thông tin cá nhân
     [IDAlumni] [nvarchar](15) NOT NULL,
@@ -73,9 +69,6 @@ CREATE TABLE [dbo].[Alumni](
     [UsersName] [nvarchar](50) NULL,
 	[Profession] [nvarchar](50) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
-    [skill] [nvarchar](100) NOT NULL,
-	[Profession] [nvarchar](50) NOT NULL,
-    [jobBeginDate] [date] NOT NULL, 
 	--Thông tin tài khoản
 	[Password] [nvarchar](50) NOT NULL,
     [meta] [nvarchar](50) NULL,
@@ -142,12 +135,6 @@ REFERENCES [dbo].[GraduationInfo] ([ID]);
 
 ALTER TABLE [dbo].[Notify] WITH CHECK ADD CONSTRAINT [FK_Notify_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'GraduationInfoID' AND Object_ID = Object_ID(N'dbo.Notify'))
-BEGIN
-    ALTER TABLE dbo.Notify
-    ADD GraduationInfoID INT NULL
-END
 
 --Bảng Header
 CREATE TABLE [dbo].[Header](

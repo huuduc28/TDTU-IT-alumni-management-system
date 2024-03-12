@@ -1,5 +1,4 @@
-﻿using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,111 +10,107 @@ using TDTU_IT_alumni_management_system.Models;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
-    public class EnterprisesController : Controller
+    public class AlumniController : Controller
     {
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
-        // GET: Admin/Enterprises
-        public ActionResult Index(int? page)
+        // GET: Admin/Alumni
+        public ActionResult Index()
         {
-            var pageSize = 10;
-            var pageNumber = (page ?? 1);
-            var data = db.Enterprises.OrderByDescending(n => n.datebegin).ToList();
-            var pagedData = data.ToPagedList(pageNumber, pageSize);
-            return View(pagedData);
+            return View(db.Alumni.ToList());
         }
 
-        // GET: Admin/Enterprises/Details/5
-        public ActionResult Details(int? id)
+        // GET: Admin/Alumni/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            Alumnus alumnus = db.Alumni.Find(id);
+            if (alumnus == null)
             {
                 return HttpNotFound();
             }
-            return View(enterprise);
+            return View(alumnus);
         }
 
-        // GET: Admin/Enterprises/Create
+        // GET: Admin/Alumni/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Enterprises/Create
+        // POST: Admin/Alumni/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise)
+        public ActionResult Create([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,TimeToCompletionOfThesisDefense,UsersName,Profession,jobBeginDate,Password,meta,hide,order,datebegin")] Alumnus alumnus)
         {
             if (ModelState.IsValid)
             {
-                db.Enterprises.Add(enterprise);
+                db.Alumni.Add(alumnus);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(enterprise);
+            return View(alumnus);
         }
 
-        // GET: Admin/Enterprises/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Admin/Alumni/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            Alumnus alumnus = db.Alumni.Find(id);
+            if (alumnus == null)
             {
                 return HttpNotFound();
             }
-            return View(enterprise);
+            return View(alumnus);
         }
 
-        // POST: Admin/Enterprises/Edit/5
+        // POST: Admin/Alumni/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise)
+        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,TimeToCompletionOfThesisDefense,UsersName,Profession,jobBeginDate,Password,meta,hide,order,datebegin")] Alumnus alumnus)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(enterprise).State = EntityState.Modified;
+                db.Entry(alumnus).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(enterprise);
+            return View(alumnus);
         }
 
-        // GET: Admin/Enterprises/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Admin/Alumni/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            Alumnus alumnus = db.Alumni.Find(id);
+            if (alumnus == null)
             {
                 return HttpNotFound();
             }
-            return View(enterprise);
+            return View(alumnus);
         }
 
-        // POST: Admin/Enterprises/Delete/5
+        // POST: Admin/Alumni/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Enterprise enterprise = db.Enterprises.Find(id);
-            db.Enterprises.Remove(enterprise);
+            Alumnus alumnus = db.Alumni.Find(id);
+            db.Alumni.Remove(alumnus);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

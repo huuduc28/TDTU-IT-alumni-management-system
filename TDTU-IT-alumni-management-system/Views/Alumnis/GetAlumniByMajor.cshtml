@@ -8,7 +8,7 @@
         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="team-item bg-light" onclick="location.href='/@ViewBag.meta/chi-tiet/@alumni.IDAlumni'">
                 <div class="overflow-hidden">
-                    <img class="img-fluid img-alumni" src="@alumni.ProfilePicture" alt="">
+                    <img class="img-fluid img-alumni" src="~/Upload/images/Avata/@alumni.ProfilePicture" alt="">
                 </div>
                 <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                     <div class="bg-light d-flex justify-content-center pt-2 px-1">
@@ -23,8 +23,8 @@
                 </div>
                 <div class="text-center p-4">
                     <h5 class="mb-0">@alumni.Name</h5>
-                    <small>@alumni.GraduationInfo.Majors</small><br>
-                    <small>Khóa: @(alumni.GraduationInfo.GraduationYear - 4) - @alumni.GraduationInfo.GraduationYear</small>
+                    <small>@alumni.Majors</small><br>
+                    <small>Khóa: @(alumni.GraduationYear - 4) - @alumni.GraduationYear</small>
                 </div>
             </div>
         </div>

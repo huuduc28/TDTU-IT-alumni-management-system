@@ -1,0 +1,166 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Alumnus>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePicture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nationality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTown)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonalWebsite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.skill)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GraduationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GraduationInfoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentCompany)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcademicLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeToCompletionOfThesisDefense)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsersName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profession)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jobBeginDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.meta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hide)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datebegin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfilePicture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nationality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTown)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonalWebsite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.skill)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GraduationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GraduationInfoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentCompany)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcademicLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeToCompletionOfThesisDefense)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsersName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profession)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jobBeginDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.meta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hide)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datebegin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDAlumni }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDAlumni }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDAlumni })
+        </td>
+    </tr>
+}
+
+</table>
