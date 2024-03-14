@@ -21,13 +21,14 @@
     <!-- Customized Bootstrap Stylesheet -->
     <!-- Template Stylesheet -->
     <link href="~/Content/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="~/Upload/images/logo-tdtu.png">
 
 </head>
 
 <body>
     <header class="container-fluid">
         <div class="row align-items-center">
-            @{Html.RenderAction("GetHeader","Home");}
+            @{Html.RenderAction("GetHeader", "Home");}
         </div>
     </header>
     <!-- Navbar Start -->
@@ -43,12 +44,12 @@
                  data-bs-toggle="dropdown">
                 <img id="img-user" src="~/Upload/images/Avata/Avata.jpg" alt="Avatar" class="avatar rounded-circle">
                 <a id="name-user">
-                    Nguyễn Hữu Đức (52000645)
+                    @Session["Name"] (@Session["UID"]) 
                 </a>
             </div>
             <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
-                <a href="/Login/Index" class="dropdown-item">Đăng xuất</a>
-                <a href="team.html" class="dropdown-item">Đổi mật khẩu</a>
+                <a href="@Url.Action("Logout", "Login")" class="dropdown-item">Đăng xuất</a>
+                <a href="/doi-mat-khau" class="dropdown-item">Đổi mật khẩu</a>
                 <a href="/Alumnis/PersonInfo" class="dropdown-item">Thông tin</a>
             </div>
         </div>

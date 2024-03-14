@@ -12,7 +12,16 @@ namespace TDTU_IT_alumni_management_system.Controllers
         TDTUAlumnisManagementSystemEntities _db = new TDTUAlumnisManagementSystemEntities();
         public ActionResult Index()
         {
-            return View();
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index","Login");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
         public ActionResult GetHeader()
         {

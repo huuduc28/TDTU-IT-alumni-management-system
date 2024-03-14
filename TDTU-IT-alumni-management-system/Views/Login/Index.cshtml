@@ -6,26 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Đăng Nhập</title>
+    <title>Đăng Nhập</title>
     <link rel="icon" type="image/x-icon" href="~/Upload/images/logo-tdtu.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/login.css">
-    <style>
-    </style>
+    
 </head>
 <body>
     <div class="container mt-5 p-5">
-        @*<div class="language-switcher">
-            <div class="dropdown" id="languageDropdown">
-                <button class="btn dropdown-toggle btn-danger" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Thay đổi ngôn ngữ
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
-                    <li><a class="dropdown-item" href="#">English</a></li>
-                </ul>
-            </div>
-        </div>*@
         <div class="row login-body mt-5 ms-5 me-5">
             <div class="col-md-4 col-sm-4 col-lg-4 logo-tittle d-none d-sm-block" style="padding: 40px;">
                 <img class="mx-auto d-block" src="\Upload\images\Logo\logo-tdtu-inkythuatso-01.png" alt="logo" width="150" height="75">
@@ -46,7 +34,7 @@
                             <label for="password" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
                         </div>
-                        
+
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-block btn-danger btn-login">Đăng nhập</button>
                         </div>
@@ -56,28 +44,24 @@
                         </div>
 
                     </form>
-                    <form class="forgot-password-form">
+                    <form class="forgot-password-form" id="forgotPasswordForm">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Nhập email">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">User ID</label>
-                            <input type="email" class="form-control" id="userID" placeholder="Nhập User ID">
+                            <label for="UID" class="form-label">User ID</label>
+                            <input type="text" class="form-control" id="UID" placeholder="Nhập User ID">
                         </div>
                         <div class="d-flex justify-content-between mb-3">
-                            <button type="button" class="btn btn-danger" onclick="hideForgotPasswordForm()">Hủy</button>
-                            <button type="submit" class="btn btn-danger btn-forgot" onclick="hideForgotPasswordForm()">Gửi yêu cầu</button>
+                            <button type="button" class="btn btn-danger" onclick="hideForgotPasswordForm()">Quay lại</button>
+                            <button type="submit" class="btn btn-danger btn-forgot">Gửi yêu cầu</button>
                         </div>
 
 
                         <div style="visibility: hidden;">
-                            <div class="mb-3">
-                                <label for="nothing" class="form-label">nothing</label>
-                                <input type="nothing" class="form-control" id="userID" placeholder="userID">
-                            </div>
                             <div class="text-center mt-3">
-                                <a href="#" onclick="showForgotPasswordForm()" id="forgotPasswordLink">Quên mật khẩu?</a>
+                                <a>null</a>
                             </div>
                         </div>
 
@@ -91,30 +75,36 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $("#loginForm").submit(function (event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
-                var username = $("#userID").val();
+                var userID = $("#userID").val();
                 var password = $("#password").val();
 
-                
+
                 $.ajax({
-                    url: '/Login/Login', 
+                    url: '/Login/Login',
                     type: 'POST',
                     data: {
-                        Username: username,
+                        Username: userID,
                         Password: password
                     },
                     success: function (response) {
                         if (response.success) {
-                            
                             window.location.href = '/Home/Index';
                         } else {
-                            
+
                             alert(response.message);
+                            
                         }
+                        /*alert.find(".close").remove();
+                        setTimeout(function () {
+                            $(".alert").close();
+                        }, 1000);*/
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Lỗi khi gửi dữ liệu đăng nhập:", textStatus, errorThrown);
@@ -123,13 +113,54 @@
                 });
             });
         });
+
+        var uid = "";
+        $(document).ready(function () {
+            $("#forgotPasswordForm").submit(function (event) {
+                event.preventDefault();
+
+                var email = $("#email").val();
+                uid = $("#UID").val();
+
+
+                $.ajax({
+                    url: '/Login/ForgotPassword',
+                    type: 'POST',
+                    data: {
+                        Email: email,
+                        Uid: uid
+                    },
+                    success: function (response) {
+                        if (response.success) {
+
+                            alert(response.message);
+                            window.location.href = '/quen-mat-khau';
+                        } else {
+
+                            alert(response.message);
+                            
+                        }
+                        alert.find(".close").remove();
+                        setTimeout(function () {
+                            $(".alert").close();
+                        }, 1000);
+                        
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Lỗi khi gửi dữ liệu", textStatus, errorThrown);
+                        alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    }
+                });
+            });
+        });
     </script>
+
 
     <script>
         // Hàm để hiển thị form quên mật khẩu và ẩn form đăng nhập
         function showForgotPasswordForm() {
             var loginForm = document.getElementById('loginForm');
-            var forgotPasswordForm = document.querySelector('.forgot-password-form');
+            var forgotPasswordForm = document.getElementById('forgotPasswordForm');
 
             loginForm.style.display = 'none';
             forgotPasswordForm.style.display = 'block';
@@ -138,7 +169,7 @@
         // Hàm để ẩn form quên mật khẩu và hiển thị form đăng nhập
         function hideForgotPasswordForm() {
             var loginForm = document.getElementById('loginForm');
-            var forgotPasswordForm = document.querySelector('.forgot-password-form');
+            var forgotPasswordForm = document.getElementById('forgotPasswordForm');
 
             loginForm.style.display = 'block';
             forgotPasswordForm.style.display = 'none';

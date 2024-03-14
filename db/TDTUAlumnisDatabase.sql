@@ -66,10 +66,10 @@ CREATE TABLE [dbo].[Alumni](
     [CurrentCompany] [nvarchar](50) NOT NULL,
     [AcademicLevel] [nvarchar](50) NOT NULL,
     [TimeToCompletionOfThesisDefense] [date] NOT NULL,
-    [UsersName] [nvarchar](50) NULL,
 	[Profession] [nvarchar](50) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
 	--Thông tin tài khoản
+	[role] [tinyint] NULL,
 	[Password] [nvarchar](50) NOT NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
@@ -115,7 +115,8 @@ CREATE TABLE [dbo].[Notify](
     [datebegin] [smalldatetime] NULL,
     PRIMARY KEY CLUSTERED ([IDNotify] ASC)
 );
-
+ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
+REFERENCES [dbo].[Admin] ([IDAdmin])
 --Drop table Notify
 
 --BẢNG THÔNG TIN KHÓA HỌC
@@ -152,7 +153,7 @@ CREATE TABLE [dbo].[Header](
 ) ON [PRIMARY]
 GO
 
-drop table Header
+--drop table Header
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](
@@ -193,7 +194,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-Drop table Banner
+--Drop table Banner
 
 
 --Bảng News
@@ -220,7 +221,7 @@ CREATE TABLE [dbo].[News](
     ) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
-Drop table News
+--Drop table News
 
 --Bảng Tin Tuyển dụng
 CREATE TABLE [dbo].[RecruitmentNew](
@@ -244,25 +245,6 @@ GO
 --KHÓA NGOẠI CHO BẢNG CÔNG TY
 ALTER TABLE [dbo].[RecruitmentNew]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
 REFERENCES [dbo].[Enterprise] ([IDEnterprise])
-GO
-
-
---Khóa ngoại
-ALTER TABLE [dbo].[ChatBot]  WITH CHECK ADD FOREIGN KEY([UsersName])
-REFERENCES [dbo].[Users] ([UsersName])
-GO
-ALTER TABLE [dbo].[Alumni]  WITH CHECK ADD FOREIGN KEY([UsersName])
-REFERENCES [dbo].[Users] ([UsersName])
-GO
-ALTER TABLE [dbo].[Admin]  WITH CHECK ADD FOREIGN KEY([UsersName])
-REFERENCES [dbo].[Users] ([UsersName])
-GO
-
-ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
-REFERENCES [dbo].[Admin] ([IDAdmin])
-GO
---ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDreceiver])
---REFERENCES [dbo].[Alumni] ([IDAlumni])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
 

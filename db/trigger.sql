@@ -66,6 +66,7 @@ BEGIN
 END;
 GO
 
+
 -- Tạo trigger cho bảng CuuHSSV
 CREATE TRIGGER trg_Alumni_AfterInsert
 ON dbo.Alumni
@@ -79,10 +80,11 @@ BEGIN
 
     -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
     UPDATE dbo.Alumni
-    SET hide = 1, 
+    SET hide = 1,
+		role = 0,
         datebegin = GETDATE()
-    FROM inserted
-    WHERE dbo.Alumni.IDAlumni = inserted.IDAlumni;
+    FROM dbo.Alumni
+    INNER JOIN inserted ON dbo.Alumni.IDAlumni = inserted.IDAlumni;
 
     -- Cập nhật giá trị [order] cho các bản ghi mới
     WITH UpdatedRows AS (
@@ -128,36 +130,7 @@ BEGIN
 END;
 GO
 
--- Tạo trigger cho bảng TaiKhoan
-CREATE TRIGGER trg_TaiKhoan_AfterInsert
-ON dbo.Users
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Users;
-
-    -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.Users
-    SET hide = 1, 
-        datebegin = GETDATE()
-    FROM inserted
-    WHERE dbo.Users.UsersName = inserted.UsersName;
-
-    -- Cập nhật giá trị [order] cho các bản ghi mới
-    WITH UpdatedRows AS (
-        SELECT UsersName, ROW_NUMBER() OVER (ORDER BY UsersName) AS NewOrder
-        FROM dbo.Users
-        WHERE UsersName IN (SELECT UsersName FROM inserted)
-    )
-    UPDATE dbo.Users
-    SET [order] = @MaxOrder + NewOrder
-    FROM UpdatedRows
-    WHERE dbo.Users.UsersName = UpdatedRows.UsersName;
-END;
-GO
 
 -- Tạo trigger cho bảng Notify
 CREATE TRIGGER trg_Notify_AfterInsert
@@ -229,7 +202,7 @@ BEGIN
 END;
 GO
 
--- TRIGGER AUTO GIÁ TRỊ CHO BẢNG DOANH NGHIỆP
+/*-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG DOANH NGHIỆP
 CREATE TRIGGER trg_Enterprise_AfterInsert
 ON dbo.Enterprise
 AFTER INSERT
@@ -250,7 +223,7 @@ BEGIN
     INNER JOIN inserted i ON n.IDEnterprise = i.IDEnterprise;
 
 END;
-GO
+GO*/
 
 -- TRIGGER AUTO GIÁ TRỊ CHO BẢNG TIN TUYỂN DỤNG
 CREATE TRIGGER trg_RecruitmentNew_AfterInsert
