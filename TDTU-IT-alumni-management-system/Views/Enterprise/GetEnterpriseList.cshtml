@@ -9,14 +9,16 @@
             <div class="cpn-box wow fadeInUp" data-wow-delay="0.1s">
                 <div class="row p-2" onclick="location.href='/@ViewBag.meta/@enterprise.meta/@enterprise.IDEnterprise'">
                     <div class="col-lg-3">
-                        <img src="https://it.tdtu.edu.vn/sites/cntt/files/companies/techbase.png" @*src="~/Upload/images/Logo/@enterprise.ImgLogo*@ width="100%"
-                             height="100%">
+                        <img src="~/Upload/images/Logo/@enterprise.ImgLogo " width="100%" height="100%" style="object-fit: contain">
                     </div>
                     <div class="col-lg-9">
                         <h6>
                             @enterprise.EnterpriseName
                         </h6>
-                        <a style="font-size:smaller;">Website: https://www.techbasevn.com/ @*@enterprise.Website*@</a>
+                        <a style="font-size:smaller;">Website: https://www.techbasevn.com/ @*@enterprise.Website*@</a><br />
+                        <a style="font-size:smaller;">Địa chỉ:@enterprise.EnterpriseAddress</a><br />
+                        <a style="font-size:smaller;">Phone: @enterprise.Phone</a><br />
+                        <a style="font-size:smaller;">Email: @enterprise.Email</a>
 
                     </div>
                 </div>

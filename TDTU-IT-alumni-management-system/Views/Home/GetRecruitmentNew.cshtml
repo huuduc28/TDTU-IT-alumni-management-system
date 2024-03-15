@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.RecruitmentNewsViewModel>
+@{
+    int itemCount = 0;
+}
 
 <div class="row g-4">
     @foreach (var i in Model)
     {
-        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s"  onclick="window.location.href='/@ViewBag.meta/@i.Meta/@i.IDRecruitmentNew'">
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" onclick="window.location.href='/@ViewBag.meta/@i.Meta/@i.IDRecruitmentNew'">
             <div class="cpn-item">
                 <div class="overflow-hidden" style="text-align: left;">
                     <img class="img-fluid img-company p-1"
@@ -45,10 +48,15 @@
                 </div>
             </div>
         </div>
+        { itemCount++; }
     }
 </div>
-<h6 class="bg-white bi-text-right text-primary md-5" onclick="location.href='/@ViewBag.meta'"
-    style="float: right;">
-    Xem thêm ->
-</h6>
+
+@if (itemCount > 3)
+{
+    <h6 class="bg-white bi-text-right text-primary md-5" onclick="location.href='/@ViewBag.meta'"
+        style="float: right;">
+        Xem thêm ->
+    </h6>
+}
 

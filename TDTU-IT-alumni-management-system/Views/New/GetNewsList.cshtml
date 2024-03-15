@@ -2,7 +2,7 @@
 
 @foreach (var i in Model)
 {
-    <li class="list-group-item d-flex align-items-center">
+    <li class="list-group-item d-flex align-items-center " onclick="window.location.href='/@ViewBag.meta/@i.meta/@i.IDNews'">
         <div class="col-4">
             <img src="~/Upload/images/News/@i.ImgNews" alt="News Image" class="img-fluid news-image" />
         </div>

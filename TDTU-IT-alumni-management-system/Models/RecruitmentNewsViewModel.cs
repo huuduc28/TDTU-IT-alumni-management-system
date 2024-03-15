@@ -10,6 +10,8 @@ namespace TDTU_IT_alumni_management_system.Models
         public int IDRecruitmentNew { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public string Describe {  get; set; }
+        public string JobDescription { get; set; }
         public int IDEnterprise { get; set; }
         public string ImgLogo { get; set; }
         public string Meta { get; set; } 

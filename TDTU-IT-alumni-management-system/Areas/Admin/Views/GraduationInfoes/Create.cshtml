@@ -1,0 +1,52 @@
+﻿@model TDTU_IT_alumni_management_system.Models.GraduationInfo
+
+@{
+    ViewBag.Title = "Thêm khóa học";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Thêm khóa học</h2>
+        <h4>GraduationInfo</h4>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Majors, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Majors, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Majors, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GraduationYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GraduationYear, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GraduationYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                        <div class="btn btn-secondary">
+                            @Html.ActionLink("Trở về", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-graduations").className == "") {
+            document.getElementById("nav-graduations").className = "active";
+        }
+    }
+</script>

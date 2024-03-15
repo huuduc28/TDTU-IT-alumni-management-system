@@ -89,12 +89,22 @@
         });
     });
             $(document).ready(function () {
-        // Kiểm tra nếu có thông báo lỗi, hiển thị modal
-        @if (TempData["ErrorMessage"] != null)
-        {
-            @:$('#errorModal').modal('show');
-        }
+                // Kiểm tra nếu có thông báo lỗi, hiển thị modal
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    @:$('#errorModal').modal('show');
+                }
 
-    });
+            });
+
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-banners").className == "") {
+            document.getElementById("nav-banners").className = "active";
+        }
+        if (document.getElementById("nav-subpage").className == "collapsed") {
+            document.getElementById("nav-subpage").className = "collapsed active";
+        }
+    }
 </script>
 

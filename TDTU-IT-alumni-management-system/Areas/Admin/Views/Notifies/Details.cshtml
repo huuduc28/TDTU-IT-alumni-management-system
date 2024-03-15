@@ -81,11 +81,13 @@
 
             <div class="form-group">
                 <div class="col-md-offset-0 col-md-10">
-                    <a href="@Url.Action("Edit", new {id = Model.IDNotify})" class="btn btn-primary">
+                    <a href="/quan-ly/thong-bao/sua-thong-bao?id=@Model.IDNotify" class="btn btn-primary">
                         Chỉnh sửa
                     </a>
                     <div class="btn btn-secondary">
-                        @Html.ActionLink("Trở về", "Index")
+                        <a href="/quan-ly/thong-bao">
+                            Trở về
+                        </a>
                     </div>
                 </div>
             </div>
@@ -93,3 +95,11 @@
     </div>
 </div>
 
+<script>
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-notifi").className == "") {
+            document.getElementById("nav-notifi").className = "active";
+        }
+    }
+</script>

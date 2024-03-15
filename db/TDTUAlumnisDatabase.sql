@@ -55,22 +55,20 @@ CREATE TABLE [dbo].[Alumni](
     [Phone] [nvarchar](15) NOT NULL,
     [Birthday] [date] NOT NULL,
     [Gender] [nvarchar](10) NOT NULL,
-    [ProfilePicture] [nvarchar](50) NULL,
-    [Nationality] [nvarchar](50) NOT NULL,
-    [HomeTown] [nvarchar](50) NOT NULL,
-    [PersonalWebsite] [nvarchar](50) NULL,
+    [ProfilePicture] [nvarchar](255) NULL,
+    [Nationality] [nvarchar](255) NOT NULL,
+    [HomeTown] [nvarchar](255) NOT NULL,
+    [PersonalWebsite] [nvarchar](255) NULL,
 	[skill] [nvarchar](100) NOT NULL,
 	--Thông tin học vấn
     [GraduationType] [nvarchar](50) NOT NULL,
     [GraduationInfoID] [INT] Not NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
-    [CurrentCompany] [nvarchar](50) NOT NULL,
+    [CurrentCompany] [nvarchar](255) NOT NULL,
     [AcademicLevel] [nvarchar](50) NOT NULL,
-    [TimeToCompletionOfThesisDefense] [date] NOT NULL,
-    [UsersName] [nvarchar](50) NULL,
-	[Profession] [nvarchar](50) NOT NULL,
+	[Profession] [nvarchar](255) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
 	--Thông tin tài khoản
-	[Password] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
     [order] [int] NULL,
@@ -78,26 +76,18 @@ CREATE TABLE [dbo].[Alumni](
     PRIMARY KEY CLUSTERED ([IDAlumni] ASC)
 );
 
-
-
 /****** Object:  Table [dbo].[QuanTriVien]    Script Date: 22/2/2024 6:23:33 PM ******/
 
-CREATE TABLE [dbo].[Admin](
+CREATE TABLE [dbo].[Administrators](
 	[IDAdmin] [nvarchar](15) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
 	[Password] [nvarchar](50) NOT NULL,
-	[meta] [nvarchar](50) NULL,
-	[hide] [bit] NULL,
-	[order] [int] NULL,
-	[datebegin] [smalldatetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[IDAdmin] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+	[UserRole] [TINYINT] NOT NULL DEFAULT 1,
+	PRIMARY KEY CLUSTERED ([IDAdmin] ASC)
+);
+
 
 /****** Object:  Table [dbo].[ThongBao]    Script Date: 22/2/2024 6:23:33 PM ******/
 --BẢNG THÔNG BÁO
@@ -130,6 +120,8 @@ CREATE TABLE [dbo].[GraduationInfo](
     PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+select * from GraduationInfo
+
 ALTER TABLE [dbo].[Alumni] WITH CHECK ADD CONSTRAINT [FK_Alumni_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
 
@@ -151,8 +143,6 @@ CREATE TABLE [dbo].[Header](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-drop table Header
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](
@@ -193,9 +183,6 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 
-Drop table Banner
-
-
 --Bảng News
 CREATE TABLE [dbo].[News](
     [IDNews] [INT] IDENTITY(1,1) NOT NULL,
@@ -220,13 +207,12 @@ CREATE TABLE [dbo].[News](
     ) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
 
-Drop table News
 
 --Bảng Tin Tuyển dụng
 CREATE TABLE [dbo].[RecruitmentNew](
     [IDRecruitmentNew] [INT] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
-	[Describe][nvarchar](max) NULL,
+	[Describe][nvarchar](max) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[JobDescription] [nvarchar](max) NOT NULL,
 	[IDEnterprise] [INT] NOT NULL,
@@ -240,6 +226,8 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
+select * from RecruitmentNew
 
 --KHÓA NGOẠI CHO BẢNG CÔNG TY
 ALTER TABLE [dbo].[RecruitmentNew]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])

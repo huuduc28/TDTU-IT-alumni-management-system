@@ -1,7 +1,7 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.Notify
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Chỉnh sửa thông báo";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
     var graduationInfoList = ViewBag.GraduationInfoList as List<TDTU_IT_alumni_management_system.Models.GraduationInfo>;
 
@@ -9,7 +9,7 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Quản lý tin tức</h2>
+        <h2>Chỉnh sửa thông báo</h2>
         @using (Html.BeginForm("Edit", "Notifies", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -86,7 +86,9 @@
                     <div class="col-md-offset-1 col-md-10">
                         <input type="submit" value="Save" class="btn btn-primary" />
                         <div class="btn btn-secondary">
-                            @Html.ActionLink("Trở về", "Index")
+                            <a href="/quan-ly/thong-bao">
+                                Trở về
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -199,6 +201,12 @@
                 }
             });
         });
+        window.onload = active();
+        function active() {
+            if (document.getElementById("nav-notifi").className == "") {
+                document.getElementById("nav-notifi").className = "active";
+            }
+        }
 </script>
 
 

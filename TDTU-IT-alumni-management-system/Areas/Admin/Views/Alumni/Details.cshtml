@@ -1,203 +1,90 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.Alumnus
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết cựu sinh viên";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Chi tiết sinh viên @Model.IDAlumni @("-") @Model.Name</h2>
+        <h4>Alumnus</h4>
+        <hr />
+        <div class="col-md-offset-1 col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="header">
+                        <div class="profile-picture">
+                            <img src="~/Upload/images/Avata/@Model.ProfilePicture" alt="Profile Picture" width="200px" />
+                        </div>
+                    </div>
+                </div>
 
-<h2>Details</h2>
+                <div class="col-md-8">
+                    <div class="header-info">
+                        <h1>@Model.Name</h1>
+                        <p>@Model.Email | @Model.Phone</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Personal Information</h2>
+                <p><strong>Date of Birth:</strong> @Model.Birthday.ToString("dd/MM/yyyy")</p>
+                <p><strong>Gender:</strong> @Model.Gender</p>
+                <p><strong>Nationality:</strong> @Model.Nationality</p>
+                <p><strong>Home Town:</strong> @Model.HomeTown</p>
+                <p><strong>Personal Website:</strong> <a href="@Model.PersonalWebsite">@Model.PersonalWebsite</a></p>
+            </div>
+            <div class="section">
+                <h2>Education</h2>
+                <p><strong>@Model.GraduationType</strong> - @Model.AcademicLevel</p>
+                <p>@Model.GraduationInfo.Majors</p>
+                <p>@(Model.GraduationInfo.GraduationYear - 4) - @Model.GraduationInfo.GraduationYear</p>
+            </div>
 
-<div>
-    <h4>Alumnus</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <div class="section">
+                <h2>Experience</h2>
+                <p><strong>@Model.CurrentCompany</strong></p>
+                <p>@Model.Profession</p>
+                <p>From: @Model.jobBeginDate.ToString("dd/MM/yyyy") - Now</p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <div class="section">
+                <h2>Skills</h2>
+                <ul>
+                    @foreach (var skill in Model.skill.Split(','))
+                    {
+                        <li>@skill.Trim()</li>
+                    }
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Other Information</h2>
+                <p><strong>Trạng thái:</strong> @((bool)Model.hide ? "Hiển thị" : "Ẩn")</p>
+                <p><strong>Ngày tạo:</strong> @Model.datebegin</p>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-0 col-md-10">
+                    <a href="/quan-ly/cuu-sinh-vien/chinh-sua?id=@Model.IDAlumni" class="btn btn-primary">
+                        Chỉnh sửa
+                    </a>
+                    <div class="btn btn-secondary">
+                        <a href="/quan-ly/cuu-sinh-vien">
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfilePicture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfilePicture)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nationality)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nationality)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HomeTown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HomeTown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PersonalWebsite)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PersonalWebsite)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.skill)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.skill)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GraduationType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GraduationType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GraduationInfoID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GraduationInfoID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentCompany)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CurrentCompany)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcademicLevel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AcademicLevel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeToCompletionOfThesisDefense)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeToCompletionOfThesisDefense)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsersName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsersName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Profession)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Profession)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.jobBeginDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.jobBeginDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datebegin)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDAlumni }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-alumnis").className == "") {
+            document.getElementById("nav-alumnis").className = "active";
+        }
+    };
+</script>

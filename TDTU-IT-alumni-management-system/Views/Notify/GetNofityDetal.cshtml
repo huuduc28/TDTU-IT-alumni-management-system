@@ -4,27 +4,19 @@
     ViewBag.Title = "GetNofityDetal";
     Layout = "~/Views/Shared/Mylayout.cshtml";
 }
-<body style="background-color: #F0F2F5 ">
+
+<body style="background-color: white">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 news-list mt-5" style="background-color: #e6e7e8; border: 2px solid #cfcfcf; border-radius: 10px; ">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-center px-3 mt-2" style="font-size: 32px; color: #ec1c24 ">Thông báo mới</h5>
+            <div class="col-lg-1 news-detail"></div>
+                <div class="col-lg-10 news-detail">
+                    <h2 class="mb-4">@Model.Title</h2>
+                    <p class="text-muted">@Model.datebegin.Value.ToString("MM/dd/yyyy h:mm tt")</p><hr>
+                    <p>@Html.Raw(Model.Content)</p>
                 </div>
-                <ul class="list-group mb-4">
-                    @{Html.RenderAction("GetNotifyHome", "Home");}
-                    <h6 class=" text-primary mt-2 md-5" style="float: right; " onclick="window.location.href='/thong-bao'">
-                        Xem thêm
-                    </h6>
-                </ul>
-            </div>
-            <div class="col-lg-9 news-detail" style="background-color: #F0F2F5 ">
-                <h1 class="mb-4">@Model.Title</h1>
-                <p class="text-muted"> @Model.datebegin.Value.ToString("MM/dd/yyyy h:mm tt")</p><hr>
-                <p>@Model.Content</p>
             </div>
         </div>
-    </div>
+
 </body>
 
 <link href="~/Content/css/news.css" rel="stylesheet">

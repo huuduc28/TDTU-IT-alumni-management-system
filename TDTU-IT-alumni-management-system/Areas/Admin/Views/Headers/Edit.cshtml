@@ -1,12 +1,12 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.Header
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Chỉnh sửa header";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Quản lý Header</h2>
+        <h2>Chỉnh sửa Header</h2>
         @using (Html.BeginForm("Edit", "Headers", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -68,4 +68,13 @@
               $('#imgPreview').hide();
           });
       });
+      window.onload = active();
+      function active() {
+          if (document.getElementById("nav-headers").className == "") {
+              document.getElementById("nav-headers").className = "active";
+          }
+          if (document.getElementById("nav-subpage").className == "collapsed") {
+              document.getElementById("nav-subpage").className = "collapsed active";
+          }
+      }
   </script>     

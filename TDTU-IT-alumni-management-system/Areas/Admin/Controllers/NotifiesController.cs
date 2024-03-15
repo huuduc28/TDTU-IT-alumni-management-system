@@ -70,7 +70,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     notify.IDSender = "admin1";
                     db.Notifies.Add(notify);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/quan-ly/thong-bao");
                 }
             }
             catch (DbEntityValidationException ex)
@@ -130,7 +130,8 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.datebegin = DateTime.Now;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/quan-ly/thong-bao");
+                    //return RedirectToAction("Index");
                 }
             }
             catch (DbEntityValidationException ex)
@@ -143,6 +144,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                             validationError.PropertyName, validationError.ErrorMessage);
                     }
                 }
+                return Redirect("/quan-ly/thong-bao/sua-thong-bao?id=" + notify.IDNotify);
             }
             return View(notify);
         }
@@ -170,7 +172,8 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             Notify notify = db.Notifies.Find(id);
             db.Notifies.Remove(notify);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/quan-ly/thong-bao");
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -1,99 +1,104 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.Enterprise
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết doanh nghiệp";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <h3>Thông tin doanh nghiệp</h3>
+            <hr />
+            <div class="col-md-3">
+                <img src="~/Upload/images/Logo/@Model.ImgLogo" class="img-responsive" alt="Enterprise Logo">
+            </div>
+            <div class="col-md-9">
 
-<div>
-    <h4>Enterprise</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EnterpriseName)
-        </dt>
+                <dl class="dl-horizontal">
+                    <dt>Tên công ty: </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EnterpriseName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EnterpriseName)
-        </dd>
+                    <dt>Địa chỉ: </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EnterpriseAddress)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EnterpriseAddress)
-        </dt>
+                    <dt>Số điện thoại:</dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Phone)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EnterpriseAddress)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email):
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website):
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Website)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
+                    <dt>Đường dẫn:</dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.meta)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dt>Trạng thái: </dt>
+                    <dd>
+                        @{
+                            if ((bool)Model.hide)
+                            {
+                                @Html.Raw("Hiển thị")
+                            }
+                            else
+                            {
+                                @Html.Raw("Ẩn")
+                            }
+                        }
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.order):
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.order)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
+                    <dt>Ngày tạo:</dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.datebegin)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgLogo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImgLogo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datebegin)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-0 col-md-10">
+                <a href="/quan-ly/doanh-nghiep/chinh-sua?id=@Model.IDEnterprise" class="btn btn-primary">
+                    Chỉnh sửa
+                </a>
+                <div class="btn btn-secondary">
+                    <a href="/quan-ly/doanh-nghiep">
+                        Trở về
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDEnterprise }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-enterprise").className == "") {
+            document.getElementById("nav-enterprise").className = "active";
+        }
+    }
+</script>

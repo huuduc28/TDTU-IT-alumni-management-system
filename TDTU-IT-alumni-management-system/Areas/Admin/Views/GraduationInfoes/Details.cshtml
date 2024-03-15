@@ -1,0 +1,35 @@
+﻿@model TDTU_IT_alumni_management_system.Models.GraduationInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GraduationInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Majors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Majors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GraduationYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GraduationYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

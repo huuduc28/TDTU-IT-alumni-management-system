@@ -36,23 +36,48 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         @{Html.RenderAction("getMenu", "Home");}
-    <!--User-->
-    <div class="user">
-        <div class="nav-item dropdown">
-            <div id="infor-user" style="color: white;font-weight: 700;" class="nav-link dropdown-toggle"
-                 data-bs-toggle="dropdown">
-                <img id="img-user" src="~/Upload/images/Avata/Avata.jpg" alt="Avatar" class="avatar rounded-circle">
-                <a id="name-user">
-                    Nguyễn Hữu Đức (52000645)
-                </a>
-            </div>
-            <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
-                <a href="/Login/Index" class="dropdown-item">Đăng xuất</a>
-                <a href="team.html" class="dropdown-item">Đổi mật khẩu</a>
-                <a href="/Alumnis/PersonInfo" class="dropdown-item">Thông tin</a>
-            </div>
+    <div class="notifi" style="margin-right: 2%">
+        <div class="dropdown">
+            <a href="#" class="icon-menu" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="badge bg-danger badge-sm">5</span> <!-- Số thông báo -->
+            </a>
+            <ul class="dropdown-menu notifications" aria-labelledby="notificationDropdown">
+                <li>
+                    <a href="#" class="dropdown-item notification-item">
+                        <span class="dot bg-warning"></span>Trời hôm nay nhiều mây cực
+                    </a>
+                    <a href="#" class="dropdown-item notification-item">
+                        <span class="dot bg-warning"></span>Trời hôm nay nhiều mây cực
+                    </a>
+                    <a href="#" class="dropdown-item notification-item">
+                        <span class="dot bg-warning"></span>Trời hôm nay nhiều mây cực
+                    </a>
+                    <a href="#" class="dropdown-item notification-item">
+                        <span class="dot bg-warning"></span>Xem thêm
+                    </a>
+                </li>
+                <!-- Các thông báo khác -->
+            </ul>
         </div>
     </div>
+            <!--User-->
+            <div class="user">
+                <div class="nav-item dropdown">
+                    <div id="infor-user" style="color: white;font-weight: 700;" class="nav-link dropdown-toggle"
+                         data-bs-toggle="dropdown">
+                        <img id="img-user" src="~/Upload/images/Avata/Avata.jpg" alt="Avatar" class="avatar rounded-circle">
+                        <a id="name-user">
+                            Nguyễn Hữu Đức (52000645)
+                        </a>
+                    </div>
+                    <div class="dropdown-menu fade-down m-0" style="background-color: #ea5257;">
+                        <a href="/Login/Index" class="dropdown-item">Đăng xuất</a>
+                        <a href="team.html" class="dropdown-item">Đổi mật khẩu</a>
+                        <a href="/Alumnis/PersonInfo" class="dropdown-item">Thông tin</a>
+                    </div>
+                </div>
+            </div>
     </nav>
     <!-- Navbar End -->
     @RenderBody()
@@ -115,3 +140,20 @@
         })      
     })(jQuery);
 </script>
+<style>
+    .bell-icon {
+        color: white; /* Đặt màu trắng cho biểu tượng */
+        position: relative; /* Đặt biểu tượng chuông làm đối tượng mẹ */
+        font-size: 1.5rem;
+    }
+    .badge-sm {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        right: -8px; /* Điều chỉnh vị trí của số thông báo */
+        background-color: red; /* Màu sắc của số thông báo */
+        color: white; /* Màu chữ của số thông báo */
+    }
+</style>

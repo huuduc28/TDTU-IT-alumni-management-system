@@ -32,10 +32,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             // Trả về view với đối tượng IPagedList
             return View(pagedData);
         }
-        //public ActionResult Index()
-        //{
-        //    return View(db.News.ToList());
-        //}
 
         // GET: Admin/News/Details/5
         public ActionResult Details(int? id)
@@ -92,7 +88,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                         // Lưu trữ dữ liệu đã nhập vào TempData để khôi phục sau khi đóng modal
                         TempData["FormData"] = news;
 
-                        return RedirectToAction("Create");
+                        return Redirect("/quan-ly/tin-tuc/tao-tin-tuc");
                     }
                     if (img != null)
                     {
@@ -103,7 +99,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     }
                     db.News.Add(news);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/quan-ly/tin-tuc");
                 }
             }
             catch (DbEntityValidationException ex)
@@ -119,7 +115,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 // Nếu có lỗi, thiết lập thông báo lỗi và lưu trữ dữ liệu đã nhập vào TempData
                 TempData["ErrorMessage"] = "Có lỗi xảy ra khi tạo tin tức. Vui lòng kiểm tra lại thông tin.";
                 TempData["FormData"] = news;
-                return RedirectToAction("Create");
+                return Redirect("/quan-ly/tin-tuc/tao-tin-tuc");
             }
             return View(news);
         }
@@ -177,7 +173,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.order = news.order;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect("/quan-ly/tin-tuc");
                 }
             }
             catch (DbEntityValidationException ex)
@@ -191,7 +187,8 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     }
                 }
                 TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật tin tức. Vui lòng kiểm tra lại thông tin.";
-                return RedirectToAction("Edit", new { id = news.IDNews });
+
+                return Redirect("/quan-ly/tin-tuc/sua-tin-tuc?id=" + news.IDNews);
             }
             return View(news);
         }
@@ -226,7 +223,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 
             db.News.Remove(news);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/quan-ly/tin-tuc");
         }
 
         protected override void Dispose(bool disposing)

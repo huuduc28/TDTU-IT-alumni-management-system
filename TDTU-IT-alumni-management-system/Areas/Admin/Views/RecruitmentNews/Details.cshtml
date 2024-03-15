@@ -1,83 +1,104 @@
 ﻿@model TDTU_IT_alumni_management_system.Models.RecruitmentNew
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết tin tuyển dụng";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Chi tiết tin tuyển dụng</h2>
+        <h4>RecruitmentNew</h4>
+        <hr />
+        <div>
+            <div class="form-horizontal">
 
-<div>
-    <h4>RecruitmentNew</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                <div class="form-group">
+                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        <h3 style="font-weight: bold; color: black;">
+                            @Html.DisplayFor(model => model.Title)
+                        </h3>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                <div class="form-group">
+                    @Html.Label("Mô tả", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.DisplayFor(model => model.Describe)
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Describe)
-        </dt>
+                <div class="form-group">
+                    @Html.Label("Nội dung", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.Raw(Model.Content)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Công ty", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.DisplayFor(model => model.Enterprise.EnterpriseName)
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Describe)
-        </dd>
+                <div class="form-group">
+                    @Html.Label("Mô tả công việc", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.DisplayFor(model => model.JobDescription)
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+                <div class="form-group">
+                    @Html.Label("Đường dẫn", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.DisplayFor(model => model.meta)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Ngày đăng", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @Html.DisplayFor(model => model.datebegin)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Trạng thái", htmlAttributes: new { @class = "col-md-12" })
+                    <div class="col-md-offset-1 col-md-11">
+                        @{
+                            if ((bool)Model.hide)
+                            {
+                                @Html.Raw("Hiển thị")
+                            }
+                            else
+                            {
+                                @Html.Raw("Ẩn")
+                            }
+                        }
+                    </div>
+                </div>
+                <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.order)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.order)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.datebegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datebegin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Enterprise.EnterpriseName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Enterprise.EnterpriseName)
-        </dd>
-
-    </dl>
+                <div class="form-group">
+                    <div class="col-md-offset-0 col-md-10">
+                        <a href="/quan-ly/tin-tuyen-dung/chinh-sua?id=@Model.IDRecruitmentNew" class="btn btn-primary">
+                            Chỉnh sửa
+                        </a>
+                        <div class="btn btn-secondary">
+                            <a href="/quan-ly/tin-tuyen-dung">
+                                Trở về
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDRecruitmentNew }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-recruitment").className == "") {
+            document.getElementById("nav-recruitment").className = "active";
+        }
+    }
+</script>

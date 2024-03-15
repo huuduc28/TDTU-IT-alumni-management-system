@@ -1,15 +1,36 @@
 ﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.RecruitmentNew>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý tin tuyển dụng";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
-
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xóa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa <span id="delete-news-title"></span> không?</p>
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "RecruitmentNews", FormMethod.Post, new { id = "deleteForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Id", null, new { id = "newsId" })
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Quản lý tin tuyển dụng</h2>
         <p>
-            <a href="@Url.Action("Create")" class="btn btn-primary">
+            <a href="tin-tuyen-dung/tao-moi" class="btn btn-primary">
                 Thêm
                 <span class="lnr lnr-file-add"></span>
             </a>
@@ -19,6 +40,7 @@
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>
                             Logo
                         </th>
@@ -40,12 +62,18 @@
                         <th></th>
                     </tr>
                 </thead>
+
                 <tbody>
+                    @{ var Number = 1;}
+
                     @foreach (var item in Model)
                     {
                         <tr class="odd gradeX">
                             <td>
-                                <img src="~/Upload/images/Logo/@Html.DisplayFor(modelItem => item.Enterprise.ImgLogo)" style="width : 100px ; height:90px" />
+                                @Html.Raw(Number++)
+                            </td>
+                            <td>
+                                <img src="~/Upload/images/Logo/@Html.DisplayFor(modelItem => item.Enterprise.ImgLogo)" style="width : 100px ; height:90px; object-fit:cover" />
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Title)
@@ -60,24 +88,15 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
                             </td>
-                            <td style="background-color: @((bool)item.hide? "lightgreen" : "lightcoral")">
-                                @{
-                                    if ((bool)item.hide)
-                                    {
-                                        @Html.Raw("Hiện")
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw("Ẩn")
-                                    }
-                                }
+                            <td>
+                                <span class="lnr lnr-eye" style="color: @((bool)item.hide ? "green" : "red"); font-size: 20px; font-weight: bold;"></span>
                             </td>
                             <td width="120px">
-                                <a href="@Url.Action("Edit", new {id = item.IDRecruitmentNew})" class="btn btn-primary">
+                                <a href="/quan-ly/tin-tuyen-dung/chinh-sua?id=@item.IDRecruitmentNew" class="btn btn-primary">
                                     <span class="lnr lnr-pencil"></span>
                                 </a>
-                                <a href="@Url.Action("Details", new {id = item.IDRecruitmentNew})" class="btn btn-info">
-                                    <span class="lnr lnr-layers"></span>
+                                <a href="/quan-ly/tin-tuyen-dung/chi-tiet?id=@item.IDRecruitmentNew" class="btn btn-info">
+                                    <span class="lnr lnr-eye"></span>
                                 </a>
                                 <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDRecruitmentNew">
                                     <span class="lnr lnr-trash"></span>
@@ -90,7 +109,6 @@
         </div>
     </div>
 </div>
-
 <script>
     window.onload = active();
     function active() {
@@ -98,5 +116,14 @@
             document.getElementById("nav-recruitment").className = "active";
         }
     }
-
+    $(document).ready(function () {
+        $('.delete-btn').click(function (e) {
+            e.preventDefault();
+            var newsId = $(this).data('id');
+            var newsTitle = $(this).closest('tr').find('td:eq(1)').text();
+            $('#newsId').val(newsId);
+            $('#delete-news-title').text(newsTitle); // Đặt giá trị cho span có id "delete-news-title"
+            $('#confirmDeleteModal').modal('show');
+        });
+    });
 </script>

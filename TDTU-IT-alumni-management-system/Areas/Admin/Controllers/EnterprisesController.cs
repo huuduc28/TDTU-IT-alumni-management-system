@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,15 +53,51 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise, HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Enterprises.Add(enterprise);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var path = "";
+                var filename = "";
+                if (ModelState.IsValid)
+                {
+                    // Kiểm tra xem các trường bắt buộc có được nhập hay không
+                    if (img == null)
+                    {
+                        string errorMessage = "Vui lòng nhập đầy đủ thông tin cho các trường bắt buộc.";
+                        TempData["ErrorMessage"] = errorMessage;
 
+                        // Lưu trữ dữ liệu đã nhập vào TempData để khôi phục sau khi đóng modal
+                        TempData["FormData"] = enterprise;
+
+                        return Redirect("/quan-ly/doanh-nghiep");
+                    }
+                    if (img != null)
+                    {
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + img.FileName;
+                        path = Path.Combine(Server.MapPath("~/Upload/images/Logo"), filename);
+                        img.SaveAs(path);
+                        enterprise.ImgLogo = filename; //Lưu ý
+                    }
+                    db.Enterprises.Add(enterprise);
+                    db.SaveChanges();
+                    return Redirect("/quan-ly/doanh-nghiep");
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}",
+                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                TempData["FormData"] = enterprise;
+                return Redirect("/quan-ly/doanh-nghiep/tao-moi");
+            }
             return View(enterprise);
         }
 
@@ -83,13 +121,48 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "IDEnterprise,EnterpriseName,EnterpriseAddress,Phone,Email,Website,ImgLogo,meta,hide,order,datebegin")] Enterprise enterprise ,HttpPostedFileBase img)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(enterprise).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var path = "";
+                var filename = "";
+                Enterprise temp = GetById(enterprise.IDEnterprise);
+                if (ModelState.IsValid)
+                {
+                    if (img != null)
+                    {
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + Path.GetFileName(img.FileName);
+                        path = Path.Combine(Server.MapPath("~/Upload/images/Logo"), filename);
+                        img.SaveAs(path);
+                        temp.ImgLogo = filename;
+                    }
+                    temp.EnterpriseName = enterprise.EnterpriseName;
+                    temp.EnterpriseAddress = enterprise.EnterpriseAddress;
+                    temp.Phone = enterprise.Phone;
+                    temp.Email = enterprise.Email;
+                    temp.Website = enterprise.Website;
+                    temp.meta = enterprise.meta;
+                    temp.hide = enterprise.hide;
+                    temp.datebegin = DateTime.Now;
+                    db.Entry(temp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Redirect("/quan-ly/doanh-nghiep");
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}",
+                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật tin tức. Vui lòng kiểm tra lại thông tin.";
+                return Redirect("/quan-ly/doanh-nghiep/chinh-sua?id="+enterprise.IDEnterprise);
             }
             return View(enterprise);
         }
@@ -114,10 +187,21 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Enterprise enterprise = db.Enterprises.Find(id);
+            //db.Enterprises.Remove(enterprise);
+            //db.SaveChanges();
+            //return Redirect("/quan-ly/doanh-nghiep");
             Enterprise enterprise = db.Enterprises.Find(id);
+            bool isRecumentNew= db.RecruitmentNews.Any(ad => ad.IDEnterprise == id);
+
+            if (isRecumentNew)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa vì dữ liệu đang được sử dụng trong các bảng khác.";
+                return Redirect("/quan-ly/doanh-nghiep");
+            }
             db.Enterprises.Remove(enterprise);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/quan-ly/doanh-nghiep");
         }
 
         protected override void Dispose(bool disposing)
@@ -127,6 +211,10 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public Enterprise GetById(long id)
+        {
+            return db.Enterprises.Where(x => x.IDEnterprise == id).FirstOrDefault();
         }
     }
 }
