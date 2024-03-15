@@ -38,11 +38,13 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="~/Upload/images/Avata/Avata.jpg"
-                                     class="img-circle" alt="Avatar"> <span>Nguyễn Hữu Đức</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
+                                     class="img-circle" alt="Avatar"> <span>@Session["Name"]</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/quan-ly/quan-tri-vien/chi-tiet?id=5"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-                                <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                <li><a href="/quan-ly/quan-tri-vien/chi-tiet?id=@Session["UID"]"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                <li><a href="/quan-ly/doi-mat-khau?id=@Session["UID"]"><i class="lnr lnr-cog"></i> <span>Đổi mật khẩu</span></a></li>
+                                <li><a href="@Url.Action("Logout", "LoginAdmin")"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+
                             </ul>
                         </li>
                     </ul>

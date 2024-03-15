@@ -21,48 +21,72 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/News
         public ActionResult Index(int? page)
         {
-            var pageSize = 10; // Số lượng phần tử trên mỗi trang
-            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                var pageSize = 10; // Số lượng phần tử trên mỗi trang
+                var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
 
-            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
-            var data = db.News.OrderByDescending(n => n.datebegin).ToList();
+                // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+                var data = db.News.OrderByDescending(n => n.datebegin).ToList();
 
-            // Chuyển đổi danh sách thành đối tượng IPagedList
-            var pagedData = data.ToPagedList(pageNumber, pageSize);
-            // Trả về view với đối tượng IPagedList
-            return View(pagedData);
+                // Chuyển đổi danh sách thành đối tượng IPagedList
+                var pagedData = data.ToPagedList(pageNumber, pageSize);
+                // Trả về view với đối tượng IPagedList
+                return View(pagedData);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+          
         }
 
         // GET: Admin/News/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(news);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(news);
+           
         }
 
         // GET: Admin/News/Create
         public ActionResult Create()
         {
-            // Kiểm tra xem có thông báo lỗi trong TempData không
-            if (TempData["ErrorMessage"] != null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                // Lấy dữ liệu đã nhập từ TempData để hiển thị lại trên giao diện
-                var formData = TempData["FormData"] as News;
+                // Kiểm tra xem có thông báo lỗi trong TempData không
+                if (TempData["ErrorMessage"] != null)
+                {
+                    // Lấy dữ liệu đã nhập từ TempData để hiển thị lại trên giao diện
+                    var formData = TempData["FormData"] as News;
 
-                // Truyền dữ liệu đã lưu vào mô hình để hiển thị lại trên giao diện
-                return View(formData);
+                    // Truyền dữ liệu đã lưu vào mô hình để hiển thị lại trên giao diện
+                    return View(formData);
+                }
+
+                // Nếu không có thông báo lỗi, trả về trang Create bình thường
+                return View();
             }
-
-            // Nếu không có thông báo lỗi, trả về trang Create bình thường
-            return View();
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+           
         }
 
         // POST: Admin/News/Create
@@ -123,16 +147,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/News/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(news);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(news);
+           
         }
 
         // POST: Admin/News/Edit/5
@@ -170,7 +202,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.datebegin = DateTime.Now;
                     temp.meta = news.meta;
                     temp.hide = news.hide;
-                    temp.order = news.order;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
                     return Redirect("/quan-ly/tin-tuc");
@@ -196,18 +227,26 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/News/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-            News news = db.News.Find(id);
-            if (news == null)
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return PartialView("_DeleteConfirmation", news);
+            }
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-
-            return PartialView("_DeleteConfirmation", news);
+            
         }
 
         // POST: Admin/News/Delete/5

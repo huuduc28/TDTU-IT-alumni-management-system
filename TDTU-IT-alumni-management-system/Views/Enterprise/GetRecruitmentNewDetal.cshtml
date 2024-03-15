@@ -11,7 +11,7 @@
             <p class="text-muted"> @Model.datebegin.Value.ToString("MM/dd/yyyy h:mm tt")</p>
             <hr>
             <a href="~/Upload/file/@Model.JobDescription" target="_blank" style="font-weight: bold; text-decoration: none;">Mô tả công việc</a>
-            <p>@Model.Content</p>
+            <p>@Html.Raw(@Model.Content)</p>
         </div>
     </div>
 </div>

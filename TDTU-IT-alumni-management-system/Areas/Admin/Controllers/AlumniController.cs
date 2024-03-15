@@ -10,9 +10,6 @@ using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
 using System.Data.SqlClient;
-using NPOI.HSSF.UserModel; // Sử dụng cho định dạng file Excel cũ (.xls)
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -27,32 +24,57 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Alumni
         public ActionResult Index(int? page)
         {
-            var pageSize = 10;
-            var pageNumber = (page ?? 1);
-            var data = db.Alumni.Include(r => r.GraduationInfo).ToList();
-            var pagedData = data.ToPagedList(pageNumber, pageSize);
-            return View(pagedData);
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                var pageSize = 10;
+                var pageNumber = (page ?? 1);
+                var data = db.Alumni.Include(r => r.GraduationInfo).ToList();
+                var pagedData = data.ToPagedList(pageNumber, pageSize);
+                return View(pagedData);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+           
         }
         // GET: Admin/Alumni/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Alumnus alumnus = db.Alumni.Find(id);
+                if (alumnus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(alumnus);
             }
-            Alumnus alumnus = db.Alumni.Find(id);
-            if (alumnus == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(alumnus);
+            
         }
 
         // GET: Admin/Alumni/Create
         public ActionResult Create()
         {
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View();
+
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+            
         }
 
         // POST: Admin/Alumni/Create
@@ -109,17 +131,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Alumni/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Alumnus alumnus = db.Alumni.Find(id);
+                if (alumnus == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                return View(alumnus);
             }
-            Alumnus alumnus = db.Alumni.Find(id);
-            if (alumnus == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View(alumnus);
+            
         }
 
         // POST: Admin/Alumni/Edit/5
@@ -163,7 +193,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.datebegin = DateTime.Now;
                     temp.meta = alumnus.meta;
                     temp.hide = alumnus.hide;
-                    temp.order = alumnus.order;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
                     return Redirect("/quan-ly/cuu-sinh-vien");
@@ -188,16 +217,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Alumni/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Alumnus alumnus = db.Alumni.Find(id);
+                if (alumnus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(alumnus);
             }
-            Alumnus alumnus = db.Alumni.Find(id);
-            if (alumnus == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(alumnus);
+            
         }
 
         // POST: Admin/Alumni/Delete/5

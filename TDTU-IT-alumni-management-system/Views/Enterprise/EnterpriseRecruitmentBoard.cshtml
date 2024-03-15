@@ -37,31 +37,7 @@
                         <div class="mt-2 p-1">
                             <h5 class="mb-0">@i.Title</h5>
                             <small class="pt-2">
-                                @{
-                                    // Tách chuỗi thành các từ
-                                    string[] words = i.Content.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                    if (words.Length > 45)
-                                    {
-                                        string partialContent = "";
-
-                                        for (int j = 0; j < 45; j++)
-                                        {
-                                            partialContent += words[j] + " ";
-                                        }
-
-                                        // Thêm dấu "..." vào cuối chuỗi
-                                        partialContent += "...";
-
-                                        // Hiển thị chuỗi mới
-                                        @partialContent
-                                    }
-                                    else
-                                    {
-                                        // Nếu nội dung ít hơn 50 từ, hiển thị toàn bộ nội dung
-                                        @i.Content
-                                    }
-                                }
+                                @i.Describe
                             </small><br>
                         </div>
                         <div class="mt-1 p-1">

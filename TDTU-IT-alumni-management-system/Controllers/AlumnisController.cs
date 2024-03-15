@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using System.Security.Cryptography;
+using BCrypt.Net;
 using TDTU_IT_alumni_management_system.Models;
 
 namespace TDTU_IT_alumni_management_system.Controllers
@@ -48,6 +54,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                                 Gender = a.Gender,
                                 ProfilePicture = a.ProfilePicture,
                                 Nationality = a.Nationality,
+                                AcademicLevel = a.AcademicLevel,
                                 GraduationInfoID = a.GraduationInfoID,
                                 Majors = g.Majors,
                                 GraduationYear = g.GraduationYear,
@@ -160,9 +167,108 @@ namespace TDTU_IT_alumni_management_system.Controllers
             }
                         
         }
-        public ActionResult PersonInfo()
+        public ActionResult PersonInfo(string id)
         {
-            return View();
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var v = from t in context.Alumni
+                        where t.IDAlumni == id
+                        select t;
+                return View(v.FirstOrDefault());
+            }
         }
+        public ActionResult Edit(string id)
+        {
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Alumnus alumnus = context.Alumni.Find(id);
+                if (alumnus == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(alumnus);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,Profession,jobBeginDate,Password,meta,hide,order,datebegin")] Alumnus alumnus, HttpPostedFileBase img)
+        {
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                string id = Session["UID"].ToString();
+                try
+                {
+                    var path = "";
+                    var filename = "";
+                    Alumnus temp = GetById(alumnus.IDAlumni);
+                    if (ModelState.IsValid)
+                    {
+                        if (img != null)
+                        {
+                            filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + Path.GetFileName(img.FileName);
+                            path = Path.Combine(Server.MapPath("~/Upload/images/Avata"), filename);
+                            img.SaveAs(path);
+                            temp.ProfilePicture = filename;
+                        }
+                        temp.Name = alumnus.Name;
+                        temp.Email = alumnus.Email;
+                        temp.Phone = alumnus.Phone;
+                        temp.Birthday = alumnus.Birthday;
+                        temp.Gender = alumnus.Gender;
+                        temp.Nationality = alumnus.Nationality;
+                        temp.HomeTown = alumnus.HomeTown;
+                        temp.PersonalWebsite = alumnus.PersonalWebsite;
+                        temp.skill = alumnus.skill;
+                        temp.CurrentCompany = alumnus.CurrentCompany;
+                        temp.AcademicLevel = alumnus.AcademicLevel;
+                        temp.Profession = alumnus.Profession;
+                        temp.jobBeginDate = alumnus.jobBeginDate;
+                        context.Entry(temp).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return Redirect("/thong-tin-ca-nhan/chi-tiet/" + id);
+                    }
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Console.WriteLine("Property: {0} Error: {1}",
+                                validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật. Vui lòng kiểm tra lại thông tin.";
+                    return Redirect("/thong-tin-ca-nhan/chinh-sua/" + id);
+                }
+                return View(alumnus);
+            }
+        }
+
+        public Alumnus GetById(string id)
+        {
+            return context.Alumni.Where(x => x.IDAlumni == id).FirstOrDefault();
+        }
+       
     }
 }

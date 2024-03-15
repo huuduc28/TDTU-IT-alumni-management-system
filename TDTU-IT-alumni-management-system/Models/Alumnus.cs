@@ -31,6 +31,7 @@ namespace TDTU_IT_alumni_management_system.Models
         public string AcademicLevel { get; set; }
         public string Profession { get; set; }
         public System.DateTime jobBeginDate { get; set; }
+        public Nullable<byte> role { get; set; }
         public string Password { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }

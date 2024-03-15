@@ -90,6 +90,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                          IDEnterprise = t.IDEnterprise,
                          ImgLogo = c.ImgLogo,
                          JobDescription = t.JobDescription,
+                         Describe = t.Describe,
                          Meta = t.meta,
                          Hide = (bool)t.hide,
                          Order = (int)t.order,
@@ -97,6 +98,8 @@ namespace TDTU_IT_alumni_management_system.Controllers
                      }).Take(count);
             return PartialView(v.ToList());
         }
+
+       
 
     }
 }

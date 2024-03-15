@@ -20,39 +20,63 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Notifies
         public ActionResult Index(int? page)
         {
-            var pageSize = 10; // Số lượng phần tử trên mỗi trang
-            var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                var pageSize = 10; // Số lượng phần tử trên mỗi trang
+                var pageNumber = (page ?? 1); // Trang hiện tại, mặc định là trang 1 nếu không có
 
-            // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
-            var data = db.Notifies.OrderByDescending(n => n.datebegin).ToList();
+                // Lấy dữ liệu từ nguồn dữ liệu của bạn (ví dụ: database)
+                var data = db.Notifies.OrderByDescending(n => n.datebegin).ToList();
 
-            // Chuyển đổi danh sách thành đối tượng IPagedList
-            var pagedData = data.ToPagedList(pageNumber, pageSize);
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            // Trả về view với đối tượng IPagedList
-            return View(pagedData);
+                // Chuyển đổi danh sách thành đối tượng IPagedList
+                var pagedData = data.ToPagedList(pageNumber, pageSize);
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                // Trả về view với đối tượng IPagedList
+                return View(pagedData);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+           
         }
         // GET: Admin/Notifies/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Notify notify = db.Notifies.Find(id);
+                if (notify == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                return View(notify);
             }
-            Notify notify = db.Notifies.Find(id);
-            if (notify == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View(notify);
+          
         }
 
         // GET: Admin/Notifies/Create
         public ActionResult Create()
         {
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+          
         }
 
         // POST: Admin/Notifies/Create
@@ -90,17 +114,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Notifies/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Notify notify = db.Notifies.Find(id);
+                if (notify == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
+                return View(notify);
             }
-            Notify notify = db.Notifies.Find(id);
-            if (notify == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            ViewBag.GraduationInfoList = db.GraduationInfoes.ToList();
-            return View(notify);
+            
         }
 
         // POST: Admin/Notifies/Edit/5
@@ -152,16 +184,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Notifies/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Notify notify = db.Notifies.Find(id);
+                if (notify == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(notify);
             }
-            Notify notify = db.Notifies.Find(id);
-            if (notify == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(notify);
+           
         }
 
         // POST: Admin/Notifies/Delete/5
@@ -169,11 +209,18 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
-            Notify notify = db.Notifies.Find(id);
-            db.Notifies.Remove(notify);
-            db.SaveChanges();
-            return Redirect("/quan-ly/thong-bao");
-            //return RedirectToAction("Index");
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                Notify notify = db.Notifies.Find(id);
+                db.Notifies.Remove(notify);
+                db.SaveChanges();
+                return Redirect("/quan-ly/thong-bao"); 
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

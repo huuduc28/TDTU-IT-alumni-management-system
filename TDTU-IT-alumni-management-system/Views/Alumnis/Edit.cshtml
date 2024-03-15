@@ -1,0 +1,206 @@
+﻿@model TDTU_IT_alumni_management_system.Models.Alumnus
+
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin";
+    Layout = "~/Views/Shared/Mylayout.cshtml";
+}
+
+<div class="container" style="margin-left:14%; width:70%; background-color:white; margin-top:3%">
+    <div class="panel-body">
+        <h2>Chỉnh sửa thông tin cá nhân</h2>
+        <hr />
+        @using (Html.BeginForm("Edit", "Alumnis", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.IDAlumni)
+            @Html.HiddenFor(model => model.Password)
+            @Html.HiddenFor(model => model.order)
+            @Html.HiddenFor(model => model.meta)
+            <div class="row">
+                <!-- Left column -->
+                <div class="col-md-6">
+                    <div class="form-group" style="height:123px">
+                        @Html.Label("Ảnh đại diện", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                            {
+                                <button type="button" id="btnChangeImage" class="btn btn-default">Chỉnh sửa </button>
+                                <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" style="display: none;" />
+                                <img id="imgPreview" src="~/Upload/images/Avata/@Model.ProfilePicture" alt="Avatar" style=" margin:2%; border-radius: 50%; width: 100px; height: 100px; object-fit: cover; ">
+                            }
+                            else
+                            {
+                                <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" />
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Họ tên", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập họ và tên", @required = true, @maxlength = "250" } })
+                            <div id="wordCountTitle" class="text-danger"></div>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Số điện thoại", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Nhập số điện thoại", @pattern = "[0-9]{0,10}", @title = "Vui lòng nhập số điện thoại (tối đa 10 chữ số)" })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Giới tính", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option value="Nam" @(Model.Gender == "Nam" ? "selected" : "")>Nam</option>
+                                <option value="Nữ" @(Model.Gender == "Nữ" ? "selected" : "")>Nữ</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Trang web cá nhân", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.PersonalWebsite, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập trang web" } })
+                            @Html.ValidationMessageFor(model => model.PersonalWebsite, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Kỹ năng", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.skill, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập kỹ năng", @required = true } })
+                            @Html.ValidationMessageFor(model => model.skill, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Làm việc từ", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            <input type="date" class="form-control" id="jobBeginDate" name="jobBeginDate" value="@Model.jobBeginDate.ToString("yyyy-MM-dd")" required="required" />
+                            @Html.ValidationMessageFor(model => model.jobBeginDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Add other form groups for the left column -->
+
+                </div>
+
+                <!-- Right column -->
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:12%">
+                        @Html.Label("Email", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập Email", @type = "email", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Ngày sinh", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            <input type="date" class="form-control" id="Birthday" name="Birthday" value="@Model.Birthday.ToString("yyyy-MM-dd")" required="required" />
+                            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Quốc tịch", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập quốc tịch", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Quê quán", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.HomeTown, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập quê quán", @required = true } })
+                            @Html.ValidationMessageFor(model => model.HomeTown, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Công ty hiện tại", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.CurrentCompany, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.CurrentCompany, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Trình độ", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            <select class="form-control" id="AcademicLevel" name="AcademicLevel">
+                                <option value="Cử nhân" selected>Cử nhân</option>
+                                <option value="Thạc sĩ">Thạc sĩ</option>
+                                <option value="Tiến sĩ">Tiến sĩ</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.AcademicLevel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Công việc ", htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Profession, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Profession, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!-- Add other form groups for the right column -->
+
+                </div>
+            </div>
+
+            <!-- Add other rows and columns as needed -->
+            <hr />
+            <div class="form-group" style="margin-top:2%">
+                <div class="col-md-offset-0 col-md-12">
+                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                    <div class="btn btn-danger">
+                        <a href="/thong-tin-ca-nhan/chi-tiet/@Model.IDAlumni" style="text-decoration: none; color: white;">
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // Khi người dùng click vào nút chỉnh sửa hình ảnh
+        $('#btnChangeImage').click(function () {
+            // Hiển thị input file để người dùng có thể tải lên hình ảnh mới
+            $('#img').show();
+            // Ẩn nút chỉnh sửa hình ảnh
+            $(this).hide();
+            // Ẩn hình ảnh hiện tại
+            $('#imgPreview').hide();
+        });
+    });
+    $(document).ready(function () {
+        $(".toggle-password").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    });
+    window.onload = active();
+    function active() {
+        if (document.getElementById("nav-alumnis").className == "") {
+            document.getElementById("nav-alumnis").className = "active";
+        }
+    };
+</script>
+<style>
+    .input-group-addon {
+        cursor: pointer;
+        padding: 10px 12px; /* Điều chỉnh khoảng cách bên trong của phần tử addon */
+        border-radius: 0; /* Loại bỏ góc bo tròn của phần tử addon */
+    }
+
+    .form-control {
+        border-radius: 0; /* Loại bỏ góc bo tròn của input */
+    }
+</style>
+

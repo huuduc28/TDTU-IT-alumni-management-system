@@ -9,7 +9,7 @@ GO
 INSERT INTO Administrators
 	(IDAdmin, [Name], Phone, Email, [Password])
 VALUES
-	('admin001',N'John Doe', '0123456789', 'john.doe@example.com', 'adminpass1'),
+	('admin001',N'John Doe', '0123456789', 'duc@gmail.com', '$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm'),
 	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'adminpass2'),
 	('admin003',N'Michael Johnson', '0123456789', 'michael.johnson@example.com', 'adminpass3'),
 	('admin004',N'Emily Brown', '0987654321', 'emily.brown@example.com', 'adminpass4'),
@@ -82,13 +82,13 @@ INSERT INTO Menu
 	(IDMenu, Title ,ParentID,HasChild, meta, hide, [order], datebegin)
 VALUES
 	('01', N'Trang chủ',Null,0, '/', 1, 1, GETDATE()),
-	('02', N'Sinh viên',Null,0, 'cuu-sinh-vien', 1, 2, GETDATE()), 
-	('03', N'Doanh nghiệp',null,0, 'doanh-nghiep', 1, 3, GETDATE()), 
+	('02', N'Sinh viên',Null,0, '/cuu-sinh-vien', 1, 2, GETDATE()), 
+	('03', N'Doanh nghiệp',null,0, '/doanh-nghiep', 1, 3, GETDATE()), 
 	('04', N'Hỗ Trợ',NULL,1, '', 1, 4, GETDATE()), 
 	('05', N'Thông báo',NULL,1, '', 1, 5, GETDATE()), 
-	('06', N'BOT Chat','04',0, 'bot-chat', 1, 6, GETDATE()), 
+	('06', N'BOT Chat','04',0, '/bot-chat', 1, 6, GETDATE()), 
 	('07', N'Liên hệ khoa','04',0, 'https://www.facebook.com/it.tdtu.edu.vn', 1, 7, GETDATE()), 
-	('08', N'Tạo thông báo','05',0, 'thong-bao', 1, 8, GETDATE());
+	('08', N'Tạo thông báo','05',0, '/thong-bao', 1, 8, GETDATE());
 
 
 -- dữ liệu header
@@ -154,3 +154,8 @@ select * from Banner
 Select * from Enterprise
 --Drop table Enterprise
 Select * from GraduationInfo
+select * from Alumni
+select * from Administrators
+--$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm ->123456
+
+

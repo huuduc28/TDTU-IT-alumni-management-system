@@ -13,11 +13,19 @@ namespace TDTU_IT_alumni_management_system.Controllers
         // GET: Notifications
         public ActionResult GetNofityDetal(int id)
         {
-            var v = from t in _db.Notifies
-                    where t.IDNotify == id && t.hide == true
-                    orderby t.datebegin descending
-                    select t;
-            return PartialView(v.FirstOrDefault());
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return Redirect("/dang-nhap");
+            }
+            else
+            {
+                var v = from t in _db.Notifies
+                        where t.IDNotify == id && t.hide == true
+                        orderby t.datebegin descending
+                        select t;
+                return PartialView(v.FirstOrDefault());
+            }
         }
         public ActionResult GetNofity()
         {
@@ -28,15 +36,32 @@ namespace TDTU_IT_alumni_management_system.Controllers
                      select t).Take(10);
             return PartialView(v.ToList());
         }
-        public ActionResult GetListNofityByMajors(int GraduationInfoID, int Count)
+        public ActionResult GetListNofityByMajors(int GraduationInfoID)
         {
-            ViewBag.meta = "thong-bao";
-            var v = (from t in _db.Notifies
-                     where t.TargetType == true && t.GraduationInfoID == GraduationInfoID && t.hide == true
-                     orderby t.datebegin descending
-                     select t).Take(Count);
+            ViewBag.meta = "thong-bao-nhom";
+            var v = from t in _db.Notifies
+                    where t.GraduationInfoID == GraduationInfoID && t.hide == true
+                    orderby t.datebegin descending
+                    select t;
             return PartialView(v.ToList());
         }
-        
+        public ActionResult GetAllListNofityByMajors(int id)
+        {
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return Redirect("/dang-nhap");
+            }
+            else
+            {
+                ViewBag.meta = "thong-bao";
+                var v = from t in _db.Notifies
+                        where t.GraduationInfoID == id && t.hide == true
+                        orderby t.datebegin descending
+                        select t;
+                return PartialView(v.ToList());
+            }
+        }
+
     }
 }

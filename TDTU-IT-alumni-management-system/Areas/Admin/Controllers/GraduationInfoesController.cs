@@ -17,12 +17,26 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/GraduationInfoesGraduationInfoes
         public ActionResult Index()
         {
-            return View(db.GraduationInfoes.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View(db.GraduationInfoes.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
         // GET: Admin//Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // POST: Admin/GraduationInfoes/Create
@@ -45,16 +59,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/GraduationInfoes/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
+                if (graduationInfo == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(graduationInfo);
             }
-            GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
-            if (graduationInfo == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(graduationInfo);
+            
         }
 
         // POST: Admin/GraduationInfoes/Edit/5
@@ -76,16 +98,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/GraduationInfoes/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
+                if (graduationInfo == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(graduationInfo);
             }
-            GraduationInfo graduationInfo = db.GraduationInfoes.Find(id);
-            if (graduationInfo == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(graduationInfo);
+           
         }
 
         // POST: Admin/GraduationInfoes/Delete/5

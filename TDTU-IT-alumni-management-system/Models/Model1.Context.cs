@@ -25,8 +25,6 @@ namespace TDTU_IT_alumni_management_system.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Administrator> Administrators { get; set; }
-        public virtual DbSet<Alumnus> Alumni { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<ChatBot> ChatBots { get; set; }
         public virtual DbSet<Enterprise> Enterprises { get; set; }
@@ -37,5 +35,7 @@ namespace TDTU_IT_alumni_management_system.Models
         public virtual DbSet<Notify> Notifies { get; set; }
         public virtual DbSet<RecruitmentNew> RecruitmentNews { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public virtual DbSet<Alumnus> Alumni { get; set; }
+        public virtual DbSet<Administrator> Administrators { get; set; }
     }
 }

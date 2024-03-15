@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TDTUAlumnisManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrators">
           <Key>
             <PropertyRef Name="IDAdmin" />
@@ -13,8 +13,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UserRole" Type="tinyint" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserRole" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Alumni">
           <Key>
@@ -37,7 +37,8 @@
           <Property Name="AcademicLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Profession" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="jobBeginDate" Type="date" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="role" Type="tinyint" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
           <Property Name="order" Type="int" />
@@ -251,50 +252,10 @@
             <End Role="Notify" EntitySet="Notify" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TDTUAlumnisManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Administrator">
-          <Key>
-            <PropertyRef Name="IDAdmin" />
-          </Key>
-          <Property Name="IDAdmin" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserRole" Type="Byte" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Alumnus">
-          <Key>
-            <PropertyRef Name="IDAlumni" />
-          </Key>
-          <Property Name="IDAlumni" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Nationality" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HomeTown" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PersonalWebsite" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="skill" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GraduationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GraduationInfoID" Type="Int32" Nullable="false" />
-          <Property Name="CurrentCompany" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AcademicLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Profession" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="jobBeginDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hide" Type="Boolean" />
-          <Property Name="order" Type="Int32" />
-          <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="GraduationInfo" Relationship="Self.FK_Alumni_GraduationInfo" FromRole="Alumni" ToRole="GraduationInfo" />
-        </EntityType>
         <EntityType Name="Banner">
           <Key>
             <PropertyRef Name="IDBanner" />
@@ -344,8 +305,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Majors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GraduationYear" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Alumni" Relationship="Self.FK_Alumni_GraduationInfo" FromRole="GraduationInfo" ToRole="Alumni" />
           <NavigationProperty Name="Notifies" Relationship="Self.FK_Notify_GraduationInfo" FromRole="GraduationInfo" ToRole="Notify" />
+          <NavigationProperty Name="Alumni" Relationship="TDTUAlumnisManagementSystemModel.FK_Alumni_GraduationInfo" FromRole="GraduationInfo" ToRole="Alumnus" />
         </EntityType>
         <EntityType Name="Header">
           <Key>
@@ -432,18 +393,6 @@
           <Property Name="datebegin" Type="DateTime" Precision="0" />
           <NavigationProperty Name="ChatBots" Relationship="Self.FK__ChatBot__TenTaiK__36B12243" FromRole="TaiKhoan" ToRole="ChatBot" />
         </EntityType>
-        <Association Name="FK_Alumni_GraduationInfo">
-          <End Role="GraduationInfo" Type="Self.GraduationInfo" Multiplicity="1" />
-          <End Role="Alumni" Type="Self.Alumnus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GraduationInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Alumni">
-              <PropertyRef Name="GraduationInfoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__ChatBot__TenTaiK__36B12243">
           <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
           <End Role="ChatBot" Type="Self.ChatBot" Multiplicity="*" />
@@ -481,8 +430,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TDTUAlumnisManagementSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
-          <EntitySet Name="Alumni" EntityType="Self.Alumnus" />
           <EntitySet Name="Banners" EntityType="Self.Banner" />
           <EntitySet Name="ChatBots" EntityType="Self.ChatBot" />
           <EntitySet Name="Enterprises" EntityType="Self.Enterprise" />
@@ -493,10 +440,6 @@
           <EntitySet Name="Notifies" EntityType="Self.Notify" />
           <EntitySet Name="RecruitmentNews" EntityType="Self.RecruitmentNew" />
           <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
-          <AssociationSet Name="FK_Alumni_GraduationInfo" Association="Self.FK_Alumni_GraduationInfo">
-            <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
-            <End Role="Alumni" EntitySet="Alumni" />
-          </AssociationSet>
           <AssociationSet Name="FK__ChatBot__TenTaiK__36B12243" Association="Self.FK__ChatBot__TenTaiK__36B12243">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="ChatBot" EntitySet="ChatBots" />
@@ -509,53 +452,71 @@
             <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
             <End Role="Notify" EntitySet="Notifies" />
           </AssociationSet>
+          <EntitySet Name="Alumni" EntityType="TDTUAlumnisManagementSystemModel.Alumnus" />
+          <AssociationSet Name="FK_Alumni_GraduationInfo" Association="TDTUAlumnisManagementSystemModel.FK_Alumni_GraduationInfo">
+            <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
+            <End Role="Alumnus" EntitySet="Alumni" />
+          </AssociationSet>
+          <EntitySet Name="Administrators" EntityType="TDTUAlumnisManagementSystemModel.Administrator" />
         </EntityContainer>
+        <EntityType Name="Alumnus">
+          <Key>
+            <PropertyRef Name="IDAlumni" />
+          </Key>
+          <Property Name="IDAlumni" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTown" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalWebsite" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="skill" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GraduationType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GraduationInfoID" Type="Int32" Nullable="false" />
+          <Property Name="CurrentCompany" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicLevel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Profession" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="jobBeginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="role" Type="Byte" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="GraduationInfo" Relationship="TDTUAlumnisManagementSystemModel.FK_Alumni_GraduationInfo" FromRole="Alumnus" ToRole="GraduationInfo" />
+        </EntityType>
+        <Association Name="FK_Alumni_GraduationInfo">
+          <End Type="TDTUAlumnisManagementSystemModel.GraduationInfo" Role="GraduationInfo" Multiplicity="1" />
+          <End Type="TDTUAlumnisManagementSystemModel.Alumnus" Role="Alumnus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GraduationInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Alumnus">
+              <PropertyRef Name="GraduationInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="IDAdmin" />
+          </Key>
+          <Property Name="IDAdmin" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserRole" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TDTUAlumnisManagementSystemModelStoreContainer" CdmEntityContainer="TDTUAlumnisManagementSystemEntities">
-          <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Administrator">
-              <MappingFragment StoreEntitySet="Administrators">
-                <ScalarProperty Name="IDAdmin" ColumnName="IDAdmin" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Alumni">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Alumnus">
-              <MappingFragment StoreEntitySet="Alumni">
-                <ScalarProperty Name="IDAlumni" ColumnName="IDAlumni" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
-                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
-                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
-                <ScalarProperty Name="PersonalWebsite" ColumnName="PersonalWebsite" />
-                <ScalarProperty Name="skill" ColumnName="skill" />
-                <ScalarProperty Name="GraduationType" ColumnName="GraduationType" />
-                <ScalarProperty Name="GraduationInfoID" ColumnName="GraduationInfoID" />
-                <ScalarProperty Name="CurrentCompany" ColumnName="CurrentCompany" />
-                <ScalarProperty Name="AcademicLevel" ColumnName="AcademicLevel" />
-                <ScalarProperty Name="Profession" ColumnName="Profession" />
-                <ScalarProperty Name="jobBeginDate" ColumnName="jobBeginDate" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Banners">
             <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Banner">
               <MappingFragment StoreEntitySet="Banner">
@@ -693,6 +654,47 @@
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alumni">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Alumnus">
+              <MappingFragment StoreEntitySet="Alumni">
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="jobBeginDate" ColumnName="jobBeginDate" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="AcademicLevel" ColumnName="AcademicLevel" />
+                <ScalarProperty Name="CurrentCompany" ColumnName="CurrentCompany" />
+                <ScalarProperty Name="GraduationInfoID" ColumnName="GraduationInfoID" />
+                <ScalarProperty Name="GraduationType" ColumnName="GraduationType" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="PersonalWebsite" ColumnName="PersonalWebsite" />
+                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDAlumni" ColumnName="IDAlumni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrators">
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDAdmin" ColumnName="IDAdmin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

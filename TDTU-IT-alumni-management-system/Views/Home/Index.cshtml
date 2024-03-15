@@ -97,6 +97,11 @@
 </div>
     <!-- News Job End -->
 <script>
+     $(document).ready(function () {
+        $.get('@Url.Action("GetListNofityByMajors", "Home", new { id = @Session["Major"] })', function (data) {
+            $('.notifications').append(data);
+        });
+    });
     window.onload = active();
     function active() {
 
@@ -104,5 +109,6 @@
             document.getElementById("nav-home").className = "nav-item nav-link active";
         }
     }
+
 
 </script>

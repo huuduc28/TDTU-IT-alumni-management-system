@@ -14,31 +14,54 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
     {
         private TDTUAlumnisManagementSystemEntities db = new TDTUAlumnisManagementSystemEntities();
 
+
         // GET: Admin/Administrators
         public ActionResult Index()
         {
-            return View(db.Administrators.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View(db.Administrators.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // GET: Admin/Administrators/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Administrator administrator = db.Administrators.Find(id);
+                if (administrator == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(administrator);
             }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(administrator);
+
         }
 
         // GET: Admin/Administrators/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // POST: Admin/Administrators/Create
@@ -48,30 +71,47 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDAdmin,Name,Phone,Email,Password,UserRole")] Administrator administrator)
         {
-            if (ModelState.IsValid)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                administrator.UserRole = 1;
-                db.Administrators.Add(administrator);
-                db.SaveChanges();
-                return Redirect("/quan-ly/quan-tri-vien");
+                if (ModelState.IsValid)
+                {
+                    administrator.UserRole = 1;
+                    administrator.Password = HashPassword(administrator.Password);
+                    db.Administrators.Add(administrator);
+                    db.SaveChanges();
+                    return Redirect("/quan-ly/quan-tri-vien");
+                }
+
+                return View(administrator);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
             }
 
-            return View(administrator);
         }
 
         // GET: Admin/Administrators/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Administrator administrator = db.Administrators.Find(id);
+                if (administrator == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(administrator);
             }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(administrator);
+
         }
 
         // POST: Admin/Administrators/Edit/5
@@ -81,28 +121,45 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDAdmin,Name,Phone,Email,Password,UserRole")] Administrator administrator)
         {
-            if (ModelState.IsValid)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                db.Entry(administrator).State = EntityState.Modified;
-                db.SaveChanges();
-                return Redirect("/quan-ly/quan-tri-vien");
+                if (ModelState.IsValid)
+                {
+                    administrator.UserRole = 1;
+                    db.Entry(administrator).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Redirect("/quan-ly/quan-tri-vien");
+                }
+                return View(administrator);
             }
-            return View(administrator);
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+
         }
 
         // GET: Admin/Administrators/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Administrator administrator = db.Administrators.Find(id);
+                if (administrator == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(administrator);
             }
-            Administrator administrator = db.Administrators.Find(id);
-            if (administrator == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(administrator);
+
         }
 
         // POST: Admin/Administrators/Delete/5
@@ -123,6 +180,12 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public static string HashPassword(string password)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+            return hashedPassword;
         }
     }
 }

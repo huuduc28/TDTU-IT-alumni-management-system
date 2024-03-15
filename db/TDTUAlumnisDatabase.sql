@@ -66,11 +66,10 @@ CREATE TABLE [dbo].[Alumni](
     [CurrentCompany] [nvarchar](255) NOT NULL,
     [AcademicLevel] [nvarchar](50) NOT NULL,
 	[Profession] [nvarchar](255) NOT NULL,
-	[Profession] [nvarchar](50) NOT NULL,
     [jobBeginDate] [date] NOT NULL,
 	--Thông tin tài khoản
 	[role] [tinyint] NULL,
-	[Password] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](255) NOT NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
     [order] [int] NULL,
@@ -85,12 +84,10 @@ CREATE TABLE [dbo].[Administrators](
 	[Name] [nvarchar](50) NOT NULL,
 	[Phone] [nvarchar](15) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
-	[Password] [nvarchar](50) NOT NULL,
-	[UserRole] [TINYINT] NOT NULL DEFAULT 1,
+	[Password] [nvarchar](255) NOT NULL,
+	[UserRole] [INT] NOT NULL DEFAULT 1,
 	PRIMARY KEY CLUSTERED ([IDAdmin] ASC)
 );
-
-
 /****** Object:  Table [dbo].[ThongBao]    Script Date: 22/2/2024 6:23:33 PM ******/
 --BẢNG THÔNG BÁO
 CREATE TABLE [dbo].[Notify](
@@ -123,10 +120,9 @@ CREATE TABLE [dbo].[GraduationInfo](
     PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-select * from GraduationInfo
-
 ALTER TABLE [dbo].[Alumni] WITH CHECK ADD CONSTRAINT [FK_Alumni_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
+
 
 ALTER TABLE [dbo].[Notify] WITH CHECK ADD CONSTRAINT [FK_Notify_GraduationInfo] FOREIGN KEY([GraduationInfoID])
 REFERENCES [dbo].[GraduationInfo] ([ID]);
@@ -192,7 +188,7 @@ CREATE TABLE [dbo].[News](
     [Title] [nvarchar](255) NOT NULL,
     [Content] [nvarchar](max) NOT NULL,
 	[Description] [nvarchar](max) NOT NULL,
-    [ImgNews] [nvarchar](100) NOT NULL,
+    [ImgNews] [nvarchar](255) NOT NULL,
     [meta] [nvarchar](255) NULL,
     [hide] [bit] NULL ,
     [order] [INT] NULL,
@@ -214,7 +210,7 @@ Drop table News
 --Bảng Tin Tuyển dụng
 CREATE TABLE [dbo].[RecruitmentNew](
     [IDRecruitmentNew] [INT] IDENTITY(1,1) NOT NULL,
-	[Title] [nvarchar](100) NOT NULL,
+	[Title] [nvarchar](255) NOT NULL,
 	[Describe][nvarchar](max) NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[JobDescription] [nvarchar](max) NOT NULL,

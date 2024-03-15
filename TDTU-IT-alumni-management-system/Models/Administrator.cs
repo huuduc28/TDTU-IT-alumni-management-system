@@ -19,6 +19,6 @@ namespace TDTU_IT_alumni_management_system.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public byte UserRole { get; set; }
+        public int UserRole { get; set; }
     }
 }

@@ -22,17 +22,6 @@
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h1 class="mb-5 title-lists">Cựu sinh viên khoa Công nghệ thông tin - Đại học Tôn Đức Thắng</h1>
         </div>
-        <div class="col-sm-12">
-            <form action="#">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username"
-                           aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-info" type="submit">Tìm kiếm</button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div class="row g-4">
 
             <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
@@ -41,21 +30,21 @@
             </div>
             <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[0]'">Xem thêm -></h6>
 
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Kỹ Thuật Phần Mềm", count = 4 });}
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Kỹ Thuật Phần Mềm", count = 12 });}
 
             <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
                 <h1 class="mb-3 ">Khoa học máy tính</h1>
             </div>
             <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[1]'">Xem thêm -></h6>
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Khoa Học Máy Tính", count = 4 });}
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Khoa Học Máy Tính", count = 12 });}
 
             <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
                 <h1 class="mb-3 ">Mạng Máy Tính Và Truyền Thông Dữ Liệu</h1>
             </div>
             <h6 class="bg-white bi-text-right text-primary" onclick="location.href='cuu-sinh-vien/@majorKeys[2]'">Xem thêm -></h6>
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", count = 4 });}
+            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", count = 12 });}
 
         </div>
     </div>

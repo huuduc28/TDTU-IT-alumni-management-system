@@ -17,28 +17,50 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Menus
         public ActionResult Index()
         {
-            return View(db.Menus.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View(db.Menus.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // GET: Admin/Menus/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Menu menu = db.Menus.Find(id);
+                if (menu == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(menu);
             }
-            Menu menu = db.Menus.Find(id);
-            if (menu == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(menu);
+            
         }
 
         // GET: Admin/Menus/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // POST: Admin/Menus/Create
@@ -61,16 +83,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Menus/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Menu menu = db.Menus.Find(id);
+                if (menu == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(menu);
             }
-            Menu menu = db.Menus.Find(id);
-            if (menu == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(menu);
+         
         }
 
         // POST: Admin/Menus/Edit/5
@@ -92,16 +122,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Menus/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Menu menu = db.Menus.Find(id);
+                if (menu == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(menu);
             }
-            Menu menu = db.Menus.Find(id);
-            if (menu == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(menu);
+            
         }
 
         // POST: Admin/Menus/Delete/5

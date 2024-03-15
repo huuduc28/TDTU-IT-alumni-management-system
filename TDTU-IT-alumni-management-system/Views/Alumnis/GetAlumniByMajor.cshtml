@@ -5,10 +5,10 @@
 {
     foreach (var alumni in Model)
     {
-        <div class="col-lg-3 col-md-6 wow fadeInUp p-4" data-wow-delay="0.1s">
+        <div class="col-lg-3 col-md-6 wow fadeInUp p-2" data-wow-delay="0.1s">
             <div class="team-item bg-light " onclick="location.href='/@ViewBag.meta/chi-tiet/@alumni.IDAlumni'">
-                <div class="overflow-hidden">
-                    <img class="img-fluid img-alumni" src="~/Upload/images/Avata/@alumni.ProfilePicture" alt="">
+                <div class="overflow-hidden" style="height:65%">
+                    <img class="img-fluid img-alumni" src="~/Upload/images/Avata/@alumni.ProfilePicture" alt="" style="object-fit:cover">
                 </div>
                 <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                     <div class="bg-light d-flex justify-content-center pt-2 px-1">

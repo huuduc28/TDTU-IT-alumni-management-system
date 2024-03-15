@@ -23,10 +23,10 @@
     }
 </style>
 <!-- Team Start -->
-<div class="container-xxl py-5">
+<div class="container py-5" style="margin-left:10%; width:80%">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h1 class="mb-5 title-lists">Cựu sinh viên khoa Công nghệ thông tin - Đại học Tôn Đức Thắng</h1>
+            <h1 class="mb-5 title-lists">Cựu sinh viên @m - Đại học Tôn Đức Thắng</h1>
         </div>
         <div class="col-sm-12 wow fadeInUp" data-wow-delay="0.1s">
             <form action="#">
@@ -41,10 +41,6 @@
         </div>
 
         <div class="row g-4">
-            <div class="text-center wow fadeInUp mt-5" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Ngành</h6>
-                <h1>@m</h1>
-            </div>
             @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = m, count = 0 });}
         </div>
     </div>

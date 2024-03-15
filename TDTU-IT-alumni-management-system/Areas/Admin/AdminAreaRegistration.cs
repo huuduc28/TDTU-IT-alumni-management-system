@@ -1,6 +1,5 @@
 ﻿using ImageProcessor.Processors;
-using MathNet.Numerics.Distributions;
-using NPOI.XWPF.UserModel;
+using System;
 using System.Web.Mvc;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin
@@ -212,6 +211,19 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin
                defaults: new { controller = "GraduationInfoes", action = "Details", id = UrlParameter.Optional },
                namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
             );
+            //dang nhap
+            context.MapRoute(
+                name: "login",
+                url: "quan-ly/dang-nhap",
+                defaults: new { controller = "LoginAdmin", action = "Index" },
+                namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+           );
+            context.MapRoute(
+               name: "Change",
+               url: "quan-ly/doi-mat-khau/{id}",
+               defaults: new { controller = "LoginAdmin", action = "ChangePassword" },
+            namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+          );
 
         }
     }

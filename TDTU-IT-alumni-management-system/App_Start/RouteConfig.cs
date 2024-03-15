@@ -44,6 +44,19 @@ namespace TDTU_IT_alumni_management_system
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute(
+              name: "Thongtincanhan",
+              url: "thong-tin-ca-nhan/chi-tiet/{id}",
+              defaults: new { controller = "Alumnis", action = "PersonInfo" },
+          namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+               name: "EditProfile",
+               url: "thong-tin-ca-nhan/chinh-sua/{id}",
+               defaults: new { controller = "Alumnis", action = "Edit" },
+               namespaces: new[] { "TDTU_IT_alumni_management_system.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "DanhSachSinhVien",
                 url: "cuu-sinh-vien/{majorKey}",
                 defaults: new { controller = "Alumnis", action = "AlumniCategory" },
@@ -65,6 +78,12 @@ namespace TDTU_IT_alumni_management_system
                name: "ThongBao",
                url: "thong-bao",
                defaults: new { controller = "Notify", action = "GetNofity" },
+           namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+               name: "ThongBaoNhom",
+               url: "thong-bao-nhom",
+               defaults: new { controller = "Notify", action = "GetAllListNofityByMajors", id = UrlParameter.Optional },
            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute("New", "{type}/{meta}/{id}",

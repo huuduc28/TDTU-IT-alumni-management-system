@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Notify>
+
+<div class="dropdown">
+    <a href="#" class="icon-menu" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bell bell-icon"></i>
+        @if (Model.Any())
+        {
+            <span class="badge bg-danger badge-sm">@Model.Count()</span>
+        }
+    </a>
+    @if (Model.Any())
+    {
+        <ul class="dropdown-menu notifications" aria-labelledby="notificationDropdown">
+            @foreach (var notification in Model.Take(5))
+            {
+                <li>
+                    <div style="width: 400px; overflow: hidden; white-space: normal;">
+                        <a href="/thong-bao/@notification.meta/@notification.IDNotify" class="dropdown-item notification-item">
+                            @{
+                                string[] words = notification.Title.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                string truncatedTitle = string.Join(" ", words.Take(10));
+                                if (words.Length > 10)
+                                {
+                                    truncatedTitle += "...";
+                                }
+                            }
+                            @truncatedTitle
+                        </a>
+                    </div>
+                </li>
+            }
+            @if (Model.Count() > 5)
+            {
+                <li>
+                    <a href="/@ViewBag.meta?id=@Session["Major"]" class="dropdown-item notification-item">
+                        <span class="dot bg-warning"></span>Xem thêm
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul class="dropdown-menu notifications" aria-labelledby="notificationDropdown">
+            <li>
+                <a href="#" class="dropdown-item notification-item">
+                    <span class="dot bg-warning"></span>Tạm thời không có thông báo.
+                </a>
+            </li>
+        </ul>
+    }
+</div>

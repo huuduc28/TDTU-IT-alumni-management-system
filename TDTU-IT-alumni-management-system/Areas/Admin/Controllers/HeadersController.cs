@@ -20,21 +20,36 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Headers
         public ActionResult Index()
         {
-            return View(db.Headers.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View(db.Headers.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
         // GET: Admin/Headers/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Header header = db.Headers.Find(id);
+                if (header == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(header);
             }
-            Header header = db.Headers.Find(id);
-            if (header == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(header);
+           
         }
 
         // POST: Admin/Headers/Edit/5

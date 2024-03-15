@@ -76,6 +76,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                             Content = t.Content,
                             IDEnterprise = t.IDEnterprise,
                             ImgLogo = c.ImgLogo,
+                            Describe = t.Describe,
                             Meta = t.meta,
                             Hide = (bool)t.hide,
                             Order = (int)t.order,

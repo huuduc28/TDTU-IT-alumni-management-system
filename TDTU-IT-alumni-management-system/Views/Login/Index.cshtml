@@ -10,16 +10,15 @@
     <link rel="icon" type="image/x-icon" href="~/Upload/images/logo-tdtu.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/login.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div class="container mt-5 p-5">
+    <div class="container mt-5 p-5" style="margin-left:13%; width:75%">
         <div class="row login-body mt-5 ms-5 me-5">
-            <div class="col-md-4 col-sm-4 col-lg-4 logo-tittle d-none d-sm-block" style="padding: 40px;">
+            <div class="col-lg-4 logo-tittle d-none d-md-none d-lg-block" style="padding: 40px;">
                 <img class="mx-auto d-block" src="\Upload\images\Logo\logo-tdtu-inkythuatso-01.png" alt="logo" width="150" height="75">
-                <p class="h2 p-4 ms-2 text-white">Cổng thông tin <br>Cựu học sinh, <br>sinh viên</p>
+                <p class="h2 p-4 ms-2 text-white mt-1">Cổng thông tin <br>Cựu sinh viên </p>
             </div>
-
             <div class="col">
                 <div class="login-form mb-5 mt-5">
                     <div class="d-flex justify-content-center">
@@ -33,6 +32,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                            <i class="fa fa-fw fa-eye field-icon toggle-password" id="togglePassword"></i>
                         </div>
 
                         <div class="d-flex justify-content-center">
@@ -57,8 +57,6 @@
                             <button type="button" class="btn btn-danger" onclick="hideForgotPasswordForm()">Quay lại</button>
                             <button type="submit" class="btn btn-danger btn-forgot">Gửi yêu cầu</button>
                         </div>
-
-
                         <div style="visibility: hidden;">
                             <div class="text-center mt-3">
                                 <a>null</a>
@@ -71,6 +69,9 @@
             </div>
         </div>
     </div>
+    <div id="loading" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -81,11 +82,9 @@
         $(document).ready(function () {
             $("#loginForm").submit(function (event) {
                 event.preventDefault();
-
                 var userID = $("#userID").val();
                 var password = $("#password").val();
-
-
+                $("#loading").show();
                 $.ajax({
                     url: '/Login/Login',
                     type: 'POST',
@@ -94,12 +93,13 @@
                         Password: password
                     },
                     success: function (response) {
+                        $("#loading").hide();
                         if (response.success) {
-                            window.location.href = '/Home/Index';
+                            window.location.href = '/';
                         } else {
 
                             alert(response.message);
-                            
+
                         }
                         /*alert.find(".close").remove();
                         setTimeout(function () {
@@ -107,6 +107,7 @@
                         }, 1000);*/
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                        $("#loading").hide();
                         console.error("Lỗi khi gửi dữ liệu đăng nhập:", textStatus, errorThrown);
                         alert("Có lỗi xảy ra, vui lòng thử lại!");
                     }
@@ -138,13 +139,13 @@
                         } else {
 
                             alert(response.message);
-                            
+
                         }
                         alert.find(".close").remove();
                         setTimeout(function () {
                             $(".alert").close();
                         }, 1000);
-                        
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Lỗi khi gửi dữ liệu", textStatus, errorThrown);
@@ -175,8 +176,31 @@
             forgotPasswordForm.style.display = 'none';
         }
     </script>
-
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 
 
 </body>
 </html>
+<style>
+    .password-input-container {
+        position: relative;
+    }
+
+    .field-icon {
+        position: absolute;
+        right: 22%;
+        top: 54%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 2;
+    }
+</style>
+
+ 

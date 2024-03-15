@@ -19,14 +19,28 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Banners
         public ActionResult Index()
         {
-            return View(db.Banners.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View(db.Banners.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // GET: Admin/Banners/Details/5
         // GET: Admin/Banners/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // POST: Admin/Banners/Create
@@ -81,16 +95,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Banners/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Banner banner = db.Banners.Find(id);
+                if (banner == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(banner);
             }
-            Banner banner = db.Banners.Find(id);
-            if (banner == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(banner);
+            
         }
 
         // POST: Admin/Banners/Edit/5
@@ -141,17 +163,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Banners/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Banner banner = db.Banners.Find(id);
-            if (banner == null)
-            {
-                return HttpNotFound();
-            }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Banner banner = db.Banners.Find(id);
+                if (banner == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return PartialView("_DeleteConfirmation", banner);
+                return PartialView("_DeleteConfirmation", banner);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+            
         }
 
         // POST: Admin/Banners/Delete/5

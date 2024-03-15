@@ -20,32 +20,56 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Enterprises
         public ActionResult Index(int? page)
         {
-            var pageSize = 10;
-            var pageNumber = (page ?? 1);
-            var data = db.Enterprises.OrderByDescending(n => n.datebegin).ToList();
-            var pagedData = data.ToPagedList(pageNumber, pageSize);
-            return View(pagedData);
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                var pageSize = 10;
+                var pageNumber = (page ?? 1);
+                var data = db.Enterprises.OrderByDescending(n => n.datebegin).ToList();
+                var pagedData = data.ToPagedList(pageNumber, pageSize);
+                return View(pagedData);
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+         
         }
 
         // GET: Admin/Enterprises/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Enterprise enterprise = db.Enterprises.Find(id);
+                if (enterprise == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(enterprise);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(enterprise);
+           
         }
 
         // GET: Admin/Enterprises/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return View();
+
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // POST: Admin/Enterprises/Create
@@ -104,16 +128,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Enterprises/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Enterprise enterprise = db.Enterprises.Find(id);
+                if (enterprise == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(enterprise);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(enterprise);
+            
         }
 
         // POST: Admin/Enterprises/Edit/5
@@ -170,16 +202,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/Enterprises/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Enterprise enterprise = db.Enterprises.Find(id);
+                if (enterprise == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(enterprise);
             }
-            Enterprise enterprise = db.Enterprises.Find(id);
-            if (enterprise == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(enterprise);
+            
         }
 
         // POST: Admin/Enterprises/Delete/5

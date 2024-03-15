@@ -19,30 +19,53 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/RecruitmentNews
         public ActionResult Index()
         {
-            var recruitmentNews = db.RecruitmentNews.Include(r => r.Enterprise);
-            return View(recruitmentNews.ToList());
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                var recruitmentNews = db.RecruitmentNews.Include(r => r.Enterprise);
+                return View(recruitmentNews.ToList());
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
         }
 
         // GET: Admin/RecruitmentNews/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
+                if (recruitmentNew == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(recruitmentNew);
             }
-            RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
-            if (recruitmentNew == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(recruitmentNew);
+          
         }
 
         // GET: Admin/RecruitmentNews/Create
         public ActionResult Create()
         {
-            ViewBag.IDEnterprise = new SelectList(db.Enterprises, "IDEnterprise", "EnterpriseName");
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                ViewBag.IDEnterprise = new SelectList(db.Enterprises, "IDEnterprise", "EnterpriseName");
+                return View();
+            }
+            else
+            {
+                return Redirect("/quan-ly/dang-nhap");
+            }
+            
         }
 
         // POST: Admin/RecruitmentNews/Create
@@ -91,17 +114,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/RecruitmentNews/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
+                if (recruitmentNew == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.IDEnterprise = new SelectList(db.Enterprises, "IDEnterprise", "EnterpriseName", recruitmentNew.IDEnterprise);
+                return View(recruitmentNew);
             }
-            RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
-            if (recruitmentNew == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            ViewBag.IDEnterprise = new SelectList(db.Enterprises, "IDEnterprise", "EnterpriseName", recruitmentNew.IDEnterprise);
-            return View(recruitmentNew);
+           
         }
 
         // POST: Admin/RecruitmentNews/Edit/5
@@ -135,7 +166,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.IDEnterprise = recruitmentNew.IDEnterprise;
                     temp.meta = recruitmentNew.meta;
                     temp.hide = recruitmentNew.hide;
-                    temp.order = recruitmentNew.order;
                     temp.datebegin = DateTime.Now;
                     db.Entry(temp).State = EntityState.Modified;
                     db.SaveChanges();
@@ -162,16 +192,24 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/RecruitmentNews/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
+                if (recruitmentNew == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(recruitmentNew);
             }
-            RecruitmentNew recruitmentNew = db.RecruitmentNews.Find(id);
-            if (recruitmentNew == null)
+            else
             {
-                return HttpNotFound();
+                return Redirect("/quan-ly/dang-nhap");
             }
-            return View(recruitmentNew);
+            
         }
 
         // POST: Admin/RecruitmentNews/Delete/5
