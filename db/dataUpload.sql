@@ -3,50 +3,22 @@ GO
 use TDTUAlumnisManagementSystem
 GO
 
-INSERT INTO Users
-	(UsersName, Password, Roles)
-VALUES
-	-- Dữ liệu cho admin
-	('admin1', 'adminpass1', 'Admin'),
-	('admin2', 'adminpass2', 'Admin'),
-	('admin3', 'adminpass3', 'Admin'),
-	('admin4', 'adminpass4', 'Admin'),
-	('admin5', 'adminpass5', 'Admin'),
-	('admin6', 'adminpass6', 'Admin'),
-	('admin7', 'adminpass7', 'Admin'),
-	('admin8', 'adminpass8', 'Admin'),
-	('admin9', 'adminpass9', 'Admin'),
-	('admin10', 'adminpass10', 'Admin'),
 
-	-- Dữ liệu cho cựu học sinh - sinh viên
-	('user1', 'password1', 'User'),
-	('user2', 'password2', 'User'),
-	('user3', 'password3', 'User'),
-	('user4', 'password4', 'User'),
-	('user5', 'password5', 'User'),
-	('user6', 'password6', 'User'),
-	('user7', 'password7', 'User'),
-	('user8', 'password8', 'User'),
-	('user9', 'password9', 'User'),
-	('user10', 'password10', 'User');
 
 -- Thêm dữ liệu vào bảng QuanTriVien
 INSERT INTO Administrators
 	(IDAdmin, [Name], Phone, Email, [Password])
 VALUES
-	('admin001',N'John Doe', '0123456789', 'john.doe@example.com', 'admin1'),
-	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'admin2'),
-	('admin003',N'Michael Johnson', '0123456789', 'michael.johnson@example.com', 'admin3'),
-	('admin004',N'Emily Brown', '0987654321', 'emily.brown@example.com', 'admin4'),
-	('admin005',N'Matthew Wilson', '0123456789', 'matthew.wilson@example.com', 'admin5'),
-	('admin006',N'Emma Davis', '0987654321', 'emma.davis@example.com', 'admin6'),
-	('admin007',N'Olivia Martinez', '0123456789', 'olivia.martinez@example.com', 'admin7'),
-	('admin008',N'Daniel Anderson', '0987654321', 'daniel.anderson@example.com', 'admin8'),
-	('admin009',N'Sophia Thomas', '0123456789', 'sophia.thomas@example.com', 'admin9'),
-	('admin010',N'Alexander Taylor', '0987654321', 'alexander.taylor@example.com', 'admin10');
-
-select*from Administrators
-
+	('admin001',N'John Doe', '0123456789', 'john.doe@example.com', 'adminpass1'),
+	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'adminpass2'),
+	('admin003',N'Michael Johnson', '0123456789', 'michael.johnson@example.com', 'adminpass3'),
+	('admin004',N'Emily Brown', '0987654321', 'emily.brown@example.com', 'adminpass4'),
+	('admin005',N'Matthew Wilson', '0123456789', 'matthew.wilson@example.com', 'adminpass5'),
+	('admin006',N'Emma Davis', '0987654321', 'emma.davis@example.com', 'adminpass6'),
+	('admin007',N'Olivia Martinez', '0123456789', 'olivia.martinez@example.com', 'adminpass7'),
+	('admin008',N'Daniel Anderson', '0987654321', 'daniel.anderson@example.com', 'adminpass8'),
+	('admin009',N'Sophia Thomas', '0123456789', 'sophia.thomas@example.com', 'adminpass9'),
+	('admin010',N'Alexander Taylor', '0987654321', 'alexander.taylor@example.com', 'adminpass10');
 
 INSERT INTO GraduationInfo (Majors, GraduationYear)
 VALUES 
@@ -167,12 +139,12 @@ VALUES
 
 
 INSERT INTO RecruitmentNew
-	(Title,Describe ,Content,IDEnterprise, meta)
+	(Title,Describe ,Content,IDEnterprise, meta, JobDescription)
 VALUES
 	(N'FPT Software tuyển dụng Fresher.Net',N'FPT Software tuyển dụng Fresher.Net',N'Ngày hội sinh viên IT và Doanh nghiệp do Khoa CNTT tổ chức vào ngày 15/11/2023 đã  khép lại với nhiều thành công, đã thu hút hơn gần 1000 lượt sinh viên tham gia với sự tham gia của các doanh nghiệp lớn trong nước thuộc lĩnh vực công nghệ thông tin. 
 Bên cạnh việc kết nối bạn SV với nhà tuyển dụng, tại các gian hàng, Ban tổ chức còn tổ chức nhiều hoạt động chia sẻ kinh nghiệm và định hướng nghề nghiệp cho sinh viên. Các ứng cử viên trẻ có nhiều thời gian trao đổi trực tiếp với đại diện doanh nghiệp nhằm tích lũy thêm kinh nghiệm phỏng vấn và hoàn thiện hồ sơ ứng tuyển.
 Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc thành công tốt đẹp, thực sự mang lại nhiều lợi ích cho người tham dự. Chương trình đã thúc đẩy mối liên kết chặt chẽ giữa nhà trường và doanh nghiệp, hỗ trợ sinh viên những thông tin thiết thực về chính sách tuyển dụng của các công ty. Trong thời gian tới, Khoa CNTT sẽ còn tiếp tục tổ chức nhiều chương trình hỗ trợ tìm việc, 
-các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','1', 'tuyen-dung');
+các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','1', 'tuyen-dung', 'mot con vit xoe ra 2 cai canh');
 
 select * from Notify
 
@@ -180,5 +152,5 @@ select * from RecruitmentNew
 select * from Enterprise
 select * from Banner
 Select * from Enterprise
-Drop table Enterprise
+--Drop table Enterprise
 Select * from GraduationInfo

@@ -14,6 +14,24 @@ namespace TDTU_IT_alumni_management_system
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "DangNhap",
+                url: "dang-nhap",
+                defaults: new { controller = "Login", action = "Index" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+                name: "DoiMatKhau",
+                url: "doi-mat-khau",
+                defaults: new { controller = "Login", action = "ChangePassword" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
+                name: "tokenResetPassword",
+                url: "quen-mat-khau",
+                defaults: new { controller = "Login", action = "CheckTokenView" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
                 name: "CuuSinhVien",
                 url: "cuu-sinh-vien",
                 defaults: new { controller = "Alumnis", action = "Index" },

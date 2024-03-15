@@ -17,7 +17,15 @@ namespace TDTU_IT_alumni_management_system.Controllers
 
         public ActionResult Index(string meta)
         {
-            return View();
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult GetAlumniByMajor(string major, int count)
         {
@@ -94,46 +102,63 @@ namespace TDTU_IT_alumni_management_system.Controllers
 
         public ActionResult AlumniCategory(string majorKey)
         {
-            var major = majorKey;
-            ViewBag.meta = "cuu-sinh-vien";
-            ViewData["majorKey"] = major;
-            return View();
+            if (Session["UID"] == null)
+            {
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var major = majorKey;
+                ViewBag.meta = "cuu-sinh-vien";
+                ViewData["majorKey"] = major;
+                return View();
+            }
         }
         public ActionResult DetailAlumni(string id)
         {
-            using (var context = new TDTUAlumnisManagementSystemEntities())
+            if (Session["UID"] == null)
             {
-                ViewBag.meta = "cuu-sinh-vien";
-                var v = from g in context.GraduationInfoes
-                        join a in context.Alumni on g.ID equals a.GraduationInfoID
-                        where a.IDAlumni == id
-                        orderby a.datebegin ascending
-                        select new AlumnusModel
-                        {
-                            IDAlumni = a.IDAlumni,
-                            Name = a.Name,
-                            Email = a.Email,
-                            Phone = a.Phone,
-                            Gender = a.Gender,
-                            ProfilePicture = a.ProfilePicture,
-                            Nationality = a.Nationality,
-                            HomeTown = a.HomeTown,
-                            PersonalWebsite = a.PersonalWebsite,
-                            GraduationType = a.GraduationType,
-                            CurrentCompany = a.CurrentCompany, 
-                            Profession = a.Profession,
-                            jobBeginDate = a.jobBeginDate,
-                            skill = a.skill,
-                            GraduationInfoID = a.GraduationInfoID,
-                            Majors = g.Majors,
-                            GraduationYear = g.GraduationYear,
-                            meta = a.meta,
-                            hide = (bool)a.hide,
-                            order = (int)a.order,
-                            datebegin = (DateTime)a.datebegin
-                        };
-                return View(v.FirstOrDefault());
-            }            
+                // Chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                using (var context = new TDTUAlumnisManagementSystemEntities())
+                {
+                    ViewBag.meta = "cuu-sinh-vien";
+                    var v = from g in context.GraduationInfoes
+                            join a in context.Alumni on g.ID equals a.GraduationInfoID
+                            where a.IDAlumni == id
+                            orderby a.datebegin ascending
+                            select new AlumnusModel
+                            {
+                                IDAlumni = a.IDAlumni,
+                                Name = a.Name,
+                                Email = a.Email,
+                                Phone = a.Phone,
+                                Gender = a.Gender,
+                                ProfilePicture = a.ProfilePicture,
+                                Nationality = a.Nationality,
+                                HomeTown = a.HomeTown,
+                                PersonalWebsite = a.PersonalWebsite,
+                                GraduationType = a.GraduationType,
+                                CurrentCompany = a.CurrentCompany,
+                                Profession = a.Profession,
+                                jobBeginDate = a.jobBeginDate,
+                                skill = a.skill,
+                                GraduationInfoID = a.GraduationInfoID,
+                                Majors = g.Majors,
+                                GraduationYear = g.GraduationYear,
+                                meta = a.meta,
+                                hide = (bool)a.hide,
+                                order = (int)a.order,
+                                datebegin = (DateTime)a.datebegin
+                            };
+                    return View(v.FirstOrDefault());
+                }
+            }
+                        
         }
         public ActionResult PersonInfo()
         {
