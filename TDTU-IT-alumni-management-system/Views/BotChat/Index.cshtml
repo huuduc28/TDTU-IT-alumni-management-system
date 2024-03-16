@@ -4,52 +4,63 @@
     Layout = "~/Views/Shared/Mylayout.cshtml";
 }
 <link href="~/Content/css/chat.css" rel="stylesheet">
-
-<div class="container mt-3">
+<style>
+    .tempFixed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+</style>
+<div class="container mt-3 tempFixed">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="history-list">
-                <ul>
-                    <li>Làm sao để hết buồn ngủ</li>
-                    <li>Làm sao để hết buồn ngủ</li>
-                    <li>Làm sao để hết buồn ngủ</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-9 col-md-12 col-sm-12">
-            <div class="chat">
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="chat history-list p-2">
                 <div class="chat-messages" id="chat-messages">
-                    <div class="message incoming">
-                        <img src="https://catscanman.net/wp-content/uploads/2023/02/meme-cam-sung-1.jpg"
-                             alt="user-avatar" class="rounded-circle">
-                        <div class="message-body">
-                            <p>làm sao để hết buồn ngủ</p>
-                        </div>
-                    </div>
-                    <div class="message outcoming">
-                        <img src="~/Upload/images/logo-tdtu.png" alt="user-avatar" class="rounded-circle">
-                        <div class="message-body">
-                            <p>
-                                Uống nhiều nước. Khi bạn bị mất nước, cơ thể sẽ cảm thấy mệt mỏi và buồn ngủ. Uống
-                                nhiều nước sẽ giúp bạn tỉnh táo và tập trung hơn.
-                            </p>
-                        </div>
-                    </div>
+                    @{Html.RenderAction("ResponseMsgView");}
+
                 </div>
-                <div class="chat-input">
-                    <input type="text" placeholder="Type a message..." id="input-msg">
-                    <button id="btn-send">Send</button>
-                </div>
+                <form class="chat-input" id="promptChat">
+                    <input type="text" placeholder="Type a message... " id="txtInput" autofocus>
+                    <button id="send" class="btn btn-primary ms-3" type="submit">Send</button>
+                    
+                </form>
             </div>
         </div>
     </div>
 </div>
-<script>
-    window.onload = active();
-    function active() {
 
-        if (document.getElementById("nav-support").className =="nav-link dropdown-toggle") {
-            document.getElementById("nav-support").className = "nav-link dropdown-toggle active";
-        }
-    }
+<script>
+    $(document).ready(function () {
+        $("#promptChat").submit(function (event) {
+            event.preventDefault();
+
+            var txtInput = $("#txtInput").val();
+            $.ajax({
+                url: '/BotChat/ResponseMsg',
+                type: 'POST',
+                data: {
+                    prompt: txtInput,
+                    count: 1
+                },
+
+                success: function (response) {
+                    if (response.success) {
+                        $("#txtInput").val("");
+                        $('#chat-messages').html(""); // Clear any existing content
+                        $('#chat-messages').load('/BotChat/ResponseMsgView');
+                    } else {
+                        alert(response.message);
+
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Có lỗi xảy ra, vui lòng thử lại sau!", textStatus, errorThrown);
+                    alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                }
+            });
+
+        });
+    });
 </script>
+

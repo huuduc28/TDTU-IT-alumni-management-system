@@ -32,6 +32,12 @@ namespace TDTU_IT_alumni_management_system
             namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
 
             routes.MapRoute(
+                name: "chatbot",
+                url: "bot-chat",
+                defaults: new { controller = "BotChat", action = "Index" },
+            namespaces: new[] { "TDTU-IT-alumni-management-system.Controllers" });
+
+            routes.MapRoute(
                 name: "CuuSinhVien",
                 url: "cuu-sinh-vien",
                 defaults: new { controller = "Alumnis", action = "Index" },
