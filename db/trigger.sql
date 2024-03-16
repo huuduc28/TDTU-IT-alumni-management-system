@@ -99,36 +99,7 @@ BEGIN
 END;
 GO
 
--- Tạo trigger cho bảng Admin
-CREATE TRIGGER trg_Admin_AfterInsert
-ON dbo.Admin
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Admin;
-
-    -- Cập nhật giá trị hide, datebegin, meta và [order] cho mỗi bản ghi mới
-    UPDATE dbo.Admin
-    SET hide = 1, 
-        datebegin = GETDATE()
-    FROM inserted
-    WHERE dbo.Admin.IDAdmin = inserted.IDAdmin;
-
-    -- Cập nhật giá trị [order] cho các bản ghi mới
-    WITH UpdatedRows AS (
-        SELECT IDAdmin, ROW_NUMBER() OVER (ORDER BY IDAdmin) AS NewOrder
-        FROM dbo.Admin
-        WHERE IDAdmin IN (SELECT IDAdmin FROM inserted)
-    )
-    UPDATE dbo.Admin
-    SET [order] = @MaxOrder + NewOrder
-    FROM UpdatedRows
-    WHERE dbo.Admin.IDAdmin = UpdatedRows.IDAdmin;
-END;
-GO
 
 
 

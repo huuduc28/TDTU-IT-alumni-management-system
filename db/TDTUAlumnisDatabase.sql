@@ -6,13 +6,14 @@ IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
 EXEC [TDTUAlumnisManagementSystem].[dbo].[sp_fulltext_database] @action = 'enable'
 end
+SET ANSI_PADDING ON
 GO
 USE [TDTUAlumnisManagementSystem]
 GO
 --BẢNG CHATBOT
 CREATE TABLE [dbo].[ChatBot](
 	[IDBot] [nvarchar](15) NOT NULL,
-	[Prompt] [nvarchar](max) NOT NULL,
+	[Prompt] [nvarchar](max) NOT NULL, 
 	[Result] [nvarchar](max) NOT NULL,
 	[UsersName] [nvarchar](50) NULL,
 	[meta] [nvarchar](50) NULL,
@@ -105,7 +106,7 @@ CREATE TABLE [dbo].[Notify](
     PRIMARY KEY CLUSTERED ([IDNotify] ASC)
 );
 ALTER TABLE [dbo].[Notify]  WITH CHECK ADD FOREIGN KEY([IDSender])
-REFERENCES [dbo].[Admin] ([IDAdmin])
+REFERENCES [dbo].[Administrators] ([IDAdmin])
 --Drop table Notify
 
 --BẢNG THÔNG TIN KHÓA HỌC
@@ -205,7 +206,7 @@ CREATE TABLE [dbo].[News](
         OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
     ) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY];
-Drop table News
+--Drop table News
 
 --Bảng Tin Tuyển dụng
 CREATE TABLE [dbo].[RecruitmentNew](

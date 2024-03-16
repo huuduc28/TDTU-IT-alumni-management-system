@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.ChatBot>
+
+@if (Model != null)
+{
+    foreach (var chat in Model)
+    {
+        <div class="message incoming d-flex justify-content-end">
+            <div class="message-body me-3" style="max-width : 50%">
+                <p>@chat.Prompt</p>
+            </div>
+            <img src="https://catscanman.net/wp-content/uploads/2023/02/meme-cam-sung-1.jpg"
+                 alt="user-avatar" class="rounded-circle">
+
+        </div>
+        <div class="message outcoming">
+            <img src="~/Upload/images/Avata/Avata.jpg" alt="user-avatar" class="rounded-circle">
+            <div class="message-body" style="max-width : 50%">
+                <p>
+                    @chat.Result
+                </p>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    $(document).ready(function() {
+      var chatMessages = $('.chat-messages');
+      chatMessages.scrollTop(chatMessages.prop("scrollHeight"));
+    });
+</script>
