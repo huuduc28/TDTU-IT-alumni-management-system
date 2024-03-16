@@ -104,6 +104,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                         img.SaveAs(path);
                         alumnus.ProfilePicture = filename;
                     }
+                    alumnus.Password = HashPassword(alumnus.Password);
                     alumnus.meta = "cuu-sinh-vien";
                     db.Alumni.Add(alumnus);
                     db.SaveChanges();
@@ -158,7 +159,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,Profession,jobBeginDate,Password,meta,hide,order,datebegin")] Alumnus alumnus, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,Profession,jobBeginDate,meta,hide,datebegin")] Alumnus alumnus, HttpPostedFileBase img)
         {
             try
             {
@@ -189,7 +190,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     temp.AcademicLevel = alumnus.AcademicLevel;
                     temp.Profession = alumnus.Profession;
                     temp.jobBeginDate = alumnus.jobBeginDate;
-                    temp.Password = alumnus.Password;
                     temp.datebegin = DateTime.Now;
                     temp.meta = alumnus.meta;
                     temp.hide = alumnus.hide;
@@ -236,7 +236,6 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             }
             
         }
-
         // POST: Admin/Alumni/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -285,97 +284,11 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         {
             return db.Alumni.Where(x => x.IDAlumni == id).FirstOrDefault();
         }
-        //[HttpPost]
-        //public ActionResult Import(HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //    {
-        //        try
-        //        {
-        //            HSSFWorkbook workbook; // Đối tượng workbook của NPOI
-        //            using (var stream = file.InputStream)
-        //            {
-        //                workbook = new HSSFWorkbook(stream); // Đọc file Excel bằng NPOI
-        //            }
-
-        //            HSSFSheet worksheet = (HSSFSheet)workbook.GetSheetAt(0); // Lấy sheet đầu tiên
-
-        //            int rowCount = worksheet.LastRowNum + 1; // Số hàng
-        //            for (int row = 1; row < rowCount; row++) // Bắt đầu từ hàng 2 vì hàng đầu tiên là tiêu đề
-        //            {
-        //                HSSFRow excelRow = (HSSFRow)worksheet.GetRow(row); // Lấy dòng Excel
-
-        //                // Kiểm tra xem dòng có tồn tại không
-        //                if (excelRow == null)
-        //                {
-        //                    continue; // Bỏ qua nếu dòng không tồn tại
-        //                }
-
-        //                // Đọc dữ liệu từ các ô trong dòng
-        //                string IDAlumni = excelRow.GetCell(0)?.StringCellValue;
-        //                string Name = excelRow.GetCell(1)?.StringCellValue;
-        //                string Email = excelRow.GetCell(2)?.StringCellValue;
-        //                string Phone = excelRow.GetCell(3)?.StringCellValue;
-        //                DateTime? Birthday = excelRow.GetCell(4)?.DateCellValue;
-        //                string Gender = excelRow.GetCell(5)?.StringCellValue;
-        //                string ProfilePicture = excelRow.GetCell(6)?.StringCellValue;
-        //                string Nationality = excelRow.GetCell(7)?.StringCellValue;
-        //                string HomeTown = excelRow.GetCell(8)?.StringCellValue;
-        //                string PersonalWebsite = excelRow.GetCell(9)?.StringCellValue;
-        //                string Skill = excelRow.GetCell(10)?.StringCellValue;
-        //                string GraduationType = excelRow.GetCell(11)?.StringCellValue;
-        //                int GraduationInfoID;
-        //                int.TryParse(excelRow.GetCell(12)?.NumericCellValue.ToString(), out GraduationInfoID);
-        //                string CurrentCompany = excelRow.GetCell(13)?.StringCellValue;
-        //                string AcademicLevel = excelRow.GetCell(14)?.StringCellValue;
-        //                string Profession = excelRow.GetCell(15)?.StringCellValue;
-        //                DateTime? jobBeginDate = excelRow.GetCell(16)?.DateCellValue;
-        //                string Password = excelRow.GetCell(17)?.StringCellValue;
-
-        //                // Tạo đối tượng Alumni từ dữ liệu đọc được
-        //                Alumnus alumni = new Alumnus
-        //                {
-        //                    IDAlumni = IDAlumni,
-        //                    Name = Name,
-        //                    Email = Email,
-        //                    Phone = Phone,
-        //                    //Birthday = Birthday,
-        //                    Gender = Gender,
-        //                    ProfilePicture = ProfilePicture,
-        //                    Nationality = Nationality,
-        //                    HomeTown = HomeTown,
-        //                    PersonalWebsite = PersonalWebsite,
-        //                    skill = Skill,
-        //                    GraduationType = GraduationType,
-        //                    GraduationInfoID = GraduationInfoID,
-        //                    CurrentCompany = CurrentCompany,
-        //                    AcademicLevel = AcademicLevel,
-        //                    Profession = Profession,
-        //                    //jobBeginDate = /*jobBeginDate*/,
-        //                    Password = Password
-        //                };
-
-        //                // Thêm đối tượng Alumni vào db của bạn
-        //                db.Alumni.Add(alumni);
-        //            }
-
-        //            // Lưu các thay đổi vào cơ sở dữ liệu
-        //            db.SaveChanges();
-        //            ViewBag.Message = "Import thành công.";
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            ViewBag.Message = "Lỗi: " + ex.Message;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ViewBag.Message = "Vui lòng chọn file.";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
-
+        public static string HashPassword(string password)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+            return hashedPassword;
+        }
     }
 }

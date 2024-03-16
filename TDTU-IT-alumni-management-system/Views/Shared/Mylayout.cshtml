@@ -37,7 +37,10 @@
         </button>
         @{Html.RenderAction("getMenu", "Home");}
     <div class="notifi" style="margin-right: 2%">
-        @*@{Html.RenderAction("GetListNofityByMajors", "Notify", new { GraduationInfoID = @Session["Major"] });}*@
+        @{
+            int Gid = Convert.ToInt32(Session["Major"]);
+            Html.RenderAction("GetListNofityByMajors", "Notify", new { GraduationInfoID = Gid });
+        }
     </div>
         <!--User-->
         <div class="user">

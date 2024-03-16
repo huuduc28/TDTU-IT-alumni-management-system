@@ -156,6 +156,7 @@ Select * from Enterprise
 Select * from GraduationInfo
 select * from Alumni
 select * from Administrators
---$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm ->123456
+--$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm ->123456789
 
+select * from ChatBot
 

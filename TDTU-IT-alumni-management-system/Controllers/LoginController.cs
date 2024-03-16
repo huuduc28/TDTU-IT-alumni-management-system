@@ -35,9 +35,8 @@ namespace TDTU_IT_alumni_management_system.Controllers
         public ActionResult Login(string Username, string Password)
         {
 
-            var user = db.Alumni.Where(u => u.IDAlumni == Username && u.Password == Password).FirstOrDefault();
-
-            if (user != null)
+            var user = db.Alumni.Where(u => u.IDAlumni == Username).FirstOrDefault();
+            if (user != null && VerifyPassword(Password, user.Password))
             {
 
                 Session["UID"] = user.IDAlumni;
@@ -104,25 +103,36 @@ namespace TDTU_IT_alumni_management_system.Controllers
             if (Session["UID"] != null)
             {
                 Uid = Session["UID"].ToString();
+                var user = db.Alumni.Where(u =>  u.IDAlumni == Uid).FirstOrDefault();
+                if (user != null && VerifyPassword(CurrentPassword, user.Password))
+                {
+                    user.Password = HashPassword(NewPassword);
+                    db.SaveChanges();
+                    Session.Clear();
+                    return Json(new { success = true, message = "Đổi mật khẩu thành công!" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Mật khẩu hiện tại không chính xác!" });
+                }
             }
             else
             {
                 Uid = Session["tempUID"].ToString();
+                var user = db.Alumni.Where(u => u.IDAlumni == Uid).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Password = HashPassword(NewPassword);
+                    db.SaveChanges();
+                    Session.Clear();
+                    return Json(new { success = true, message = "Đổi mật khẩu thành công!" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Mật khẩu hiện tại không chính xác!" });
+                }
             }    
-
-            var user = db.Alumni.Where(u => u.Password == u.Password && u.IDAlumni == Uid).FirstOrDefault();
-
-            if (user != null)
-            {
-                user.Password = NewPassword;
-                db.SaveChanges();
-                Session.Clear();
-                return Json(new { success = true, message = "Đổi mật khẩu thành công!"});
-            }
-            else
-            {
-                return Json(new { success = false, message = "Mật khẩu hiện tại không chính xác!"});
-            }
+            
         }
         public ActionResult ChangePassword()
         {
@@ -166,6 +176,16 @@ namespace TDTU_IT_alumni_management_system.Controllers
                 client.Send(message);
                 client.Disconnect(true);
             }
+        }
+        public static string HashPassword(string password)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+            return hashedPassword;
+        }
+        public static bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
     }
 }

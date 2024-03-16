@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AlumniCategory";
+    ViewBag.Title = "Phân loại sinh viên";
     Layout = "~/Views/Shared/Mylayout.cshtml";
     var m = "";
     switch (ViewData["majorKey"])
@@ -22,6 +22,7 @@
         height: 300px;
     }
 </style>
+
 <!-- Team Start -->
 <div class="container py-5" style="margin-left:10%; width:80%">
     <div class="container">
@@ -29,9 +30,9 @@
             <h1 class="mb-5 title-lists">Cựu sinh viên @m - Đại học Tôn Đức Thắng</h1>
         </div>
         <div class="col-sm-12 wow fadeInUp" data-wow-delay="0.1s">
-            <form action="#">
+            <form action="/cuu-sinh-vien/@ViewData["majorKey"]" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username"
+                    <input type="text" class="form-control" name="searchString" placeholder="Tìm kiếm" aria-label="Recipient's username"
                            aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-info" type="submit">Tìm kiếm</button>
@@ -39,9 +40,12 @@
                 </div>
             </form>
         </div>
-
         <div class="row g-4">
-            @{Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = m, count = 0 });}
+            @{
+                string searchString = Request.QueryString["searchString"];
+
+                Html.RenderAction("GetAlumniByMajor", "Alumnis", new { major = m, count = 0, searchString = searchString ?? "" });
+            }
         </div>
     </div>
 </div>

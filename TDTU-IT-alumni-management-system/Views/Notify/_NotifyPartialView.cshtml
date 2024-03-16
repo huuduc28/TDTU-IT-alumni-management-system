@@ -1,0 +1,17 @@
+﻿@model List<TDTU_IT_alumni_management_system.Models.Notify>
+
+@foreach (var i in Model)
+{
+    <div class="thong-bao">
+        <div class="tieu-de">
+            <h2>@i.Title</h2>
+        </div>
+        <div class="noi-dung">
+            <p>
+                @i.Description
+            </p>
+            <a href="/@ViewBag.meta/@i.meta/@i.IDNotify">Chi tiết thông báo</a>
+            <p class="nguon-goc">Khoa CNTT | Ngày đăng  @i.datebegin.Value.ToString("dd/MM/yyyy")</p>
+        </div>
+    </div>
+}

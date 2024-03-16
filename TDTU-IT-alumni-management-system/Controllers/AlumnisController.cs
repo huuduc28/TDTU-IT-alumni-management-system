@@ -21,7 +21,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
 
         TDTUAlumnisManagementSystemEntities context = new TDTUAlumnisManagementSystemEntities();
 
-        public ActionResult Index(string meta)
+        public ActionResult Index()
         {
             if (Session["UID"] == null)
             {
@@ -33,79 +33,103 @@ namespace TDTU_IT_alumni_management_system.Controllers
                 return View();
             }
         }
-        public ActionResult GetAlumniByMajor(string major, int count)
+        public ActionResult GetAlumniByMajor(string major, int count, string searchString)
         {
-            if (major != null)
+            using (var context = new TDTUAlumnisManagementSystemEntities())
             {
-                if (count > 0)
+                ViewBag.meta = "cuu-sinh-vien";
+
+                if (!string.IsNullOrEmpty(major))
                 {
-                    ViewBag.meta = "cuu-sinh-vien";
-                    
-                    var v = from g in context.GraduationInfoes
-                            join a in context.Alumni on g.ID equals a.GraduationInfoID
-                            where g.Majors == major
-                            orderby a.datebegin ascending
-                            select new AlumnusModel
-                            {
-                                IDAlumni = a.IDAlumni,
-                                Name = a.Name,
-                                Email = a.Email,
-                                Phone = a.Phone,
-                                Gender = a.Gender,
-                                ProfilePicture = a.ProfilePicture,
-                                Nationality = a.Nationality,
-                                AcademicLevel = a.AcademicLevel,
-                                GraduationInfoID = a.GraduationInfoID,
-                                Majors = g.Majors,
-                                GraduationYear = g.GraduationYear,
-                                meta = a.meta,
-                                hide = (bool)a.hide,
-                                order = (int)a.order,
-                                datebegin = (DateTime)a.datebegin
-                            };
-                    return PartialView(v.Take(count).ToList());
+                    if (count > 0)
+                    {
+                        var v = from g in context.GraduationInfoes
+                                join a in context.Alumni on g.ID equals a.GraduationInfoID
+                                where g.Majors == major
+                                orderby a.datebegin ascending
+                                select new AlumnusModel
+                                {
+                                    IDAlumni = a.IDAlumni,
+                                    Name = a.Name,
+                                    Email = a.Email,
+                                    Phone = a.Phone,
+                                    Gender = a.Gender,
+                                    ProfilePicture = a.ProfilePicture,
+                                    Nationality = a.Nationality,
+                                    AcademicLevel = a.AcademicLevel,
+                                    GraduationInfoID = a.GraduationInfoID,
+                                    Majors = g.Majors,
+                                    GraduationYear = g.GraduationYear,
+                                    meta = a.meta,
+                                    hide = (bool)a.hide,
+                                    order = (int)a.order,
+                                    datebegin = (DateTime)a.datebegin
+                                };
+                        return PartialView(v.Take(count).ToList());
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(searchString))
+                        {
+                            var v = from g in context.GraduationInfoes
+                                    join a in context.Alumni on g.ID equals a.GraduationInfoID
+                                    where a.Name.Contains(searchString) || a.IDAlumni.Contains(searchString)
+                                    orderby a.datebegin ascending
+                                    select new AlumnusModel
+                                    {
+                                        IDAlumni = a.IDAlumni,
+                                        Name = a.Name,
+                                        Email = a.Email,
+                                        Phone = a.Phone,
+                                        Gender = a.Gender,
+                                        ProfilePicture = a.ProfilePicture,
+                                        Nationality = a.Nationality,
+                                        GraduationInfoID = a.GraduationInfoID,
+                                        Majors = g.Majors,
+                                        GraduationYear = g.GraduationYear,
+                                        meta = a.meta,
+                                        hide = (bool)a.hide,
+                                        order = (int)a.order,
+                                        datebegin = (DateTime)a.datebegin
+                                    };
+                            return PartialView(v.ToList());
+                        }
+                        else
+                        {
+                            var v = from g in context.GraduationInfoes
+                                    join a in context.Alumni on g.ID equals a.GraduationInfoID
+                                    where g.Majors == major
+                                    orderby a.datebegin ascending
+                                    select new AlumnusModel
+                                    {
+                                        IDAlumni = a.IDAlumni,
+                                        Name = a.Name,
+                                        Email = a.Email,
+                                        Phone = a.Phone,
+                                        Gender = a.Gender,
+                                        ProfilePicture = a.ProfilePicture,
+                                        Nationality = a.Nationality,
+                                        GraduationInfoID = a.GraduationInfoID,
+                                        Majors = g.Majors,
+                                        GraduationYear = g.GraduationYear,
+                                        meta = a.meta,
+                                        hide = (bool)a.hide,
+                                        order = (int)a.order,
+                                        datebegin = (DateTime)a.datebegin
+                                    };
+                            return PartialView(v.ToList());
+                        }
+                    }
                 }
                 else
                 {
-                    ViewBag.meta = "cuu-sinh-vien";
-                    var v = from g in context.GraduationInfoes
-                            join a in context.Alumni on g.ID equals a.GraduationInfoID
-                            where g.Majors == major
-                            orderby a.datebegin ascending
-                            select new AlumnusModel
-                            {
-                                IDAlumni = a.IDAlumni,
-                                Name = a.Name,
-                                Email = a.Email,
-                                Phone = a.Phone,
-                                Gender = a.Gender,
-                                ProfilePicture = a.ProfilePicture,
-                                Nationality = a.Nationality,
-                                GraduationInfoID = a.GraduationInfoID,
-                                Majors = g.Majors,
-                                GraduationYear = g.GraduationYear,
-                                meta = a.meta,
-                                hide = (bool)a.hide,
-                                order = (int)a.order,
-                                datebegin = (DateTime)a.datebegin
-                            };
-                    return PartialView(v.ToList());
-                }
-            }
-            else
-            {
-                using (var context = new TDTUAlumnisManagementSystemEntities())
-                {
-                    ViewBag.meta = "cuu-sinh-vien";
                     ViewData["major"] = major;
                     // Lấy danh sách sinh viên theo ngành, sắp xếp theo order tăng dần
                     var alumni = context.Alumni.OrderBy(a => a.order).ToList();
                     return PartialView(alumni);
                 }
             }
-
         }
-
 
         public ActionResult AlumniCategory(string majorKey)
         {
@@ -269,6 +293,18 @@ namespace TDTU_IT_alumni_management_system.Controllers
         {
             return context.Alumni.Where(x => x.IDAlumni == id).FirstOrDefault();
         }
-       
+        public ActionResult Search(string searchString)
+        {
+            var data = context.Alumni.OrderByDescending(n => n.datebegin).ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                data = data.Where(n => n.IDAlumni.Contains(searchString) || n.Name.Contains(searchString)).ToList();
+            }
+
+            ViewBag.GraduationInfoList = context.GraduationInfoes.ToList();
+
+            return View("GetAlumniByMajor", data);
+        }
     }
 }

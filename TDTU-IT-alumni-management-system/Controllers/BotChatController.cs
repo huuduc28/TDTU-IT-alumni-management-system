@@ -63,8 +63,6 @@ namespace TDTU_IT_alumni_management_system.Controllers
                 db.SaveChanges();
                 return Json(new { success = true, message = prompt });
 
-
-
             }
             else
             {

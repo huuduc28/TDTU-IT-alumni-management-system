@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TDTU_IT_alumni_management_system.Models.Notify>
 
 @{
-    ViewBag.Title = "GetNofity";
+    ViewBag.Title = "Thông báo chung";
     Layout = "~/Views/Shared/Mylayout.cshtml";
 }
 
@@ -86,16 +86,16 @@
     <div class="container" style="margin-left: 17%; margin-right: 15%">
         <div class="row">
             <div class="col-lg-10 col-gap">
-                <form action="#">
+                <form id="searchForm">
                     <div class="mb-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="searchByName" placeholder="Nhập từ khóa">
-                            <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
                 </form>
                 <main>
-                    <div class="list-thong-bao">
+                    <div id="searchResults" class="list-thong-bao">
                         @foreach (var i in Model)
                         {
                             <div class="thong-bao">
@@ -118,3 +118,22 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function () {
+        $('#searchForm').submit(function (event) {
+            event.preventDefault(); // Ngăn chặn form gửi yêu cầu theo cách thông thường
+            var searchString = $('#searchByName').val();
+            $.ajax({
+                url: '/Notify/GetNofity', // Thay đổi 'ControllerName' thành tên thực sự của controller của bạn
+                type: 'GET',
+                data: { searchString: searchString },
+                success: function (result) {
+                    $('#searchResults').html(result);
+                },
+                error: function (xhr) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>

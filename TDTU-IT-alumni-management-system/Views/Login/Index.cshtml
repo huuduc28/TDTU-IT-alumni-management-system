@@ -11,13 +11,48 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="~/Upload/images/Logo/logo-tdtu.png">
+
 </head>
 <body>
+    <!-- Modal hiển thị thông báo lỗi -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="errorModalLabel">Lỗi</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Hiển thị thông báo lỗi -->
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal hiển thị thông báo thành công -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Hiển thị thông báo thành công -->
+                    <p id="successMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Nút đóng modal -->
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container mt-5 p-5" style="margin-left:13%; width:75%">
         <div class="row login-body mt-5 ms-5 me-5">
             <div class="col-lg-4 logo-tittle d-none d-md-none d-lg-block" style="padding: 40px;">
                 <img class="mx-auto d-block" src="\Upload\images\Logo\logo-tdtu-inkythuatso-01.png" alt="logo" width="150" height="75">
-                <p class="h2 p-4 ms-2 text-white mt-1">Cổng thông tin <br>Cựu sinh viên </p>
+                <p class="h2 p-4 ms-2 text-white mt-1">Hệ thống quản lý <br>Cựu sinh viên </p>
             </div>
             <div class="col">
                 <div class="login-form mb-5 mt-5">
@@ -46,12 +81,12 @@
                     </form>
                     <form class="forgot-password-form" id="forgotPasswordForm">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Nhập email">
+                            <label for="UID" class="form-label">Mã cựu sinh viên</label>
+                            <input type="text" class="form-control" id="UID" placeholder="Nhập User ID">
                         </div>
                         <div class="mb-3">
-                            <label for="UID" class="form-label">User ID</label>
-                            <input type="text" class="form-control" id="UID" placeholder="Nhập User ID">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Nhập email">
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <button type="button" class="btn btn-danger" onclick="hideForgotPasswordForm()">Quay lại</button>
@@ -68,50 +103,59 @@
 
             </div>
         </div>
+        <div id="loading-spinner" style="display: none;">
+            <div class="loading-dot">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div class="loading-dot">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div class="loading-dot">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+        </div>
     </div>
-    <div id="loading" class="loading-overlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $("#loginForm").submit(function (event) {
-                event.preventDefault();
-                var userID = $("#userID").val();
-                var password = $("#password").val();
-                $("#loading").show();
-                $.ajax({
-                    url: '/Login/Login',
-                    type: 'POST',
-                    data: {
-                        Username: userID,
-                        Password: password
-                    },
-                    success: function (response) {
-                        $("#loading").hide();
-                        if (response.success) {
-                            window.location.href = '/';
-                        } else {
-
-                            alert(response.message);
-
-                        }
-                        /*alert.find(".close").remove();
+        $("#loginForm").submit(function (event) {
+            event.preventDefault();
+            var userID = $("#userID").val();
+            var password = $("#password").val();
+            $("#loading-spinner").show(); // Hiển thị phần tử "loading spinner"
+            $(".login-body").hide(); // Ẩn phần tử có class "login-body"
+            $.ajax({
+                url: '/Login/Login',
+                type: 'POST',
+                data: {
+                    Username: userID,
+                    Password: password
+                },
+                success: function (response) {
+                    $("#loading-spinner").hide();
+                    if (response.success) {
+                        window.location.href = '/';
+                    } else {
+                        $("#loading-spinner").hide(); 
+                        $(".login-body").show(); 
+                        $("#errorMessage").text(response.message);
+                        $("#errorModal").modal('show');
                         setTimeout(function () {
-                            $(".alert").close();
-                        }, 1000);*/
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        $("#loading").hide();
-                        console.error("Lỗi khi gửi dữ liệu đăng nhập:", textStatus, errorThrown);
-                        alert("Có lỗi xảy ra, vui lòng thử lại!");
+                            $("#errorModal").modal('hide');
+                        }, 1000);
                     }
-                });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#loading-spinner").hide(); 
+                    $(".login-body").show(); 
+                    $("#errorMessage").text("Có lỗi xảy ra, vui lòng thử lại.");
+                    $("#errorModal").modal('show');
+                    setTimeout(function () {
+                        $("#errorModal").modal('hide');
+                    }, 1000);
+                }
             });
         });
 
@@ -122,8 +166,8 @@
 
                 var email = $("#email").val();
                 uid = $("#UID").val();
-
-
+                $("#loading-spinner").show(); // Hiển thị phần tử "loading spinner"
+                $(".login-body").hide(); // Ẩn phần tử có class "login-body"
                 $.ajax({
                     url: '/Login/ForgotPassword',
                     type: 'POST',
@@ -133,30 +177,36 @@
                     },
                     success: function (response) {
                         if (response.success) {
-
-                            alert(response.message);
+                            $("#loading-spinner").hide(); 
+                            $("#successMessage").text(response.message);
+                            $("#successModal").modal('show');
+                            setTimeout(function () {
+                                $("#successModal").modal('hide');
+                            }, 1000);
                             window.location.href = '/quen-mat-khau';
                         } else {
-
-                            alert(response.message);
-
+                            $("#loading-spinner").hide(); // Ẩn phần tử "loading spinner"
+                            $(".login-body").show(); // Hiện phần tử có class "login-body"
+                            $("#errorMessage").text(response.message);
+                            $("#errorModal").modal('show');
+                            setTimeout(function () {
+                                $("#errorModal").modal('hide');
+                            }, 1000);
                         }
-                        alert.find(".close").remove();
-                        setTimeout(function () {
-                            $(".alert").close();
-                        }, 1000);
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.error("Lỗi khi gửi dữ liệu", textStatus, errorThrown);
-                        alert("Có lỗi xảy ra, vui lòng thử lại!");
+                        $("#loading-spinner").hide(); // Ẩn phần tử "loading spinner"
+                        $(".login-body").show(); // Hiện phần tử có class "login-body"
+                        $("#errorMessage").text("Có lỗi xảy ra, vui lòng thử lại.");
+                        $("#errorModal").modal('show');
+                        setTimeout(function () {
+                            $("#errorModal").modal('hide');
+                        }, 1000);
                     }
                 });
             });
         });
     </script>
-
-
     <script>
         // Hàm để hiển thị form quên mật khẩu và ẩn form đăng nhập
         function showForgotPasswordForm() {
@@ -189,18 +239,31 @@
 </body>
 </html>
 <style>
-    .password-input-container {
-        position: relative;
-    }
+   
 
     .field-icon {
+        margin-left:1%;
+        margin-top:1%;
         position: absolute;
-        right: 22%;
-        top: 54%;
-        transform: translateY(-50%);
         cursor: pointer;
         z-index: 2;
     }
+    #loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .loading-dot {
+       margin-left:2%
+    }
+       
+
+        
 </style>
 
  
