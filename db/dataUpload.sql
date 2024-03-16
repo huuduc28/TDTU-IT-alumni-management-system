@@ -9,7 +9,7 @@ GO
 INSERT INTO Administrators
 	(IDAdmin, [Name], Phone, Email, [Password])
 VALUES
-	('admin001',N'John Doe', '0123456789', 'duc@gmail.com', '$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm'),
+	('admin001',N'John Doe', '0123456789', 'duc11@gmail.com', '$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm'),
 	('admin002',N'Jane Smith', '0987654321', 'jane.smith@example.com', 'adminpass2'),
 	('admin003',N'Michael Johnson', '0123456789', 'michael.johnson@example.com', 'adminpass3'),
 	('admin004',N'Emily Brown', '0987654321', 'emily.brown@example.com', 'adminpass4'),

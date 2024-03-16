@@ -220,7 +220,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin
            );
             context.MapRoute(
                name: "Change",
-               url: "quan-ly/doi-mat-khau/{id}",
+               url: "quan-ly/quan-tri-vien/doi-mat-khau/{id}",
                defaults: new { controller = "LoginAdmin", action = "ChangePassword" },
             namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
           );

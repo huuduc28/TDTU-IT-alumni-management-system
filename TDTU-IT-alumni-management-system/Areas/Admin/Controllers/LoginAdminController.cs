@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
@@ -17,7 +18,14 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // GET: Admin/LoginAdmin
         public ActionResult Index()
         {
-            return View();
+            if (Session["UID"] != null && (int)Session["Role"] == 1)
+            {
+                return Redirect("/quan-ly");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -79,11 +87,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(string OldPassword, string NewPassword)
+        public ActionResult ChangePassword(string CurrentPassword, string NewPassword)
         {
+            string Uid = "";
+            Uid = Session["UID"].ToString();
+            var admin = db.Administrators.Where(u => u.IDAdmin == Uid).FirstOrDefault();
+            if (admin != null && VerifyPassword(CurrentPassword, admin.Password))
+            {
+                admin.Password = HashPassword(NewPassword);
+                admin.UserRole = 1;
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Thay đổi mật khẩu thành công.";
+                return Redirect("/quan-ly/quan-tri-vien/doi-mat-khau/" + Uid);
 
-            // Tìm kiếm admin dựa trên email
-            return Redirect("/quan-ly");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Mật khẩu cũ không chính xác";
+                return Redirect("/quan-ly/quan-tri-vien/doi-mat-khau/" + Uid);
+            }
         }
     }
 }
