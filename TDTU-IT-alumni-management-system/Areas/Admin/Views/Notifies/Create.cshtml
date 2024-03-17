@@ -142,12 +142,12 @@
     $(document).ready(function () {
         $('#Title').on('input', function () {
             var words = this.value.match(/\S+/g).length;
-            if (words > 25) {
-                var trimmed = $(this).val().split(/\s+/, 25).join(" ");
+            if (words > 40) {
+                var trimmed = $(this).val().split(/\s+/, 40).join(" ");
                 $(this).val(trimmed + " ...");
-                $('#wordCountTitle').text("Chỉ được nhập tối đa 25 từ.");
+                $('#wordCountTitle').text("Chỉ được nhập tối đa 40 từ.");
             } else {
-                $('#wordCountTitle').text('Số từ: ' + words + '/25');
+                $('#wordCountTitle').text('Số từ: ' + words + '/40');
             }
         });
     });

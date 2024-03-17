@@ -32,7 +32,7 @@
     <div class="panel-body">
         <h2>Quản lý Banner</h2>
         <p>
-            <a href="@Url.Action("Create")" class="btn btn-primary">
+            <a href="/quan-ly/banner/tao-moi" class="btn btn-primary">
                 Thêm
                 <span class="lnr lnr-file-add"></span>
             </a>
@@ -78,7 +78,7 @@
                                 }
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit", new {id = item.IDBanner})" class="btn btn-primary">
+                                <a href="/quan-ly/banner/chinh-sua?id=@item.IDBanner" class="btn btn-primary">
                                     <span class="lnr lnr-pencil"></span>
                                 </a>
                                 <a href="#" class="btn btn-danger delete-btn" data-id="@item.IDBanner">

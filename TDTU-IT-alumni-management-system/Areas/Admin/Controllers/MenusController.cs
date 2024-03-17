@@ -19,16 +19,45 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
-                return View(db.Menus.ToList());
+                var items = db.Menus.ToList();
+                var viewModels = new List<MenuViewModel>();
+                foreach (var item in items)
+                {
+                    var viewModel = new MenuViewModel
+                    {
+                        ID = item.IDMenu,
+                        Title = item.Title,
+                        HasChild = (bool)item.HasChild,
+                        Meta = item.meta,
+                        Hide = (bool)item.hide,
+                        Order = (int)item.order,
+                        DateBegin = (DateTime)item.datebegin,
+                    };
+                    if (item.ParentID != null)
+                    {
+                        var parent = db.Menus.FirstOrDefault(p => p.IDMenu == item.ParentID);
+                        if (parent != null)
+                        {
+                            viewModel.ParentName = parent.Title;
+                        }
+                    }
+
+                    // Thêm ViewModel vào danh sách
+                    viewModels.Add(viewModel);
+                }
+
+                // Trả về View với danh sách ViewModel
+                return View(viewModels);
             }
             else
             {
                 return Redirect("/quan-ly/dang-nhap");
+
             }
         }
 
         // GET: Admin/Menus/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
@@ -55,6 +84,17 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
+                var menuItemsWithChild = db.Menus.Where(m => (bool)m.HasChild).ToList();
+
+                var menuItemsList = menuItemsWithChild.Select(item => new SelectListItem
+                {
+                    Text = $"{item.IDMenu} - {item.Title}",
+                    Value = item.IDMenu.ToString()
+                }).ToList();
+                menuItemsList.Insert(0, new SelectListItem { Text = "Không", Value = "" });
+
+                ViewBag.ParentID = menuItemsList;
+
                 return View();
             }
             else
@@ -81,7 +121,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         }
 
         // GET: Admin/Menus/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
@@ -89,11 +129,25 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+
                 Menu menu = db.Menus.Find(id);
                 if (menu == null)
                 {
                     return HttpNotFound();
                 }
+
+                var menuItemsWithChild = db.Menus.Where(m => (bool)m.HasChild).ToList();
+
+                var menuItemsList = menuItemsWithChild.Select(item => new SelectListItem
+                {
+                    Text = $"{item.IDMenu} - {item.Title}",
+                    Value = item.IDMenu.ToString(),
+                    Selected = (item.IDMenu == menu.ParentID) // Chọn mục cha hiện tại của menu
+                }).ToList();
+                menuItemsList.Insert(0, new SelectListItem { Text = "Không", Value = "" });
+
+                ViewBag.ParentID = menuItemsList;
+
                 return View(menu);
             }
             else
@@ -120,7 +174,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         }
 
         // GET: Admin/Menus/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {
@@ -145,7 +199,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         // POST: Admin/Menus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             Menu menu = db.Menus.Find(id);
             db.Menus.Remove(menu);

@@ -35,7 +35,7 @@ BEGIN
 END;
 GO
 
--- Tạo trigger cho bảng CongTyDoanhNghiep
+-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG DOANH NGHIỆP
 CREATE TRIGGER trg_Enterprise_AfterInsert
 ON dbo.Enterprise
 AFTER INSERT
@@ -100,9 +100,6 @@ END;
 GO
 
 
-
-
-
 -- Tạo trigger cho bảng Notify
 CREATE TRIGGER trg_Notify_AfterInsert
 ON dbo.Notify
@@ -123,6 +120,15 @@ BEGIN
     FROM dbo.Notify n
     INNER JOIN inserted i ON n.IDNotify = i.IDNotify;
 
+	WITH UpdatedRows AS (
+        SELECT IDNotify, ROW_NUMBER() OVER (ORDER BY IDNotify) AS NewOrder
+        FROM dbo.Notify
+        WHERE IDNotify IN (SELECT IDNotify FROM inserted)
+    )
+    UPDATE dbo.Notify
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.Notify.IDNotify = UpdatedRows.IDNotify;
 END;
 GO
 
@@ -146,7 +152,15 @@ BEGIN
         datebegin = GETDATE()  -- Đặt cột "datebegin" thành giá trị hiện tại
     FROM dbo.News n
     INNER JOIN inserted i ON n.IDNews = i.IDNews;
-
+	WITH UpdatedRows AS (
+        SELECT IDNews, ROW_NUMBER() OVER (ORDER BY IDNews) AS NewOrder
+        FROM dbo.News
+        WHERE IDNews IN (SELECT IDNews FROM inserted)
+    )
+    UPDATE dbo.News
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.News.IDNews = UpdatedRows.IDNews;
 END;
 GO
 
@@ -169,32 +183,19 @@ BEGIN
         datebegin = GETDATE()  
     FROM dbo.Banner n
     INNER JOIN inserted i ON n.IDBanner = i.IDBanner;
-
+	WITH UpdatedRows AS (
+        SELECT IDBanner, ROW_NUMBER() OVER (ORDER BY IDBanner) AS NewOrder
+        FROM dbo.Banner
+        WHERE IDBanner IN (SELECT IDBanner FROM inserted)
+    )
+    UPDATE dbo.Banner
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.Banner.IDBanner = UpdatedRows.IDBanner;
 END;
 GO
 
-/*-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG DOANH NGHIỆP
-CREATE TRIGGER trg_Enterprise_AfterInsert
-ON dbo.Enterprise
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    -- Lấy giá trị tối đa của cột "order"
-    DECLARE @MaxOrder INT;
-    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Enterprise;
-
-    -- Cập nhật giá trị cho mỗi bản ghi mới
-    UPDATE n
-    SET [order] = @MaxOrder + 1, 
-        hide = 1,  
-        datebegin = GETDATE()  
-    FROM dbo.Enterprise n
-    INNER JOIN inserted i ON n.IDEnterprise = i.IDEnterprise;
-
-END;
-GO*/
 
 -- TRIGGER AUTO GIÁ TRỊ CHO BẢNG TIN TUYỂN DỤNG
 CREATE TRIGGER trg_RecruitmentNew_AfterInsert
@@ -216,5 +217,78 @@ BEGIN
     FROM dbo.RecruitmentNew n
     INNER JOIN inserted i ON n.IDRecruitmentNew = i.IDRecruitmentNew;
 
+	WITH UpdatedRows AS (
+        SELECT IDRecruitmentNew, ROW_NUMBER() OVER (ORDER BY IDRecruitmentNew) AS NewOrder
+        FROM dbo.RecruitmentNew
+        WHERE IDRecruitmentNew IN (SELECT IDRecruitmentNew FROM inserted)
+    )
+    UPDATE dbo.RecruitmentNew
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.RecruitmentNew.IDRecruitmentNew = UpdatedRows.IDRecruitmentNew;
+END;
+GO
+
+-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG GraduationInfo
+CREATE TRIGGER trg_GraduationInfo_AfterInsert
+ON dbo.GraduationInfo
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.GraduationInfo;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.GraduationInfo n
+    INNER JOIN inserted i ON n.ID = i.ID;
+
+	WITH UpdatedRows AS (
+        SELECT ID, ROW_NUMBER() OVER (ORDER BY ID) AS NewOrder
+        FROM dbo.GraduationInfo
+        WHERE ID IN (SELECT ID FROM inserted)
+    )
+    UPDATE dbo.GraduationInfo
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.GraduationInfo.ID = UpdatedRows.ID;
+END;
+GO
+
+-- TRIGGER AUTO GIÁ TRỊ CHO BẢNG GraduationInfo
+CREATE TRIGGER trg_Menu_AfterInsert
+ON dbo.Menu
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Lấy giá trị tối đa của cột "order"
+    DECLARE @MaxOrder INT;
+    SELECT @MaxOrder = ISNULL(MAX([order]), 0) FROM dbo.Menu;
+
+    -- Cập nhật giá trị cho mỗi bản ghi mới
+    UPDATE n
+    SET [order] = @MaxOrder + 1, 
+        hide = 1,  
+        datebegin = GETDATE()  
+    FROM dbo.Menu n
+    INNER JOIN inserted i ON n.IDMenu = i.IDMenu;
+
+	WITH UpdatedRows AS (
+        SELECT IDMenu, ROW_NUMBER() OVER (ORDER BY IDMenu) AS NewOrder
+        FROM dbo.Menu
+        WHERE IDMenu IN (SELECT IDMenu FROM inserted)
+    )
+    UPDATE dbo.Menu
+    SET [order] = @MaxOrder + NewOrder
+    FROM UpdatedRows
+    WHERE dbo.Menu.IDMenu = UpdatedRows.IDMenu;
 END;
 GO

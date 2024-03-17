@@ -30,7 +30,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             }
         }
         // GET: Admin/Headers/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (Session["UID"] != null && (int)Session["Role"] == 1)
             {

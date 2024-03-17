@@ -91,12 +91,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Majors" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GraduationYear" Type="int" Nullable="false" />
+          <Property Name="meta" Type="nvarchar" MaxLength="255" />
+          <Property Name="hide" Type="bit" />
+          <Property Name="order" Type="int" />
+          <Property Name="datebegin" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Header">
           <Key>
             <PropertyRef Name="IDHeader" />
           </Key>
-          <Property Name="IDHeader" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IDHeader" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ImgLogo" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
@@ -108,9 +112,9 @@
           <Key>
             <PropertyRef Name="IDMenu" />
           </Key>
-          <Property Name="IDMenu" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IDMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ParentID" Type="nvarchar" MaxLength="15" />
+          <Property Name="ParentID" Type="int" />
           <Property Name="HasChild" Type="bit" />
           <Property Name="meta" Type="nvarchar" MaxLength="50" />
           <Property Name="hide" Type="bit" />
@@ -125,7 +129,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ImgNews" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImgNews" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="meta" Type="nvarchar" MaxLength="255" />
           <Property Name="hide" Type="bit" />
           <Property Name="order" Type="int" />
@@ -136,7 +140,7 @@
             <PropertyRef Name="IDNotify" />
           </Key>
           <Property Name="IDNotify" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TargetType" Type="bit" Nullable="false" />
@@ -152,7 +156,7 @@
             <PropertyRef Name="IDRecruitmentNew" />
           </Key>
           <Property Name="IDRecruitmentNew" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Describe" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="JobDescription" Type="nvarchar(max)" Nullable="false" />
@@ -162,7 +166,19 @@
           <Property Name="order" Type="int" />
           <Property Name="datebegin" Type="smalldatetime" />
         </EntityType>
-        <Association Name="FK__Recruitme__IDEnt__30592A6F">
+        <Association Name="FK__Notify__IDSender__2D27B809">
+          <End Role="Administrators" Type="Self.Administrators" Multiplicity="0..1" />
+          <End Role="Notify" Type="Self.Notify" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrators">
+              <PropertyRef Name="IDAdmin" />
+            </Principal>
+            <Dependent Role="Notify">
+              <PropertyRef Name="IDSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recruitme__IDEnt__3C69FB99">
           <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
           <End Role="RecruitmentNew" Type="Self.RecruitmentNew" Multiplicity="*" />
           <ReferentialConstraint>
@@ -210,7 +226,11 @@
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notify" EntityType="Self.Notify" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecruitmentNew" EntityType="Self.RecruitmentNew" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Recruitme__IDEnt__30592A6F" Association="Self.FK__Recruitme__IDEnt__30592A6F">
+          <AssociationSet Name="FK__Notify__IDSender__2D27B809" Association="Self.FK__Notify__IDSender__2D27B809">
+            <End Role="Administrators" EntitySet="Administrators" />
+            <End Role="Notify" EntitySet="Notify" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recruitme__IDEnt__3C69FB99" Association="Self.FK__Recruitme__IDEnt__3C69FB99">
             <End Role="Enterprise" EntitySet="Enterprise" />
             <End Role="RecruitmentNew" EntitySet="RecruitmentNew" />
           </AssociationSet>
@@ -237,6 +257,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notifies" Relationship="Self.FK__Notify__IDSender__2D27B809" FromRole="Administrators" ToRole="Notify" />
         </EntityType>
         <EntityType Name="Alumnus">
           <Key>
@@ -306,7 +327,7 @@
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="RecruitmentNews" Relationship="Self.FK__Recruitme__IDEnt__30592A6F" FromRole="Enterprise" ToRole="RecruitmentNew" />
+          <NavigationProperty Name="RecruitmentNews" Relationship="Self.FK__Recruitme__IDEnt__3C69FB99" FromRole="Enterprise" ToRole="RecruitmentNew" />
         </EntityType>
         <EntityType Name="GraduationInfo">
           <Key>
@@ -315,6 +336,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Majors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GraduationYear" Type="Int32" Nullable="false" />
+          <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Alumni" Relationship="Self.FK_Alumni_GraduationInfo" FromRole="GraduationInfo" ToRole="Alumni" />
           <NavigationProperty Name="Notifies" Relationship="Self.FK_Notify_GraduationInfo" FromRole="GraduationInfo" ToRole="Notify" />
         </EntityType>
@@ -322,22 +347,9 @@
           <Key>
             <PropertyRef Name="IDHeader" />
           </Key>
-          <Property Name="IDHeader" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDHeader" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ImgLogo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="hide" Type="Boolean" />
-          <Property Name="order" Type="Int32" />
-          <Property Name="datebegin" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="Menu">
-          <Key>
-            <PropertyRef Name="IDMenu" />
-          </Key>
-          <Property Name="IDMenu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ParentID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="HasChild" Type="Boolean" />
           <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
@@ -351,7 +363,7 @@
           <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImgNews" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgNews" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="meta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
@@ -362,7 +374,7 @@
             <PropertyRef Name="IDNotify" />
           </Key>
           <Property Name="IDNotify" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TargetType" Type="Boolean" Nullable="false" />
@@ -372,6 +384,7 @@
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Administrator" Relationship="Self.FK__Notify__IDSender__2D27B809" FromRole="Notify" ToRole="Administrators" />
           <NavigationProperty Name="GraduationInfo" Relationship="Self.FK_Notify_GraduationInfo" FromRole="Notify" ToRole="GraduationInfo" />
         </EntityType>
         <EntityType Name="RecruitmentNew">
@@ -379,7 +392,7 @@
             <PropertyRef Name="IDRecruitmentNew" />
           </Key>
           <Property Name="IDRecruitmentNew" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -388,8 +401,20 @@
           <Property Name="hide" Type="Boolean" />
           <Property Name="order" Type="Int32" />
           <Property Name="datebegin" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Enterprise" Relationship="Self.FK__Recruitme__IDEnt__30592A6F" FromRole="RecruitmentNew" ToRole="Enterprise" />
+          <NavigationProperty Name="Enterprise" Relationship="Self.FK__Recruitme__IDEnt__3C69FB99" FromRole="RecruitmentNew" ToRole="Enterprise" />
         </EntityType>
+        <Association Name="FK__Notify__IDSender__2D27B809">
+          <End Role="Administrators" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="Notify" Type="Self.Notify" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrators">
+              <PropertyRef Name="IDAdmin" />
+            </Principal>
+            <Dependent Role="Notify">
+              <PropertyRef Name="IDSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Alumni_GraduationInfo">
           <End Role="GraduationInfo" Type="Self.GraduationInfo" Multiplicity="1" />
           <End Role="Alumni" Type="Self.Alumnus" Multiplicity="*" />
@@ -402,7 +427,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Recruitme__IDEnt__30592A6F">
+        <Association Name="FK__Recruitme__IDEnt__3C69FB99">
           <End Role="Enterprise" Type="Self.Enterprise" Multiplicity="1" />
           <End Role="RecruitmentNew" Type="Self.RecruitmentNew" Multiplicity="*" />
           <ReferentialConstraint>
@@ -434,15 +459,18 @@
           <EntitySet Name="Enterprises" EntityType="Self.Enterprise" />
           <EntitySet Name="GraduationInfoes" EntityType="Self.GraduationInfo" />
           <EntitySet Name="Headers" EntityType="Self.Header" />
-          <EntitySet Name="Menus" EntityType="Self.Menu" />
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="Notifies" EntityType="Self.Notify" />
           <EntitySet Name="RecruitmentNews" EntityType="Self.RecruitmentNew" />
+          <AssociationSet Name="FK__Notify__IDSender__2D27B809" Association="Self.FK__Notify__IDSender__2D27B809">
+            <End Role="Administrators" EntitySet="Administrators" />
+            <End Role="Notify" EntitySet="Notifies" />
+          </AssociationSet>
           <AssociationSet Name="FK_Alumni_GraduationInfo" Association="Self.FK_Alumni_GraduationInfo">
             <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
             <End Role="Alumni" EntitySet="Alumni" />
           </AssociationSet>
-          <AssociationSet Name="FK__Recruitme__IDEnt__30592A6F" Association="Self.FK__Recruitme__IDEnt__30592A6F">
+          <AssociationSet Name="FK__Recruitme__IDEnt__3C69FB99" Association="Self.FK__Recruitme__IDEnt__3C69FB99">
             <End Role="Enterprise" EntitySet="Enterprises" />
             <End Role="RecruitmentNew" EntitySet="RecruitmentNews" />
           </AssociationSet>
@@ -450,7 +478,21 @@
             <End Role="GraduationInfo" EntitySet="GraduationInfoes" />
             <End Role="Notify" EntitySet="Notifies" />
           </AssociationSet>
+          <EntitySet Name="Menus" EntityType="TDTUAlumnisManagementSystemModel.Menu" />
         </EntityContainer>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IDMenu" />
+          </Key>
+          <Property Name="IDMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="HasChild" Type="Boolean" />
+          <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hide" Type="Boolean" />
+          <Property Name="order" Type="Int32" />
+          <Property Name="datebegin" Type="DateTime" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -547,6 +589,10 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Majors" ColumnName="Majors" />
                 <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -556,20 +602,6 @@
                 <ScalarProperty Name="IDHeader" ColumnName="IDHeader" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
-                <ScalarProperty Name="meta" ColumnName="meta" />
-                <ScalarProperty Name="hide" ColumnName="hide" />
-                <ScalarProperty Name="order" ColumnName="order" />
-                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Menus">
-            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Menu">
-              <MappingFragment StoreEntitySet="Menu">
-                <ScalarProperty Name="IDMenu" ColumnName="IDMenu" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="HasChild" ColumnName="HasChild" />
                 <ScalarProperty Name="meta" ColumnName="meta" />
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
@@ -622,6 +654,20 @@
                 <ScalarProperty Name="hide" ColumnName="hide" />
                 <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="TDTUAlumnisManagementSystemModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="hide" ColumnName="hide" />
+                <ScalarProperty Name="meta" ColumnName="meta" />
+                <ScalarProperty Name="HasChild" ColumnName="HasChild" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IDMenu" ColumnName="IDMenu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

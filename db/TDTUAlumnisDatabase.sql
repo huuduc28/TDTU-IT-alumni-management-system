@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[Administrators](
 --BẢNG THÔNG BÁO
 CREATE TABLE [dbo].[Notify](
     [IDNotify] [INT] IDENTITY(1,1) NOT NULL,
-    [Title] [nvarchar](100) NOT NULL,
+    [Title] [nvarchar](255) NOT NULL,
 	[Description] [nvarchar](max) NOT NULL,
     [Content] [nvarchar](max) NOT NULL,
     [TargetType] [bit] NOT NULL, --- nếu là true tức là sẽ gửi cho nhóm đối tượng cụ thể 
@@ -130,7 +130,7 @@ REFERENCES [dbo].[GraduationInfo] ([ID]);
 
 --Bảng Header
 CREATE TABLE [dbo].[Header](
-	[IDHeader] [nvarchar](15) NOT NULL,
+	[IDHeader] [INT] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
 	[ImgLogo] [nvarchar](100) NOT NULL,
 	[meta] [nvarchar](50) NULL,
@@ -146,9 +146,9 @@ GO
 
 --bảng menu
 CREATE TABLE [dbo].[Menu](
-    [IDMenu] [nvarchar](15) NOT NULL,
+    [IDMenu]  [INT] IDENTITY(1,1) NOT NULL,
     [Title] [nvarchar](100) NOT NULL,
-    [ParentID] [nvarchar](15) NULL DEFAULT NULL, -- Đặt giá trị mặc định là NULL	
+    [ParentID] [int] NULL DEFAULT NULL, -- Đặt giá trị mặc định là NULL    
 	[HasChild] [bit] NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
@@ -227,36 +227,8 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-select * from RecruitmentNew
-
 --KHÓA NGOẠI CHO BẢNG CÔNG TY
 ALTER TABLE [dbo].[RecruitmentNew]  WITH CHECK ADD FOREIGN KEY([IDEnterprise])
 REFERENCES [dbo].[Enterprise] ([IDEnterprise])
 GO
 /****** Object:  StoredProcedure [dbo].[CheckAccessRights]    Script Date: 22/2/2024 6:23:33 PM ******/
-
-
--- Thủ tục kiểm tra quyền truy cập
-/*CREATE PROCEDURE [dbo].[CheckAccessRights] 
-    @Username NVARCHAR(50),
-    @TableName NVARCHAR(50),
-    @AccessGranted BIT OUTPUT
-AS
-BEGIN
-    DECLARE @UserRole NVARCHAR(50);
-    
-    SELECT @UserRole = Roles
-    FROM Users
-    WHERE UserName = @Username;
-    
-    IF (@UserRole = @TableName)
-    BEGIN
-        SET @AccessGranted = 1; -- Access granted
-    END
-    ELSE
-    BEGIN
-        SET @AccessGranted = 0; -- Access denied
-    END
-END*/
-
-

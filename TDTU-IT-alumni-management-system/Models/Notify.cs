@@ -26,6 +26,7 @@ namespace TDTU_IT_alumni_management_system.Models
         public Nullable<int> order { get; set; }
         public Nullable<System.DateTime> datebegin { get; set; }
     
+        public virtual Administrator Administrator { get; set; }
         public virtual GraduationInfo GraduationInfo { get; set; }
     }
 }

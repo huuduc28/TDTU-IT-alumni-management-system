@@ -32,9 +32,9 @@ namespace TDTU_IT_alumni_management_system.Models
         public virtual DbSet<Enterprise> Enterprises { get; set; }
         public virtual DbSet<GraduationInfo> GraduationInfoes { get; set; }
         public virtual DbSet<Header> Headers { get; set; }
-        public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Notify> Notifies { get; set; }
         public virtual DbSet<RecruitmentNew> RecruitmentNews { get; set; }
+        public virtual DbSet<Menu> Menus { get; set; }
     }
 }

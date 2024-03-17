@@ -224,6 +224,57 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin
                defaults: new { controller = "LoginAdmin", action = "ChangePassword" },
             namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
           );
+            //quản lý menu
+            context.MapRoute(
+                 name: "Menu",
+                 url: "quan-ly/menu",
+                 defaults: new { controller = "Menus", action = "Index" },
+                 namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
+            context.MapRoute(
+              name: "CreateMenu",
+              url: "quan-ly/menu/tao-moi",
+              defaults: new { controller = "Menus", action = "Create" },
+              namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+           );
+            context.MapRoute(
+               name: "EditMenu",
+               url: "quan-ly/menu/chinh-sua/{id}",
+               defaults: new { controller = "Menus", action = "Edit", id = UrlParameter.Optional },
+               namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
+            //quản lý Header
+            context.MapRoute(
+                 name: "Header",
+                 url: "quan-ly/header",
+                 defaults: new { controller = "Headers", action = "Index" },
+                 namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
+            context.MapRoute(
+               name: "EditHeader",
+               url: "quan-ly/header/chinh-sua/{id}",
+               defaults: new { controller = "Headers", action = "Edit", id = UrlParameter.Optional },
+               namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
+            //quản lý Banner
+            context.MapRoute(
+                 name: "Banner",
+                 url: "quan-ly/banner",
+                 defaults: new { controller = "Banners", action = "Index" },
+                 namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
+            context.MapRoute(
+              name: "CreateBanner",
+              url: "quan-ly/banner/tao-moi",
+              defaults: new { controller = "Banners", action = "Create" },
+              namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+           );
+            context.MapRoute(
+               name: "EditBanner",
+               url: "quan-ly/banner/chinh-sua/{id}",
+               defaults: new { controller = "Banners", action = "Edit", id = UrlParameter.Optional },
+               namespaces: new[] { "TDTU_IT_alumni_management_system.Areas.Admin.Controllers" }
+            );
 
         }
     }

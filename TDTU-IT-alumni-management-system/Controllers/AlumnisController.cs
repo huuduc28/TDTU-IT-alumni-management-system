@@ -198,6 +198,10 @@ namespace TDTU_IT_alumni_management_system.Controllers
                 // Chuyển hướng đến trang đăng nhập
                 return RedirectToAction("Index", "Login");
             }
+            if ((int)Session["Role"] == 1)
+            {
+                return Redirect("/");
+            }
             else
             {
                 var v = from t in context.Alumni

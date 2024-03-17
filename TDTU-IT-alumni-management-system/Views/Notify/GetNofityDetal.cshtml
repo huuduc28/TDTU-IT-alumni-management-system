@@ -21,3 +21,12 @@
 
 <link href="~/Content/css/news.css" rel="stylesheet">
 
+<script>
+    window.onload = active();
+    function active() {
+
+        if (document.getElementById("home-thong-bao").className == "nav-item nav-link") {
+            document.getElementById("home-thong-bao").className = "nav-item nav-link active";
+        }
+    }
+</script>

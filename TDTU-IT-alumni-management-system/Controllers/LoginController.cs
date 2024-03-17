@@ -43,6 +43,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                 Session["Name"] = user.Name;
                 Session["Major"] = user.GraduationInfoID;
                 Session["Avatar"] = user.ProfilePicture;
+                Session["Role"] = 0;
                 ViewBag.session = user;
                 return Json(new { success = true, message = "Đăng nhập thành công!" });
             }

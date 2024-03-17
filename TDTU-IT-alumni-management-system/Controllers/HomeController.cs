@@ -48,7 +48,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                     select t;
             return PartialView(v.ToList());
         }
-        public ActionResult GetChildMenu(string parentID)
+        public ActionResult GetChildMenu(int? parentID)
         {
             var v = from t in _db.Menus
                     where t.hide == true && t.ParentID == parentID

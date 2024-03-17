@@ -14,7 +14,7 @@ namespace TDTU_IT_alumni_management_system.Models
     
     public partial class Header
     {
-        public string IDHeader { get; set; }
+        public int IDHeader { get; set; }
         public string Title { get; set; }
         public string ImgLogo { get; set; }
         public string meta { get; set; }
