@@ -33,7 +33,7 @@ VALUES
 	
 -- Thêm dữ liệu vào bảng CuuHSSV
 INSERT INTO Alumni
-	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel,jobBeginDate, skill, Profession,GraduationInfoID,ProfilePicture,[Password])
+	(IDAlumni, Name, Email, Phone, Birthday, Gender, Nationality, HomeTown, PersonalWebsite, GraduationType, CurrentCompany, AcademicLevel,jobBeginDate, skill, Profession,GraduationInfoID,ProfilePicture,[ReceiveNews],[TypeOfTraining],[Password])
 VALUES
 	('52000645', N'Nguyễn Hữu Đức', 'nduc3281@gmail.com', '0123456789', '1990-05-15', N'Nam', N'Việt Nam', N'Hồ Chí Minh', N'abcxyz.com', N'Giỏi', 'ABC Company', N'Thạc sĩ', '2022-01-01', 'Java, Python', 'Back-end dev',1,'AvataNam1.png','$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm'),
 	('52000001', N'Nguyễn Văn Minh', 'nguyenvanminh@gmail.com', '0987654321', '1992-08-20', N'Nam', N'Việt Nam', N'Hà Nội', N'abcxyz.com', N'Khá', 'XYZ Corporation', N'Tiến sĩ', '2023-01-01',  'Java, Python', 'Back-end dev',2,'AvataNam2.png','$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm'),
@@ -213,5 +213,4 @@ Ngày hội sinh viên IT và Doanh nghiệp - IT Career Day 2023 kết thúc th
 các chương trình đào tạo kỹ năng cho sinh viên, đặc biệt là các sinh viên sắp tốt nghiệp.','1', 'tuyen-dung', 'JD Thuc tap thang 3.2024.pdf');
 
 --$2a$11$zOXGXKYB5ovxJ0HZxJy2eeOA/sVXHIiZdYafU5KDBI6gqXACTKapm ->123456789
-
 

@@ -64,10 +64,12 @@ CREATE TABLE [dbo].[Alumni](
 	--Thông tin học vấn
     [GraduationType] [nvarchar](50) NOT NULL,
     [GraduationInfoID] [INT] Not NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
-    [CurrentCompany] [nvarchar](255) NOT NULL,
-    [AcademicLevel] [nvarchar](50) NOT NULL,
-	[Profession] [nvarchar](255) NOT NULL,
-    [jobBeginDate] [date] NOT NULL,
+    [CurrentCompany] [nvarchar](255) NULL,
+    [AcademicLevel] [nvarchar](50) NULL,
+	[Profession] [nvarchar](255) NULL,
+    [jobBeginDate] [date] NULL,
+	[ReceiveNews] [bit] NULL,
+	[TypeOfTraining] [nvarchar](50) NOT NULL,
 	--Thông tin tài khoản
 	[role] [tinyint] NULL,
 	[Password] [nvarchar](255) NOT NULL,
