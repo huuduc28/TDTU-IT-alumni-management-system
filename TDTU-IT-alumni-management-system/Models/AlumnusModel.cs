@@ -25,7 +25,8 @@ namespace TDTU_IT_alumni_management_system.Models
         public System.DateTime TimeToCompletionOfThesisDefense { get; set; }
         public string UsersName { get; set; }
         public string Profession { get; set; }
-        public System.DateTime jobBeginDate { get; set; }
+        public DateTime jobBeginDate { get; set; }
+        public bool ReceiveNews { get; set; }
         public string skill { get; set; }
         public string meta { get; set; }
         public Nullable<bool> hide { get; set; }

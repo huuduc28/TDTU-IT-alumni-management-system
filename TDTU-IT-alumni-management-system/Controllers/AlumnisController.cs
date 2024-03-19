@@ -176,7 +176,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                                 GraduationType = a.GraduationType,
                                 CurrentCompany = a.CurrentCompany,
                                 Profession = a.Profession,
-                                jobBeginDate = a.jobBeginDate,
+                                jobBeginDate = (DateTime)a.jobBeginDate,
                                 skill = a.skill,
                                 GraduationInfoID = a.GraduationInfoID,
                                 Majors = g.Majors,
@@ -234,7 +234,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,Profession,jobBeginDate,Password,meta,hide,order,datebegin")] Alumnus alumnus, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "IDAlumni,Name,Email,Phone,Birthday,Gender,ProfilePicture,Nationality,HomeTown,PersonalWebsite,skill,GraduationType,GraduationInfoID,CurrentCompany,AcademicLevel,Profession,jobBeginDate, ReceiveNews, Password,meta,hide,order,datebegin")] Alumnus alumnus, HttpPostedFileBase img)
         {
             if (Session["UID"] == null)
             {
@@ -271,6 +271,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                         temp.AcademicLevel = alumnus.AcademicLevel;
                         temp.Profession = alumnus.Profession;
                         temp.jobBeginDate = alumnus.jobBeginDate;
+                        temp.ReceiveNews = alumnus.ReceiveNews;
                         context.Entry(temp).State = EntityState.Modified;
                         context.SaveChanges();
                         return Redirect("/thong-tin-ca-nhan/chi-tiet/" + id);

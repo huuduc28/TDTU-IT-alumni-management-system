@@ -198,7 +198,7 @@ namespace TDTU_IT_alumni_management_system.Controllers
                         GraduationType = a.GraduationType,
                         CurrentCompany = a.CurrentCompany,
                         Profession = a.Profession,
-                        jobBeginDate = a.jobBeginDate,
+                        jobBeginDate = (DateTime)a.jobBeginDate,
                         skill = a.skill,
                         GraduationInfoID = a.GraduationInfoID,
                         Majors = g.Majors,

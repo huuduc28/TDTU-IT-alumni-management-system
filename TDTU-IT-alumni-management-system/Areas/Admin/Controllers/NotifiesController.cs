@@ -10,6 +10,10 @@ using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
 using PagedList;
 using PagedList.Mvc;
+using MailKit.Security;
+using MimeKit;
+using MailKit.Net.Smtp;
+using System.Threading.Tasks;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
@@ -85,15 +89,39 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "IDNotify,Title,Description,Content,TargetType,IDSender,GraduationInfoID,meta,hide,order,datebegin")] Notify notify)
+        public async Task<ActionResult> Create([Bind(Include = "IDNotify,Title,Description,Content,TargetType,IDSender,GraduationInfoID,meta,hide,order,datebegin")] Notify notify)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    notify.IDSender = "admin1";
+                    notify.IDSender = "admin01";
                     db.Notifies.Add(notify);
                     db.SaveChanges();
+                    
+                    var sendEmailList = (from n in db.Notifies
+                                        join a in db.Alumni on n.GraduationInfoID equals a.GraduationInfoID
+                                        where a.ReceiveNews == true
+                                        orderby a.datebegin ascending
+                                        select new AlumnusModel
+                                        {
+                                            IDAlumni = a.IDAlumni,
+                                            Name = a.Name,
+                                            Email = a.Email,
+                                            Phone = a.Phone,
+                                            Gender = a.Gender,
+                                            ProfilePicture = a.ProfilePicture,
+                                            Nationality = a.Nationality,
+                                            AcademicLevel = a.AcademicLevel,
+                                            GraduationInfoID = a.GraduationInfoID,
+                                            meta = a.meta,
+                                            hide = (bool)a.hide,
+                                            order = (int)a.order,
+                                            datebegin = (DateTime)a.datebegin
+                                        }).ToList();
+                    await SendEmail(notify, sendEmailList);
+                    
+
                     return Redirect("/quan-ly/thong-bao");
                 }
             }
@@ -255,6 +283,33 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 
             // Trả về view với đối tượng IPagedList
             return View("Index", pagedData);
+        }
+
+        public static async Task SendEmail(Notify notify, List<AlumnusModel> alumniList)
+        {
+            // Tạo email message
+            var notifyLink = "https://t.ly/bJVcr";
+            //var notifyLink = "~/thong-bao/" + notify.meta + "/" + notify.IDNotify;
+
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("TDTUAlumnis", "swordbestking@gmail.com"));
+            foreach (var item in alumniList)
+            {
+                message.To.Add(new MailboxAddress(item.Email, item.Email));
+            }
+            message.Subject = "Thông báo mới từ TDTU Alumnis:";
+            message.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = notify.Title + "<br>" + "<br>" + notify.Description + "<br>" +
+                            "<br><br><a href=\"" + notifyLink + "\"><button style=\"background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;\">Link thông báo</button></a>" };
+
+            // Tạo SMTP client
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync("swordbestking@gmail.com", "wrux tvne fuwu eaie");
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
         }
     }
 }
