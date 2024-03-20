@@ -246,7 +246,10 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             // Nếu có chuỗi tìm kiếm, lọc dữ liệu dựa trên chuỗi đó
             if (!string.IsNullOrEmpty(searchString))
             {
-                data = data.Where(n => n.Title.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+                data = data.Where(n =>
+                    n.Title.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    n.Description.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
             }
 
             // Chuyển đổi danh sách thành đối tượng IPagedList

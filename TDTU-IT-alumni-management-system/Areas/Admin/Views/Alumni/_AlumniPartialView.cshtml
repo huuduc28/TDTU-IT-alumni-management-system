@@ -7,7 +7,7 @@
             @Html.Raw(Number++)
         </td>
         <td>
-            <img src="~/Upload/images/Avata/@item.ProfilePicture" alt="Avatar" style="border-radius: 50%; width: 100px; height: 100px;">
+            <img src="~/Upload/images/Avata/@item.ProfilePicture" alt="Avatar" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; ">
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IDAlumni)
@@ -20,6 +20,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GraduationInfo.Majors) @("-") @Html.DisplayFor(modelItem => item.GraduationInfo.GraduationYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfTraining)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Profession) @("-") @Html.DisplayFor(modelItem => item.CurrentCompany)

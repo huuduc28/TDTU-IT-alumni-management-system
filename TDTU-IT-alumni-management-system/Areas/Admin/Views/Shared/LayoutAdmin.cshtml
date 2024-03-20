@@ -41,9 +41,9 @@
                                      class="img-circle" alt="Avatar"> <span>@Session["Name"]</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/quan-ly/quan-tri-vien/chi-tiet?id=@Session["UID"]"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                <li><a href="/quan-ly/quan-tri-vien/chi-tiet?id=@Session["UID"]"><i class="lnr lnr-user"></i> <span>Thông tin</span></a></li>
                                 <li><a href="/quan-ly/quan-tri-vien/doi-mat-khau/@Session["UID"]"><i class="lnr lnr-cog"></i> <span>Đổi mật khẩu</span></a></li>
-                                <li><a href="@Url.Action("Logout", "LoginAdmin")"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                <li><a href="@Url.Action("Logout", "LoginAdmin")"><i class="lnr lnr-exit"></i> <span>Đăng xuất</span></a></li>
 
                             </ul>
                         </li>
@@ -57,7 +57,7 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="/quan-ly" id="nav-home" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                        <li><a href="/quan-ly" id="nav-home" class=""><i class="lnr lnr-home"></i> <span>Trang chủ</span></a></li>
                         <li><a href="/quan-ly/tin-tuc" id="nav-news" class=""><i class="lnr lnr-star"></i>Tin tức</a></li>
                         <li><a href="/quan-ly/thong-bao" id="nav-notifi" class=""><i class="lnr lnr-alarm"></i>Thông báo</a></li>
                         <li><a href="/quan-ly/cuu-sinh-vien" id="nav-alumnis" class=""><i class="lnr lnr-graduation-hat"></i>Cựu sinh viên</a></li>
@@ -67,7 +67,7 @@
                         <li><a href="/quan-ly/khoa-hoc" id="nav-graduations" class=""><i class="lnr lnr-book"></i>Khóa học</a></li>
                         <li>
                             <a href="#subPages" data-toggle="collapse" id="nav-subpage" class="collapsed">
-                                <i class="lnr lnr-cog"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left "></i>
+                                <i class="lnr lnr-cog"></i> <span>Cài đặt</span> <i class="icon-submenu lnr lnr-chevron-left "></i>
                             </a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav" style="background-color: white">
@@ -87,7 +87,46 @@
         <!-- END LEFT SIDEBAR -->
         <!-- MAIN -->
         <div class="main">
-            <!-- MAIN CONTENT -->
+            <!-- Modal hiển thị thông báo lỗi -->
+            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="errorModalLabel">Lỗi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Hiển thị thông báo lỗi -->
+                            <p>@TempData["ErrorMessage"]</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal hiển thị thông báo thành công -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Hiển thị thông báo thành công -->
+                            <p>@TempData["SuccessMessage"]</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="main-content">
                 <div class="container-fluid">
                     @RenderBody()

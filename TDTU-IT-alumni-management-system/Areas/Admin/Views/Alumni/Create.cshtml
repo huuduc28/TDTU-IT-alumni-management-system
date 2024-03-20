@@ -34,22 +34,25 @@
                 <h4>Alumnus</h4>
             </div>
             <div class="col-md-3" style="margin-top: 2%">
-                @*@using (Html.BeginForm("Import", "Alumni", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        <div class="form-group">
-                            <label class="col-md-12 control-label">Chọn tệp Excel:</label>
-                            <div class="col-md-12 input-group">
-                                <label class="custom-file-upload">
-                                    <i class="fa fa-file-excel-o"></i> Chọn tệp Excel
-                                    <input type="file" name="file" accept=".xlsx, .xls" />
-                                </label>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary pull-right" type="submit">Import</button>
-                                </span>
-                            </div>
+                @using (Html.BeginForm("Import", "Alumni", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <div class="col-md-12 input-group">
+                            <label class="custom-file-upload">
+                                <i class="fa fa-file-excel-o"></i> Chọn tệp Excel
+                                <input type="file" name="excelFile" id="excelFileInput" accept=".xlsx, .xls" onchange="displayFileName()" />
+                            </label>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary pull-right" type="submit">Import</button>
+                            </span>
                         </div>
-                     }*@
-            </div>
+                        <div id="fileNameDisplay"></div> <!-- Thẻ để hiển thị tên tệp -->
+                    </div>
+
+                }
+            <a href="~/Upload/file/Mẫu Excel.xlsx" download="Mẫu Excel.xlsx">
+                <i class="fa fa-download"></i> Tải xuống Mẫu Excel
+            </a>            </div>
         </div>
         <hr />
         @using (Html.BeginForm("Create", "Alumni", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -322,5 +325,16 @@
             document.getElementById("nav-alumnis").className = "active";
         }
     };
+    function displayFileName() {
+        var fileInput = document.getElementById('excelFileInput');
+        var fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (fileInput.files.length > 0) {
+            // Lấy tên tệp từ đối tượng File và hiển thị
+            var fileName = fileInput.files[0].name;
+            fileNameDisplay.innerText = 'Tên tệp đã chọn: ' + fileName;
+        } else {
+            fileNameDisplay.innerText = '';
+        }
+    }
 
 </script>

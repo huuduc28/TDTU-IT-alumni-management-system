@@ -108,4 +108,21 @@
             document.getElementById("nav-admins").className = "active";
         }
     };
+    $(document).ready(function () {
+    // Kiểm tra nếu có thông báo thành công, hiển thị modal
+        @if (TempData["SuccessMessage"] != null)
+        {
+            @:$('#successModal').modal('show');
+        }
+        setTimeout(function () {
+            $("#successModal").modal('hide');
+        }, 1000);
+    });
+    $(document).ready(function () {
+    // Kiểm tra nếu có thông báo lỗi, hiển thị modal
+        @if (TempData["ErrorMessage"] != null)
+        {
+            @:$('#errorModal').modal('show');
+        }
+    });
 </script>

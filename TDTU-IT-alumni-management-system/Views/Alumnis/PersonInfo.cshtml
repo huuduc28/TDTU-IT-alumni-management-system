@@ -27,7 +27,7 @@
         <div class="col profile-details" style="margin-left:4%">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-4 mb-5">
                         <div class="header-info">
                             <h1 class="text-center">@Model.Name</h1>
                             <p class="text-center">@Model.Email | @Model.Phone</p>
@@ -50,7 +50,7 @@
                             <h2>Kinh nghiệm</h2>
                             <p><strong>@Model.CurrentCompany</strong></p>
                             <p>@Model.Profession</p>
-                            <p>Từ: @Model.jobBeginDate.ToString("dd/MM/yyyy") - Hiện tại</p>
+                            <p>Từ: @Model.jobBeginDate.Value.ToString("dd/MM/yyyy") - Hiện tại</p>
                         </div>
                         <div class="section">
                             <h2>Kỹ năng</h2>

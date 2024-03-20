@@ -172,7 +172,7 @@
                     <div class="col-md-6">
                         @Html.Label("Làm việc từ", htmlAttributes: new { @class = "col-md-12" })
                         <div class="col-md-12">
-                            <input type="date" class="form-control" id="jobBeginDate" name="jobBeginDate" value="@Model.jobBeginDate.ToString("yyyy-MM-dd")" required="required" />
+                            <input type="date" class="form-control" id="jobBeginDate" name="jobBeginDate" value="@Model.jobBeginDate.Value.ToString("yyyy-MM-dd")" required="required" />
                             @Html.ValidationMessageFor(model => model.jobBeginDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                 <hr />
                 <div class="form-group">
                     <div class="col-md-offset-0 col-md-10">
-                        <input type="submit" value="Sửa cựu sinh viên" class="btn btn-primary" />
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
                         <div class="btn btn-secondary">
                             <a href="/quan-ly/cuu-sinh-vien">
                                 Trở về

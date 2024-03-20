@@ -75,13 +75,19 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (IsIDExists(administrator.IDAdmin))
+                    {
+                        // Nếu ID đã tồn tại, hiển thị thông báo lỗi và không thêm mới
+                        TempData["ErrorMessage"] = "Mã giảng viên đã tồn tại";
+                        return Redirect("/quan-ly/quan-tri-vien");
+                    }
                     administrator.UserRole = 1;
                     administrator.Password = HashPassword(administrator.Password);
                     db.Administrators.Add(administrator);
                     db.SaveChanges();
                     return Redirect("/quan-ly/quan-tri-vien");
                 }
-
+                TempData["SuccessMessage"] = "Thêm thành công";
                 return View(administrator);
             }
             else
@@ -90,7 +96,11 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             }
 
         }
-
+        private bool IsIDExists(string id)
+        {
+            var existingAdmin = db.Administrators.FirstOrDefault(a => a.IDAdmin == id);
+            return existingAdmin != null; 
+        }
         // GET: Admin/Administrators/Edit/5
         public ActionResult Edit(string id)
         {
@@ -130,6 +140,8 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     db.SaveChanges();
                     return Redirect("/quan-ly/quan-tri-vien");
                 }
+                TempData["SuccessMessage"] = "Sửa thành công";
+
                 return View(administrator);
             }
             else

@@ -91,7 +91,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                         var path = "";
                         var filename = "";
                         filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + file.FileName ;
-                        path = Path.Combine(Server.MapPath("~/Upload/file/"), filename);
+                        path = Path.Combine(Server.MapPath("~/Upload/file"), filename);
                         file.SaveAs(path);
                         recruitmentNew.JobDescription = filename; //Lưu ý
                     }

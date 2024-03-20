@@ -6,7 +6,7 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Chi tiết sinh viên @Model.IDAlumni @("-") @Model.Name</h2>
+        <h2>Chi tiết cựu sinh viên @Model.IDAlumni @("-") @Model.Name</h2>
         <h4>Alumnus</h4>
         <hr />
         <div class="col-md-offset-1 col-md-10">
@@ -45,7 +45,7 @@
                 <h2>Experience</h2>
                 <p><strong>@Model.CurrentCompany</strong></p>
                 <p>@Model.Profession</p>
-                <p>From: @Model.jobBeginDate.ToString("dd/MM/yyyy") - Now</p>
+                <p>From: @Model.jobBeginDate.Value.ToString("dd/MM/yyyy") - Now</p>
             </div>
 
 

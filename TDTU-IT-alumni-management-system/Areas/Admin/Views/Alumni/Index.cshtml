@@ -5,6 +5,7 @@
     ViewBag.Title = "Quản lý cựu sinh viên";
     Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
 }
+
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -32,6 +33,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>Quản lý cựu sinh viên</h2>
+                <h4>Alumni</h4>
                 <p>
                     <a href="cuu-sinh-vien/tao-moi" class="btn btn-primary">
                         Thêm
@@ -45,24 +47,45 @@
                         <div class="input-group mb-4">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="searchString" placeholder="Search...">
+                                    <input type="text" class="form-control" name="searchString" placeholder="Nhập thông tin...">
 
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group-append">
-                                        <button class="btn btn-info" type="submit">Search</button>
+                                        <button class="btn btn-info" type="submit">Tìm kiếm</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                @Html.DropDownList("majorKey", new SelectList(new[]
-                {
-                    new SelectListItem { Value = "Khoa học máy tính", Text = "Khoa học máy tính" },
-                    new SelectListItem { Value = "Kỹ thuật phần mềm", Text = "Kỹ thuật phần mềm" },
-                    new SelectListItem { Value = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", Text = "Mạng Máy Tính Và Truyền Thông Dữ Liệu" }
-                }, "Value", "Text"), "Chọn ngành...", new { @class = "form-control" })
+                <div class="filter-container" ">
+                    @Html.DropDownList("majorKey", new SelectList(new[]
+                    {
+                        new SelectListItem { Value = "Khoa học máy tính", Text = "Khoa học máy tính" },
+                        new SelectListItem { Value = "Kỹ thuật phần mềm", Text = "Kỹ thuật phần mềm" },
+                        new SelectListItem { Value = "Mạng Máy Tính Và Truyền Thông Dữ Liệu", Text = "Mạng Máy Tính Và Truyền Thông Dữ Liệu" }
+                    }, "Value", "Text"), "Chọn ngành...", new { @class = "form-control" })
+                    <div class="row" style="margin-top:2%">
+                        <div class="col-md-6">
+                            <select id="graduationYear" class="form-control">
+                                <option value="">Chọn năm tốt nghiệp</option>
+                                @for (int year = DateTime.Now.Year; year >= 2001; year--)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DropDownList("TypeOfTraining", new SelectList(new[]
+                            {
+                                new SelectListItem { Value = "Tiêu chuẩn", Text = "Tiêu chuẩn" },
+                                new SelectListItem { Value = "CLC 50% Tiếng anh", Text = "CLC 50% Tiếng anh" },
+                                new SelectListItem { Value = "CLC 100% Tiếng anh", Text = "CLC 100% Tiếng anh" }
+                            }, "Value", "Text"), "Chọn Hệ...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <hr />
@@ -87,6 +110,9 @@
                         </th>
                         <th>
                             Ngành tốt nghiệp
+                        </th>
+                        <th>
+                            Hệ đào tạo
                         </th>
                         <th>
                             Công việc hiện tại
@@ -122,6 +148,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.GraduationInfo.Majors) @("-") @Html.DisplayFor(modelItem => item.GraduationInfo.GraduationYear)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeOfTraining)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Profession) @("-") @Html.DisplayFor(modelItem => item.CurrentCompany)
@@ -201,6 +230,7 @@
 </div>
 
 <script>
+
     $(document).ready(function () {
         $('.delete-btn').click(function (e) {
             e.preventDefault();
@@ -243,14 +273,21 @@
             });
         });
     });
-
+    //lọc dữ liệu
      $(document).ready(function () {
-        $('#majorKey').change(function () {
-            var majorKey = $(this).val(); 
+        $('#majorKey, #graduationYear, #TypeOfTraining').change(function () {
+            var majorKey = $('#majorKey').val();
+            var graduationYear = $('#graduationYear').val();
+            var typeOfTraining = $('#TypeOfTraining').val();
+
             $.ajax({
                 url: '@Url.Action("DataFilter", "Alumni")',
                 type: 'GET',
-                data: { majorKey: majorKey }, 
+                data: {
+                    majorKey: majorKey,
+                    graduationYear: graduationYear,
+                    typeOfTraining: typeOfTraining
+                },
                 success: function (response) {
                     var tbody = $('#dataTables-example tbody');
                     tbody.empty();
@@ -262,7 +299,7 @@
                 }
             });
         });
-     });
+    });
     $(document).ready(function () {
         $('.delete-btn').click(function (e) {
             e.preventDefault();
@@ -273,5 +310,14 @@
             $('#confirmDeleteModal').modal('show');
         });
     });
-
+    $(document).ready(function () {
+        // Kiểm tra nếu có thông báo thành công, hiển thị modal
+        @if (TempData["SuccessMessage"] != null)
+        {
+            @:$('#successModal').modal('show');
+        }
+        setTimeout(function () {
+            $("#successModal").modal('hide');
+        }, 1000);
+    });
 </script>

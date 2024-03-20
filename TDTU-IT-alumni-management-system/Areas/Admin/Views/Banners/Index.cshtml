@@ -65,17 +65,8 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.datebegin)
                             </td>
-                            <td style="background-color: @((bool)item.hide ? "lightgreen" : "lightcoral")">
-                                @{
-                                    if ((bool)item.hide)
-                                    {
-                                        @Html.Raw("Hiển thị")
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw("Ẩn")
-                                    }
-                                }
+                            <td>
+                                <span class="lnr lnr-eye" style="color: @((bool)item.hide ? "green" : "red"); font-size: 20px; font-weight: bold;"></span>
                             </td>
                             <td>
                                 <a href="/quan-ly/banner/chinh-sua?id=@item.IDBanner" class="btn btn-primary">

@@ -14,6 +14,12 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using CsvHelper;
+using System.Globalization;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 {
@@ -211,6 +217,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                 TempData["ErrorMessage"] = "Có lỗi xảy ra khi cập nhật. Vui lòng kiểm tra lại thông tin.";
                 return Redirect("/quan-ly/cuu-sinh-vien/chinh-sua?id="+alumnus.IDAlumni);
             }
+            TempData["SuccessMessage"] = "Sửa cựu sinh viên thành công";
             return View(alumnus);
         }
 
@@ -263,20 +270,28 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                data = data.Where(n => n.IDAlumni.Contains(searchString) || n.Name.Contains(searchString)).ToList();
+                data = data.Where(n => n.IDAlumni.Contains(searchString) || n.Name.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
             var pagedData = data.ToPagedList(pageNumber, pageSize);
             return View("Index", pagedData);
         }
-        public ActionResult DataFilter(string majorKey)
+        public ActionResult DataFilter(string majorKey, int? graduationYear, string typeOfTraining)
         {
-
             var query = db.Alumni.Include(r => r.GraduationInfo);
-            // Lọc theo ngành học nếu có
             if (!string.IsNullOrEmpty(majorKey))
             {
                 query = query.Where(a => a.GraduationInfo.Majors == majorKey);
             }
+            if (graduationYear.HasValue)
+            {
+                query = query.Where(a => a.GraduationInfo.GraduationYear == graduationYear.Value);
+            }
+
+            if (!string.IsNullOrEmpty(typeOfTraining))
+            {
+                query = query.Where(a => a.TypeOfTraining.Contains(typeOfTraining));
+            }
+
             var filteredData = query.ToList();
             return PartialView("_AlumniPartialView", filteredData);
         }
@@ -290,5 +305,131 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
             return hashedPassword;
         }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Import(HttpPostedFileBase excelFile)
+        {
+            if (excelFile != null && excelFile.ContentLength > 0)
+            {
+                string excelFilePath = "";
+                string excelFileName = "";
+                try
+                {
+                    excelFileName = Path.GetFileName(excelFile.FileName);
+                    excelFilePath = Path.Combine(Server.MapPath("~/Upload/file"), excelFileName);
+                    excelFile.SaveAs(excelFilePath);
+
+                    // Đọc dữ liệu từ file Excel
+                    using (FileStream stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        IWorkbook workbook;
+                        if (excelFileName.EndsWith(".xls"))
+                        {
+                            // Đối với file Excel định dạng .xls (Excel 97-2003)
+                            workbook = new HSSFWorkbook(stream);
+                        }
+                        else if (excelFileName.EndsWith(".xlsx"))
+                        {
+                            // Đối với file Excel định dạng .xlsx (Excel 2007 trở lên)
+                            workbook = new XSSFWorkbook(stream);
+                        }
+                        else
+                        {
+                            throw new Exception("Định dạng file Excel không được hỗ trợ.");
+                        }
+
+                        ISheet sheet = workbook.GetSheetAt(0); 
+
+                        for (int row = 1; row <= sheet.LastRowNum; row++)
+                        {
+                            IRow excelRow = sheet.GetRow(row);
+                            if (excelRow != null && excelRow.Cells.Any(cell => !string.IsNullOrEmpty(cell.ToString().Trim())))
+                            {
+                                bool hasEmptyCell = false;
+                                for (int cellIndex = 0; cellIndex < 12; cellIndex++)
+                                {
+                                    ICell cell = excelRow.GetCell(cellIndex);
+                                    if (cell == null || string.IsNullOrWhiteSpace(cell.ToString()))
+                                    {
+                                        hasEmptyCell = true;
+                                        break;
+                                    }
+                                }
+                                if (hasEmptyCell)
+                                {
+                                    // Hiển thị thông báo lỗi
+                                    TempData["ErrorMessage"] = "Hàng thứ " + row + " không đủ dữ liệu. Vui lòng kiểm tra lại.";
+                                    return Redirect("/quan-ly/cuu-sinh-vien/tao-moi");
+                                }
+                                DateTime? birthday = null;
+                                string birthdayString = excelRow.GetCell(4).ToString();
+                                if (!string.IsNullOrEmpty(birthdayString))
+                                {
+                                    
+                                    string[] formats = { "dd/MM/yyyy", "d/M/yyyy", "dd/MM/yy" }; 
+                                    if (DateTime.TryParseExact(birthdayString, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime tempBirthday))
+                                    {
+                                        birthday = tempBirthday;
+                                    }
+                                }
+                                string major = excelRow.GetCell(9).ToString();
+                                int graduationYear = Convert.ToInt32(excelRow.GetCell(10).NumericCellValue);
+                                string typeOfTraining = excelRow.GetCell(11).ToString();
+                                string academicLevel = excelRow.GetCell(12).ToString();
+                                // Lấy GraduationInfoID dựa trên tên khóa học và năm tốt nghiệp
+                                int graduationInfoID = GetGraduationInfoID(major, graduationYear);
+                                Alumnus alumnus = new Alumnus
+                                {
+                                    IDAlumni = excelRow.GetCell(0).ToString(),
+                                    Name = excelRow.GetCell(1).ToString(),
+                                    Email = excelRow.GetCell(2).ToString(),
+                                    Phone = excelRow.GetCell(3).ToString(),
+                                    Birthday = (DateTime)birthday,
+                                    Gender = excelRow.GetCell(5).ToString(),
+                                    ProfilePicture = "Avata.jpg",
+                                    Nationality = excelRow.GetCell(6).ToString(),
+                                    HomeTown = excelRow.GetCell(7).ToString(),
+                                    GraduationType = excelRow.GetCell(8).ToString(),
+                                    GraduationInfoID = graduationInfoID,
+                                    TypeOfTraining = excelRow.GetCell(11).ToString(),
+                                    AcademicLevel = excelRow.GetCell(12).ToString(),
+                                };
+                                db.Alumni.Add(alumnus);
+                            }
+                        }
+                        db.SaveChanges();
+                    }
+
+                    ViewBag.Message = "Import file Excel thành công.";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "Đã xảy ra lỗi: " + ex.Message;
+                }
+                finally
+                {
+                    // Xóa file Excel sau khi import
+                    System.IO.File.Delete(excelFilePath);
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Vui lòng chọn một file Excel.";
+            }
+            TempData["SuccessMessage"] = "Thêm cựu sinh viên thành công";
+            return Redirect("/quan-ly/cuu-sinh-vien");
+        }
+        private int GetGraduationInfoID(string major, int graduationYear)
+        {
+            var graduationInfo = db.GraduationInfoes.FirstOrDefault(g => g.Majors == major && g.GraduationYear == graduationYear);
+            if (graduationInfo != null)
+            {
+                return graduationInfo.ID;
+            }
+            // Nếu không tìm thấy, trả về giá trị mặc định hoặc xử lý tùy ý của bạn
+            return 0; // Hoặc trả về -1, null, hoặc một giá trị khác tùy vào yêu cầu của bạn
+        }
+
+
     }
 }

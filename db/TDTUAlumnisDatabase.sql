@@ -60,7 +60,7 @@ CREATE TABLE [dbo].[Alumni](
     [Nationality] [nvarchar](255) NOT NULL,
     [HomeTown] [nvarchar](255) NOT NULL,
     [PersonalWebsite] [nvarchar](255) NULL,
-	[skill] [nvarchar](100) NOT NULL,
+	[skill] [nvarchar](100) NULL,
 	--Thông tin học vấn
     [GraduationType] [nvarchar](50) NOT NULL,
     [GraduationInfoID] [INT] Not NULL,--Bảng mới cần sử lý dựa vào id để lấy thông tin của Năm tốt nghiệp và ngành học
@@ -72,14 +72,14 @@ CREATE TABLE [dbo].[Alumni](
 	[TypeOfTraining] [nvarchar](50) NOT NULL,
 	--Thông tin tài khoản
 	[role] [tinyint] NULL,
-	[Password] [nvarchar](255) NOT NULL,
+	[Password] [nvarchar](255) NULL,
     [meta] [nvarchar](50) NULL,
     [hide] [bit] NULL,
     [order] [int] NULL,
     [datebegin] [smalldatetime] NULL,
     PRIMARY KEY CLUSTERED ([IDAlumni] ASC)
 );
-
+select * from Alumni
 /****** Object:  Table [dbo].[QuanTriVien]    Script Date: 22/2/2024 6:23:33 PM ******/
 
 CREATE TABLE [dbo].[Administrators](
