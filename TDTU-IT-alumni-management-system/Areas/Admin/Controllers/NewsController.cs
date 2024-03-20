@@ -1,4 +1,7 @@
-﻿using PagedList;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TDTU_IT_alumni_management_system.Models;
@@ -90,7 +94,7 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "IDNews,Title,Description,Content,ImgNews,meta,hide,order,datebegin")] News news , HttpPostedFileBase img)
+        public async Task<ActionResult> Create([Bind(Include = "IDNews,Title,Description,Content,ImgNews,meta,hide,order,datebegin")] News news , HttpPostedFileBase img)
         {
             try
             {
@@ -118,6 +122,10 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
                     }
                     db.News.Add(news);
                     db.SaveChanges();
+
+                    var sendEmailList = db.Alumni.Where(a => a.ReceiveNews == true).ToList();
+
+                    await SendEmail(news, sendEmailList);
                     return Redirect("/quan-ly/tin-tuc");
                 }
             }
@@ -306,6 +314,36 @@ namespace TDTU_IT_alumni_management_system.Areas.Admin.Controllers
             var pagedData = data.ToPagedList(pageNumber, pageSize);
             // Trả về view với đối tượng IPagedList
             return View("Index", pagedData);
+        }
+
+        public static async Task SendEmail(News news, List<Alumnus> alumniList)
+        {
+            // Tạo email message
+            var notifyLink = "https://t.ly/bJVcr";
+            //var notifyLink = "~/thong-bao/" + notify.meta + "/" + notify.IDNotify;
+
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("TDTUAlumnis", "swordbestking@gmail.com"));
+            foreach (var item in alumniList)
+            { 
+                message.To.Add(new MailboxAddress(item.Email, item.Email));
+            }
+            message.Subject = "Tin tức mới từ TDTU Alumnis:" + news.Title;
+            message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = news.Description + "<br>" +
+                            "<br><br><a href=\"" + notifyLink + "\"><button style=\"background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;\">Link tin tức</button></a>"
+            };
+
+            // Tạo SMTP client
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync("swordbestking@gmail.com", "wrux tvne fuwu eaie");
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
         }
 
     }
