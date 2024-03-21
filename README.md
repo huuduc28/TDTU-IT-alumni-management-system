@@ -13,7 +13,21 @@ Với TDTU-IT-alumni-management-system, cả cựu sinh viên và nhân viên c�
 **SQL Server:** Hệ quản trị cơ sở dữ liệu được sử dụng để lưu trữ thông tin của cựu sinh viên.<br>
 ## Cách cài đặt và chạy
 1.Clone repository từ GitHub về máy local của bạn.<br>
-2.Mở solution trong Visual Studio.<br>
+2.Chạy database trong Microsoft SQL Server Management Studio với 3 file data.
+3.Mở solution trong Visual Studio.<br>
+4.Nối database bằng cách vào thư mục Model -> Add -> New Item ->ADO.NET Entity Data Model -> FE Desiger from database -> sau đó kế nối đến database Lưu ý đặt tên kết nối trong Web.config là TDTUAlumnisManagementSystemEntities.
+5.Chạy và sử dụng
+## Các tài khoản truy cập web
+l. Link website:http://alumnitdtu.io.vn/
+2. Nếu yêu website yêu cầu tài khoản và mật khẩu để truy cập website:
+Tên người dùng: 11168626
+Mật khẩu: 60-dayfreetrial
+3. Tài khoản Cựu sinh viên:
+Tài khoản: 52000001
+Mật khẩu: 123456789
+4.Tài khoản quản trị viên:
+User Name: admin@gmail.com
+Password: 123456789
 ## Người thực hiện
 Nguyễn Hữu Đức<br>
 Phạm Nguyễn
