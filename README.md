@@ -18,16 +18,16 @@ Với TDTU-IT-alumni-management-system, cả cựu sinh viên và nhân viên c�
 4.Nối database bằng cách vào thư mục Model -> Add -> New Item ->ADO.NET Entity Data Model -> FE Desiger from database -> sau đó kế nối đến database Lưu ý đặt tên kết nối trong Web.config là TDTUAlumnisManagementSystemEntities.
 5.Chạy và sử dụng
 ## Các tài khoản truy cập web
-l. Link website:http://alumnitdtu.io.vn/
-2. Nếu yêu website yêu cầu tài khoản và mật khẩu để truy cập website:
-Tên người dùng: 11168626
-Mật khẩu: 60-dayfreetrial
-3. Tài khoản Cựu sinh viên:
-Tài khoản: 52000001
-Mật khẩu: 123456789
-4.Tài khoản quản trị viên:
-User Name: admin@gmail.com
-Password: 123456789
+l. Link website:http://alumnitdtu.io.vn/<br>
+2. Nếu yêu website yêu cầu tài khoản và mật khẩu để truy cập website:<br>
+Tên người dùng: 11168626<br>
+Mật khẩu: 60-dayfreetrial<br>
+3. Tài khoản Cựu sinh viên:<br>
+Tài khoản: 52000001<br>
+Mật khẩu: 123456789<br>
+4.Tài khoản quản trị viên:<br>
+User Name: admin@gmail.com<br>
+Password: 123456789<br>
 ## Người thực hiện
 Nguyễn Hữu Đức<br>
 Phạm Nguyễn
