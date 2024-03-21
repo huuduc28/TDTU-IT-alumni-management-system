@@ -24,7 +24,14 @@
 </div>
 <link href="~/Content/css/news.css" rel="stylesheet">
 <script>
-let htmlString = `@Html.Raw(Model.Content)`;
-let escapedHtmlString = encodeURIComponent(htmlString);
-    document.getElementById('content').innerHTML = decodeURIComponent(escapedHtmlString);
+    let htmlString = `@Html.Raw(Model.Content)`;
+    let escapedHtmlString = encodeURIComponent(htmlString);
+        document.getElementById('content').innerHTML = decodeURIComponent(escapedHtmlString);
+    window.onload = active();
+    function active() {
+
+        if (document.getElementById("home-").className == "nav-item nav-link") {
+            document.getElementById("home-").className = "nav-item nav-link active";
+        }
+    }
 </script>

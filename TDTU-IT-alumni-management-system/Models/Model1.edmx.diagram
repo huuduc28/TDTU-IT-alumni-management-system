@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fefd9f78653f433ab29811ec20816de4" Name="Diagram1">
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Administrator" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Alumnus" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Banner" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.ChatBot" Width="1.5" PointX="8.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Enterprise" Width="1.5" PointX="8.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.GraduationInfo" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Header" Width="1.5" PointX="5.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Menu" Width="1.5" PointX="7.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.News" Width="1.5" PointX="9.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.Notify" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_aa6b72_nguyenhuuduck24Model.RecruitmentNew" Width="1.5" PointX="11" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="db_aa6b72_nguyenhuuduck24Model.FK__Notify__IDSender__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="db_aa6b72_nguyenhuuduck24Model.FK_Alumni_GraduationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="db_aa6b72_nguyenhuuduck24Model.FK__Recruitme__IDEnt__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="db_aa6b72_nguyenhuuduck24Model.FK_Notify_GraduationInfo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

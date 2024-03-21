@@ -919,8 +919,8 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\nguyenhuuduc28-001-site1 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\nguyenhuuduck24-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\nguyenhuuduck24-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -939,8 +939,8 @@
     <Content Include="Upload\images\Avata\AvataNam3.png" />
     <Content Include="Upload\images\Avata\AvataNam4.jpg" />
     <Content Include="Upload\images\Avata\avatanu1.jpg" />
+    <Content Include="Upload\images\Avata\avatanu2.jpg" />
     <Content Include="Upload\images\Avata\avatanu3.jpg" />
-    <Content Include="Upload\images\Avata\avatarnu2.jpg" />
     <Content Include="Upload\images\Avata\Logo.png" />
     <Content Include="Upload\images\Banner\Logo.png" />
     <Content Include="Upload\images\Logo\Axon.png" />
