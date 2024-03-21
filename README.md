@@ -26,8 +26,8 @@ Mật khẩu: 60-dayfreetrial<br>
 Tài khoản: 52000001<br>
 Mật khẩu: 123456789<br>
 4.Tài khoản quản trị viên:<br>
-User Name: admin@gmail.com<br>
-Password: 123456789<br>
+Tài khoản: admin@gmail.com<br>
+Mật khẩu: 123456789<br>
 ## Người thực hiện
 Nguyễn Hữu Đức<br>
 Phạm Nguyễn
